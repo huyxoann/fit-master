@@ -2,7 +2,8 @@
 
 ## Cấu trúc dự án theo feature first
 Tham khảo tại: https://codewithandrea.com/articles/flutter-project-structure/
- lib
+ ```
+lib
   ‣ src
     ‣ features
       ‣ feature1
@@ -15,5 +16,5 @@ Tham khảo tại: https://codewithandrea.com/articles/flutter-project-structure
         ‣ application
         ‣ domain
         ‣ data
-
+```
 
