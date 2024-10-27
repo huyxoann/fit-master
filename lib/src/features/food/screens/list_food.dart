@@ -1,4 +1,7 @@
+import 'package:fit_master/src/core/exception/response/status.dart';
+import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ListFoodScreen extends StatefulWidget {
   @override
@@ -35,35 +38,35 @@ class _ListFoodScreenState extends State<ListFoodScreen> {
           ),
         ),
       ),
-      body: FutureBuilder(
-        future: viewModel.fetchFoodList("your_token_here"), // Gọi hàm lấy dữ liệu
-        builder: (context, snapshot) {
-          if (viewModel.foodListResponse?.status == Status.LOADING) {
-            return Center(child: CircularProgressIndicator());
-          } else if (viewModel.foodListResponse?.status == Status.ERROR) {
-            return Center(child: Text(viewModel.foodListResponse!.message!));
-          } else if (viewModel.foodListResponse?.status == Status.COMPLETED) {
-            final foodList = viewModel.foodListResponse!.data?.listFood ?? [];
-            // Lọc danh sách thực phẩm dựa trên bộ lọc
-            final filteredList = foodList.where((food) {
-              return food.foodName.toLowerCase().contains(_filter.toLowerCase());
-            }).toList();
+      // body: FutureBuilder(
+      //   future: viewModel.fetchListFood(), // Gọi hàm lấy dữ liệu
+      //   builder: (context, snapshot) {
+      //     if (viewModel.foodListResponse?.status == Status.LOADING) {
+      //       return Center(child: CircularProgressIndicator());
+      //     } else if (viewModel.foodListResponse?.status == Status.ERROR) {
+      //       return Center(child: Text(viewModel.foodListResponse!.message!));
+      //     } else if (viewModel.foodListResponse?.status == Status.COMPLETED) {
+      //       final foodList = viewModel.foodListResponse!.data?.listFood ?? [];
+      //       // Lọc danh sách thực phẩm dựa trên bộ lọc
+      //       final filteredList = foodList.where((food) {
+      //         return food.foodName.toLowerCase().contains(_filter.toLowerCase());
+      //       }).toList();
             
-            return ListView.builder(
-              itemCount: filteredList.length,
-              itemBuilder: (context, index) {
-                final food = filteredList[index];
-                return ListTile(
-                  title: Text(food.foodName),
-                  subtitle: Text(food.categoryFood),
-                );
-              },
-            );
-          } else {
-            return Center(child: Text("Không có dữ liệu"));
-          }
-        },
-      ),
+      //       return ListView.builder(
+      //         itemCount: filteredList.length,
+      //         itemBuilder: (context, index) {
+      //           final food = filteredList[index];
+      //           return ListTile(
+      //             title: Text(food.foodName),
+      //             subtitle: Text(food.categoryFood),
+      //           );
+      //         },
+      //       );
+      //     } else {
+      //       return Center(child: Text("Không có dữ liệu"));
+      //     }
+      //   },
+      // ),
     );
   }
 }

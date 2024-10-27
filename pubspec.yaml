@@ -84,10 +84,12 @@ flutter:
       fonts:
         - asset: assets/fonts/Open_Sans/OpenSans-Regular.ttf
         - asset: assets/fonts/Open_Sans/OpenSans-Medium.ttf
+        - asset: assets/fonts/Open_Sans/OpenSans-Italic.ttf
           weight: 500
         - asset: assets/fonts/Open_Sans/OpenSans-SemiBold.ttf
           weight: 600
         - asset: assets/fonts/Open_Sans/OpenSans-Bold.ttf
+        - asset: assets/fonts/Open_Sans/OpenSans-SemiBoldItalic.ttf
           weight: 700
   #   - family: Trajan Pro
   #     fonts:
