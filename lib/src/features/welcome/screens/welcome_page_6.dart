@@ -1,24 +1,20 @@
-import 'package:fit_master/core/enum/gender_enum.dart';
 import 'package:fit_master/src/component/primary_button.dart';
-import 'package:fit_master/src/features/welcome/widgets/gender_selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class WelcomePage4 extends StatefulWidget {
-  const WelcomePage4({super.key});
+class WelcomePage6 extends StatefulWidget {
+  const WelcomePage6({super.key});
 
   @override
-  _WelcomePage4State createState() => _WelcomePage4State();
+  _WelcomePage6State createState() => _WelcomePage6State();
 }
 
-class _WelcomePage4State extends State<WelcomePage4> {
-  GenderEnum _gender = GenderEnum.Male;
-  int selectedCardIndex = -1;
-
+class _WelcomePage6State extends State<WelcomePage6> {
   @override
   Widget build(BuildContext context) {
+    int selectedCardIndex = -1;
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
@@ -31,7 +27,7 @@ class _WelcomePage4State extends State<WelcomePage4> {
           color: colorScheme.onSurface,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("Bạn là... ?",
+        title: Text("Năm sinh của bạn?",
             style: textTheme.headlineMedium
                 ?.copyWith(fontWeight: FontWeight.bold)),
         bottom: const PreferredSize(
@@ -48,7 +44,7 @@ class _WelcomePage4State extends State<WelcomePage4> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -66,51 +62,20 @@ class _WelcomePage4State extends State<WelcomePage4> {
                 ],
               ),
             ),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio:
-                      3 / 4, // Adjust the aspect ratio to fit the child size
-                ),
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  GenderEnum gender = GenderEnum.values[index];
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedCardIndex = index;
-                        _gender = gender;
-                      });
-                    },
-                    child: Card(
-                      color: selectedCardIndex == index
-                          ? colorScheme.primaryContainer
-                          : colorScheme.surfaceBright,
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(
-                          color: selectedCardIndex == index
-                              ? colorScheme.outline
-                              : Colors.transparent,
-                          width: 2,
-                        ),
-                      ),
-                      child: GenderSelectionCard(
-                        gender: gender,
-                      ),
-                    ),
-                  );
-                },
+            const Expanded(
+                child: TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Năm sinh",
               ),
-            ),
+            )),
             Column(
               children: [
                 PrimaryButton(
                     label: "Tiếp tục",
                     onPressed: selectedCardIndex != -1
-                        ? () => context.pushNamed('welcome-choose-fitness-goal')
+                        ? () =>
+                            context.pushNamed('welcome-choose-year-of-birth')
                         : null),
               ],
             ),

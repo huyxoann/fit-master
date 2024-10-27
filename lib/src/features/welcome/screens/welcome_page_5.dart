@@ -1,22 +1,23 @@
+import 'package:fit_master/core/enum/fitness_goal_enum.dart';
 import 'package:fit_master/core/enum/gender_enum.dart';
 import 'package:fit_master/src/component/primary_button.dart';
+import 'package:fit_master/src/features/welcome/widgets/fitness_goal_card_tile.dart';
 import 'package:fit_master/src/features/welcome/widgets/gender_selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class WelcomePage4 extends StatefulWidget {
-  const WelcomePage4({super.key});
+class WelcomePage5 extends StatefulWidget {
+  const WelcomePage5({super.key});
 
   @override
-  _WelcomePage4State createState() => _WelcomePage4State();
+  _WelcomePage5State createState() => _WelcomePage5State();
 }
 
-class _WelcomePage4State extends State<WelcomePage4> {
-  GenderEnum _gender = GenderEnum.Male;
+class _WelcomePage5State extends State<WelcomePage5> {
+  FitnessGoalEnum _fitnessGoal = FitnessGoalEnum.MuscleGain;
   int selectedCardIndex = -1;
-
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -31,7 +32,7 @@ class _WelcomePage4State extends State<WelcomePage4> {
           color: colorScheme.onSurface,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("Bạn là... ?",
+        title: Text("Mục tiêu luyện tập",
             style: textTheme.headlineMedium
                 ?.copyWith(fontWeight: FontWeight.bold)),
         bottom: const PreferredSize(
@@ -67,20 +68,15 @@ class _WelcomePage4State extends State<WelcomePage4> {
               ),
             ),
             Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio:
-                      3 / 4, // Adjust the aspect ratio to fit the child size
-                ),
-                itemCount: 2,
+              child: ListView.builder(
+                itemCount: FitnessGoalEnum.values.length,
                 itemBuilder: (context, index) {
-                  GenderEnum gender = GenderEnum.values[index];
+                  FitnessGoalEnum fitnessGoal = FitnessGoalEnum.values[index];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
                         selectedCardIndex = index;
-                        _gender = gender;
+                        _fitnessGoal = fitnessGoal;
                       });
                     },
                     child: Card(
@@ -97,8 +93,9 @@ class _WelcomePage4State extends State<WelcomePage4> {
                           width: 2,
                         ),
                       ),
-                      child: GenderSelectionCard(
-                        gender: gender,
+                      child: FitnessGoalCardTile(
+                        title: fitnessGoal.name,
+                        fitnessGoal: fitnessGoal,
                       ),
                     ),
                   );
@@ -110,7 +107,8 @@ class _WelcomePage4State extends State<WelcomePage4> {
                 PrimaryButton(
                     label: "Tiếp tục",
                     onPressed: selectedCardIndex != -1
-                        ? () => context.pushNamed('welcome-choose-fitness-goal')
+                        ? () =>
+                            context.pushNamed('welcome-choose-year-of-birth')
                         : null),
               ],
             ),

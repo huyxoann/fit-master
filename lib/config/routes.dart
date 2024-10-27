@@ -1,5 +1,7 @@
 import 'package:fit_master/src/features/welcome/screens/welcome_page_3.dart';
 import 'package:fit_master/src/features/welcome/screens/welcome_page_4.dart';
+import 'package:fit_master/src/features/welcome/screens/welcome_page_5.dart';
+import 'package:fit_master/src/features/welcome/screens/welcome_page_6.dart';
 import 'package:fit_master/src/home_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,6 +31,16 @@ final router = GoRouter(
             name: 'welcome-choose-gender',
             path: '/choose-gender',
             builder: (context, state) => WelcomePage4(),
+          ),
+          GoRoute(
+            name: 'welcome-choose-fitness-goal',
+            path: '/choose-fitness-goal',
+            builder: (context, state) => WelcomePage5(),
+          ),
+          GoRoute(
+            name: 'welcome-choose-year-of-birth',
+            path: '/choose-year-of-birth',
+            builder: (context, state) => WelcomePage6(),
           ),
         ]),
   ],

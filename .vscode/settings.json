@@ -1,13 +1,22 @@
 {
-    "cSpell.words": [
-        "bằng",
-        "cupertino",
-        "đăng",
-        "khoản",
-        "Lucide",
-        "Nhấn",
-        "nhập",
-        "Trang",
-        "trình"
-    ]
+  "cSpell.words": [
+    "bằng",
+    "cupertino",
+    "đăng",
+    "khoản",
+    "Lucide",
+    "Nhấn",
+    "nhập",
+    "Trang",
+    "trình"
+  ],
+  "dart.flutterSdkPath": ".fvm/versions/3.24.4",
+  // Remove .fvm files from search
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  }
 }
