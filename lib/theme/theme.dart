@@ -227,6 +227,8 @@ class MyAppTheme {
 
   static ColorScheme darkMediumContrastScheme() {
     return const ColorScheme(
+      // ignore: deprecated_member_use
+      background: Color(0x17130B),
       brightness: Brightness.dark,
       primary: Color(0xffecc670),
       surfaceTint: Color(0xffe8c26c),

@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -41,3 +43,32 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# iOS related
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/*.xcframework
+**/ios/.symlinks/
+**/ios/Pods/
+**/ios/.generated/
+**/ios/.dart_tool/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/.swiftpm/
+**/ios/.gradle/
+**/ios/*.xcworkspace
+
+# macOS related
+**/macos/Flutter/Flutter.framework
+**/macos/Flutter/Flutter.podspec
+**/macos/.symlinks/
+**/macos/Pods/
+**/macos/.generated/
+**/macos/.dart_tool/
+**/macos/Flutter/App.framework
+**/macos/Flutter/Flutter.framework
+**/macos/Flutter/Flutter.podspec
+**/macos/.swiftpm/
+**/macos/.gradle/
+**/macos/*.xcworkspace
