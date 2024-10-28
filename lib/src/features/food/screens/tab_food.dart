@@ -3,7 +3,7 @@ import 'package:fit_master/src/features/food/screens/recommended_dishes.dart';
 import 'package:flutter/material.dart';
 
 class TabFood extends StatefulWidget {
-  const TabFood({Key? key}) : super(key: key);
+  const TabFood({super.key});
 
   @override
   State<TabFood> createState() => _TabFoodState();

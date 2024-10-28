@@ -6,7 +6,7 @@ class RecommendedDishesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("ssdad"),
+      child: const Text("ssdad"),
     );
   }
 }

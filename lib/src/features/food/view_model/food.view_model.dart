@@ -10,7 +10,7 @@ import '../models/food.dart'; // Import Logger nếu cần
 class FoodViewModel with ChangeNotifier {
   final FoodRepository _foodRepository;
   ApiResponse<ListFood>? _foodListResponse;
-  Logger _logger = Logger();
+  final Logger _logger = Logger();
 
   FoodViewModel(this._foodRepository);
 
