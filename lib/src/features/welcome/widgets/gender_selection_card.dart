@@ -1,4 +1,4 @@
-import 'package:fit_master/core/enum/gender_enum.dart';
+import 'package:fit_master/src/core/enum/gender_enum.dart';
 import 'package:flutter/material.dart';
 
 class GenderSelectionCard extends StatelessWidget {

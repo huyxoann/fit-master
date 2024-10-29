@@ -172,6 +172,8 @@ class MyAppTheme {
 
   static ColorScheme darkScheme() {
     return const ColorScheme(
+      // ignore: deprecated_member_use
+      background: Color(0x0017130b),
       brightness: Brightness.dark,
       primary: Color(0xffe8c26c),
       surfaceTint: Color(0xffe8c26c),
@@ -343,7 +345,8 @@ class MyAppTheme {
           bodyColor: colorScheme.onSurface,
           displayColor: colorScheme.onSurface,
         ),
-        scaffoldBackgroundColor: colorScheme.surface,
+        // ignore: deprecated_member_use
+        scaffoldBackgroundColor: colorScheme.background,
         canvasColor: colorScheme.surface,
       );
 

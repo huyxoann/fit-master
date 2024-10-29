@@ -1,4 +1,4 @@
-import 'package:fit_master/core/enum/fitness_goal_enum.dart';
+import 'package:fit_master/src/core/enum/fitness_goal_enum.dart';
 import 'package:flutter/material.dart';
 
 class FitnessGoalCardTile extends StatelessWidget {

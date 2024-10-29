@@ -1,5 +1,5 @@
-import 'package:fit_master/core/enum/fitness_goal_enum.dart';
-import 'package:fit_master/core/enum/gender_enum.dart';
+import 'package:fit_master/src/core/enum/fitness_goal_enum.dart';
+import 'package:fit_master/src/core/enum/gender_enum.dart';
 import 'package:fit_master/src/component/primary_button.dart';
 import 'package:fit_master/src/features/welcome/widgets/fitness_goal_card_tile.dart';
 import 'package:fit_master/src/features/welcome/widgets/gender_selection_card.dart';

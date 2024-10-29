@@ -1,4 +1,5 @@
 import 'package:fit_master/src/component/primary_button.dart';
+import 'package:fit_master/config/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
@@ -12,9 +13,21 @@ class WelcomePage6 extends StatefulWidget {
 }
 
 class _WelcomePage6State extends State<WelcomePage6> {
+  final yearOfBirthController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  int yearOfBirth = DateTime.now().year; // Initialize with the current year
+  late FixedExtentScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = FixedExtentScrollController(
+      initialItem: DateTime.now().year - yearOfBirth,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    int selectedCardIndex = -1;
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
@@ -62,22 +75,53 @@ class _WelcomePage6State extends State<WelcomePage6> {
                 ],
               ),
             ),
-            const Expanded(
-                child: TextField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Năm sinh",
+            Expanded(
+              child: ListWheelScrollView.useDelegate(
+                controller: scrollController,
+                itemExtent: 50,
+                physics: const FixedExtentScrollPhysics(),
+                onSelectedItemChanged: (index) {
+                  setState(() {
+                    yearOfBirth = DateTime.now().year - index;
+                    yearOfBirthController.text = yearOfBirth.toString();
+                  });
+                },
+                childDelegate: ListWheelChildBuilderDelegate(
+                  builder: (context, index) {
+                    final year = DateTime.now().year - index;
+                    final isSelected = year == yearOfBirth;
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: isSelected
+                            ? colorScheme.primaryContainer
+                            : Colors.transparent,
+                      ),
+                      child: Center(
+                        child: Text(
+                          year.toString(),
+                          style: textTheme.headlineSmall?.copyWith(
+                            color: isSelected
+                                ? colorScheme.onPrimaryContainer
+                                : colorScheme.onSurface,
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: 100, // Adjust the range of years as needed
+                ),
               ),
-            )),
-            Column(
-              children: [
-                PrimaryButton(
-                    label: "Tiếp tục",
-                    onPressed: selectedCardIndex != -1
-                        ? () =>
-                            context.pushNamed('welcome-choose-year-of-birth')
-                        : null),
-              ],
+            ),
+            PrimaryButton(
+              label: "Tiếp tục",
+              onPressed: () {
+                logger.d("Year of birth: $yearOfBirth");
+                context.pushNamed('welcome-choose-height-and-weight');
+              },
             ),
           ],
         ),

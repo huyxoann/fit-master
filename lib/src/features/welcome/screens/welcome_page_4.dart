@@ -1,4 +1,4 @@
-import 'package:fit_master/core/enum/gender_enum.dart';
+import 'package:fit_master/src/core/enum/gender_enum.dart';
 import 'package:fit_master/src/component/primary_button.dart';
 import 'package:fit_master/src/features/welcome/widgets/gender_selection_card.dart';
 import 'package:flutter/material.dart';

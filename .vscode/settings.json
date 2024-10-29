@@ -11,11 +11,9 @@
     "trình"
   ],
   "dart.flutterSdkPath": ".fvm/versions/3.24.4",
-  // Remove .fvm files from search
   "search.exclude": {
     "**/.fvm": true
   },
-  // Remove from file watching
   "files.watcherExclude": {
     "**/.fvm": true
   }

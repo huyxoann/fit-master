@@ -1,12 +1,19 @@
+import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.dart';
+import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/config/routes.dart';
-import 'package:fit_master/src/features/welcome/screens/welcome_page_2.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'theme/theme.dart';
-import 'theme/util.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+          create: (context) => FoodViewModel(FoodRepositoryImpl())),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // final brightness = View.of(context).platformDispatcher.platformBrightness;
 
-    TextTheme textTheme = createTextTheme(context, "Open Sans", "Open Sans");
+    TextTheme textTheme = Theme.of(context).textTheme.apply(
+          fontFamily: 'OpenSans',
+        );
 
     MyAppTheme theme = MyAppTheme(textTheme);
 
@@ -24,9 +33,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: theme.dark(),
       routerConfig: router,
-
-      // home: const WelcomePage2(),
-      // home: const MyHomePage(title: 'Fit Master'),
     );
   }
 }
