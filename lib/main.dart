@@ -2,8 +2,11 @@ import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.da
 import 'package:fit_master/src/features/food/screens/tab_food.dart';
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
+import 'package:fit_master/src/features/gymlocation/screen/gym_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+//import 'screen/gym_list_screen.dart';
 
 import 'src/home_page.dart';
 import 'theme/theme.dart';
@@ -34,9 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: theme.dark(),
-      home: GymListScreen(
-        key: key,
-      ),
+      home: GymListScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
