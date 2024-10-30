@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'start_practice_page.dart';
 
 class PlanTodayScreen extends StatefulWidget {
@@ -32,7 +33,6 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
-            padding: const EdgeInsets.all(20),
             children: <Widget>[
               HorizontalWeekCalendar(
                 minDate: DateTime(2000, 12, 31),
@@ -122,8 +122,38 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                               255, 255, 255, 255))),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    // Hiển thị LoadingIndicator trong 2 giây rồi chuyển trang
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return const Center(
+                                            child: SizedBox(
+                                          width:
+                                              50, // Điều chỉnh kích thước width
+                                          height:
+                                              50, // Điều chỉnh kích thước height
+                                          child: LoadingIndicator(
+                                            indicatorType: Indicator
+                                                .ballScale, // Kiểu loading bạn muốn
+                                            colors: [Colors.blue],
+                                            strokeWidth: 1.0,
+                                            pathBackgroundColor: Colors.black45,
+                                          ),
+                                        ));
+                                      },
+                                    );
+
+                                    await Future.delayed(const Duration(
+                                        seconds: 2)); // Chờ 2 giây
+
+                                    // Ẩn loading indicator và chuyển đến Page2
+                                    Navigator.pop(
+                                        // ignore: use_build_context_synchronously
+                                        context); // Đóng dialog loading
                                     Navigator.push(
+                                      // ignore: use_build_context_synchronously
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
@@ -186,7 +216,7 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                         height: MediaQuery.of(context).size.height *
                             0.5, // Giới hạn chiều cao của ListView
                         child: ListView.builder(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.only(bottom: 60.0),
                           itemCount: 5, // Số lần lặp lại Card
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(

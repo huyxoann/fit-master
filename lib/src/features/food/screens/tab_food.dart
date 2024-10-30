@@ -12,7 +12,7 @@ class TabFood extends StatefulWidget {
 class _TabFoodState extends State<TabFood> {
   /// List of Tab Bar Item
   List<Widget> items = [
-     ListFoodScreen(),
+     const ListFoodScreen(),
     const RecommendedDishesScreen(),
   ];
 

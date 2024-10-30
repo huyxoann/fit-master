@@ -179,6 +179,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  loading_indicator:
+    dependency: "direct main"
+    description:
+      name: loading_indicator
+      sha256: a101ffb2aa3e646137d7810bfa90b50525dd3f72c01235b6df7491cf6af6f284
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   logger:
     dependency: "direct main"
     description:
@@ -211,6 +219,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.15.0"
+  neon_circular_timer:
+    dependency: "direct main"
+    description:
+      name: neon_circular_timer
+      sha256: f4d0cd09212fb10a439681dda697eb90d7f61e0c41eb8c83a37a9a3d8eaa1b01
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.8"
   nested:
     dependency: transitive
     description:
