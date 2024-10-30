@@ -1,8 +1,8 @@
-import 'package:fit_master/src/core/enum/gender_enum.dart';
+import 'package:fit_master/src/core/models/enum.dart';
 import 'package:flutter/material.dart';
 
 class GenderSelectionCard extends StatelessWidget {
-  final GenderEnum gender;
+  final Gender gender;
   final bool isSelected;
 
   const GenderSelectionCard({
@@ -19,11 +19,11 @@ class GenderSelectionCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(gender == GenderEnum.Male
+          Image.asset(gender == Gender.male
               ? 'assets/images/icon/male.png'
               : 'assets/images/icon/female.png'),
           Text(
-            gender == GenderEnum.Male ? "Nam" : "Nữ",
+            gender == Gender.male ? "Nam" : "Nữ",
             style: textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),

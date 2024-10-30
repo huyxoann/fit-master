@@ -2,6 +2,7 @@ import 'package:fit_master/src/component/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginBottomSheet extends StatelessWidget {
   const LoginBottomSheet({super.key});
@@ -71,7 +72,7 @@ class LoginBottomSheet extends StatelessWidget {
             const SizedBox(height: 8),
             PrimaryButton(
               label: 'Email',
-              onPressed: () {},
+              onPressed: () => context.pushNamed('login'),
               prefixIcon: LucideIcons.mail,
             ),
           ],

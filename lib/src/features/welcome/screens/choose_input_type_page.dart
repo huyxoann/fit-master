@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class WelcomePage3 extends StatelessWidget {
+  const WelcomePage3({super.key});
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;

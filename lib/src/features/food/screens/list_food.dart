@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ListFoodScreen extends StatefulWidget {
+  const ListFoodScreen({super.key});
+
   @override
   _ListFoodScreenState createState() => _ListFoodScreenState();
 }
@@ -18,14 +20,14 @@ class _ListFoodScreenState extends State<ListFoodScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Danh Sách Thực Phẩm"),
+        title: const Text("Danh Sách Thực Phẩm"),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
+          preferredSize: const Size.fromHeight(50.0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _filterController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Nhập tên thực phẩm để lọc',
                 border: OutlineInputBorder(),
               ),

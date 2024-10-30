@@ -1,9 +1,9 @@
-import 'package:fit_master/src/core/enum/fitness_goal_enum.dart';
+import 'package:fit_master/src/core/models/enum.dart';
 import 'package:flutter/material.dart';
 
 class FitnessGoalCardTile extends StatelessWidget {
   final String title;
-  final FitnessGoalEnum fitnessGoal;
+  final FitnessGoal fitnessGoal;
 
   const FitnessGoalCardTile(
       {super.key, required this.title, required this.fitnessGoal});

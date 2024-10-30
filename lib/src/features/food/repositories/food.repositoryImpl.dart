@@ -7,7 +7,7 @@ import '../../../core/services/network_api.service.dart';
 
 class FoodRepositoryImpl extends FoodRepository {
   final BaseApisService _apisService = NetworkApiService();
-  Logger _logger = Logger();
+  final Logger _logger = Logger();
 
   @override
   Future<ListFood> fetchListFood(String token) async {
@@ -17,7 +17,7 @@ class FoodRepositoryImpl extends FoodRepository {
       return ListFood.fromJson(res);
     } catch (e) {
       _logger.e("Lỗi khi lấy dữ liệu: $e");
-      throw e; // Có thể ném một exception tùy chỉnh nếu cần
+      rethrow; // Có thể ném một exception tùy chỉnh nếu cần
     }
   }
 }

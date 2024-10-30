@@ -15,7 +15,7 @@ class NetworkApiService extends BaseApisService {
         HttpHeaders.authorizationHeader: '$token',
         HttpHeaders.contentTypeHeader: 'application/json',
       };
-      final response = await get(Uri.parse(url), headers: headers).timeout(Duration(seconds: 5));
+      final response = await get(Uri.parse(url), headers: headers).timeout(const Duration(seconds: 5));
       print("in network service ${returnResponse(response)}");
       responseJson = returnResponse(response);
     } on SocketException {
@@ -36,7 +36,7 @@ class NetworkApiService extends BaseApisService {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',
       };
-      Response response = await post(Uri.parse(url), body: jsonEncode(data), headers: headers).timeout(Duration(seconds: 10));
+      Response response = await post(Uri.parse(url), body: jsonEncode(data), headers: headers).timeout(const Duration(seconds: 10));
 
       print("data ${response.body}");
 
@@ -58,7 +58,7 @@ class NetworkApiService extends BaseApisService {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',
       };
-      Response response = await put(Uri.parse(url), body: jsonEncode(data), headers: headers).timeout(Duration(seconds: 10));
+      Response response = await put(Uri.parse(url), body: jsonEncode(data), headers: headers).timeout(const Duration(seconds: 10));
 
       print("data ${response.body}");
 
@@ -80,19 +80,19 @@ class NetworkApiService extends BaseApisService {
         HttpHeaders.authorizationHeader: 'Bearer $token',
         HttpHeaders.contentTypeHeader: 'application/json',
       };
-      final request = await MultipartRequest('POST', Uri.parse(url));
+      final request = MultipartRequest('POST', Uri.parse(url));
       request.headers.addAll(headers);
       request.files.add(await MultipartFile.fromPath('file', data.path));
 
       var streamedResponse = await request.send();
       var response = await Response.fromStream(streamedResponse);
-      print("data ${response}");
+      print("data $response");
 
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     } catch (e) {
-      throw e;
+      rethrow;
     }
     return responseJson;
   }
@@ -114,6 +114,6 @@ dynamic returnResponse(Response response) {
     case 404:
       throw UnauthorisedException(jsonDecode(response.body)['message'].toString());
     default:
-      throw FetchDataException('Error accured while communicating with server' + 'with status code' + response.statusCode.toString());
+      throw FetchDataException('Error accured while communicating with server' 'with status code' + response.statusCode.toString());
   }
 }

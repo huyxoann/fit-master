@@ -82,13 +82,13 @@ class _WelcomePage6State extends State<WelcomePage6> {
                 physics: const FixedExtentScrollPhysics(),
                 onSelectedItemChanged: (index) {
                   setState(() {
-                    yearOfBirth = DateTime.now().year - index;
+                    yearOfBirth = DateTime.now().year - index - 15;
                     yearOfBirthController.text = yearOfBirth.toString();
                   });
                 },
                 childDelegate: ListWheelChildBuilderDelegate(
                   builder: (context, index) {
-                    final year = DateTime.now().year - index;
+                    final year = DateTime.now().year - index - 15;
                     final isSelected = year == yearOfBirth;
                     return Container(
                       decoration: BoxDecoration(
@@ -112,7 +112,7 @@ class _WelcomePage6State extends State<WelcomePage6> {
                       ),
                     );
                   },
-                  childCount: 100, // Adjust the range of years as needed
+                  childCount: 100 - 15, // Adjust the range of years as needed
                 ),
               ),
             ),

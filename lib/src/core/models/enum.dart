@@ -82,9 +82,29 @@ enum Gender {
 enum FitnessGoal {
   fatLoss,
   muscleBuilding,
+  cardio,
   increaseStrength,
   sportsPerformance,
   bodyWeight,
+}
+
+extension FitnessGoalExt on FitnessGoal {
+  String get name {
+    switch (this) {
+      case FitnessGoal.fatLoss:
+        return "Giảm cân";
+      case FitnessGoal.muscleBuilding:
+        return "Tăng cơ";
+      case FitnessGoal.cardio:
+        return "Giữ dáng";
+      case FitnessGoal.bodyWeight:
+        return "Tăng cân";
+      case FitnessGoal.increaseStrength:
+        return "Tăng sức mạnh";
+      case FitnessGoal.sportsPerformance:
+        return "Hiệu suất thể thao";
+    }
+  }
 }
 
 enum DayOfWeek {

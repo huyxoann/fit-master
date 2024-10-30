@@ -94,18 +94,18 @@ class _WelcomePage7State extends State<WelcomePage7> {
                         child: ListWheelScrollView.useDelegate(
                           controller: heightScrollController,
                           itemExtent: 50,
-                          physics: FixedExtentScrollPhysics(),
+                          physics: const FixedExtentScrollPhysics(),
                           onSelectedItemChanged: (index) {
                             setState(() {
-                              selectedHeight = 100 + index / 2;
+                              selectedHeight = 100 + index * 0.5;
                             });
                           },
                           childDelegate: ListWheelChildBuilderDelegate(
                             builder: (context, index) {
                               final heightValue =
-                                  (100 + index / 2).toStringAsFixed(1);
+                                  (100 + index * 0.5).toStringAsFixed(1);
                               final isSelected =
-                                  selectedHeight == 100 + index / 2;
+                                  selectedHeight == 100 + index * 0.5;
                               return Center(
                                 child: Text(
                                   heightValue,
@@ -145,21 +145,21 @@ class _WelcomePage7State extends State<WelcomePage7> {
                         child: ListWheelScrollView.useDelegate(
                           controller: FixedExtentScrollController(
                             initialItem:
-                                ((70 - 35) * 10).toInt(), // Default weight 70kg
+                                ((70 - 35) * 1).toInt(), // Default weight 70kg
                           ),
                           itemExtent: 50,
-                          physics: FixedExtentScrollPhysics(),
+                          physics: const FixedExtentScrollPhysics(),
                           onSelectedItemChanged: (index) {
                             setState(() {
-                              selectedWeight = 35 + index / 10;
+                              selectedWeight = 35 + index * 1.0;
                             });
                           },
                           childDelegate: ListWheelChildBuilderDelegate(
                             builder: (context, index) {
                               final weightValue =
-                                  (35 + index / 10).toStringAsFixed(1);
+                                  (35 + index * 1.0).toStringAsFixed(1);
                               final isSelected =
-                                  selectedWeight == 35 + index / 10;
+                                  selectedWeight == 35 + index * 1.0;
                               return Center(
                                 child: Text(
                                   weightValue,
@@ -174,8 +174,7 @@ class _WelcomePage7State extends State<WelcomePage7> {
                                 ),
                               );
                             },
-                            childCount:
-                                850, // 35.0 to 120.0 with 0.1 increments
+                            childCount: 86, // 35.0 to 120.0 with 1.0 increments
                           ),
                         ),
                       ),
