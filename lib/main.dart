@@ -2,11 +2,15 @@ import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.da
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/config/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'theme/theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('userDataBox');
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(

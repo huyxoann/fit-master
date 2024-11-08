@@ -1,20 +1,23 @@
 import 'package:fit_master/config/logger/logger.dart';
 import 'package:fit_master/src/component/primary_button.dart';
 import 'package:fit_master/src/core/models/enum.dart';
+import 'package:fit_master/src/features/welcome/services/hive_storage.dart';
 import 'package:fit_master/src/features/welcome/widgets/gender_selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class WelcomePage4 extends StatefulWidget {
-  const WelcomePage4({super.key});
+class ChooseGenderPage extends StatefulWidget {
+  const ChooseGenderPage({super.key});
 
   @override
-  _WelcomePage4State createState() => _WelcomePage4State();
+  _ChooseGenderPageState createState() => _ChooseGenderPageState();
 }
 
-class _WelcomePage4State extends State<WelcomePage4> {
+class _ChooseGenderPageState extends State<ChooseGenderPage>
+    implements HiveStorage {
   Gender _gender = Gender.male;
   int selectedCardIndex = -1;
 
@@ -113,6 +116,7 @@ class _WelcomePage4State extends State<WelcomePage4> {
                     onPressed: selectedCardIndex != -1
                         ? () {
                             logger.d("Gender type: $_gender");
+                            addToBox('gender', _gender.index);
                             context.pushNamed('welcome-choose-fitness-goal');
                           }
                         : null),
@@ -122,5 +126,12 @@ class _WelcomePage4State extends State<WelcomePage4> {
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> addToBox(tag, value) async {
+    var box = Hive.box('userDataBox');
+    box.put(tag, value);
+    logger.d('Gender added to box: $value, gender type: ${value.runtimeType}');
   }
 }

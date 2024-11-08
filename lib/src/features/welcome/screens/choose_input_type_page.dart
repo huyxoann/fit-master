@@ -6,8 +6,8 @@ import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class WelcomePage3 extends StatelessWidget {
-  const WelcomePage3({super.key});
+class ChooseDataInputTypePage extends StatelessWidget {
+  const ChooseDataInputTypePage({super.key});
 
   @override
   Widget build(BuildContext context) {

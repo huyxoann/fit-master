@@ -1,3 +1,19 @@
+enum GymLocation {
+  gym,
+  home,
+}
+
+extension GymLocationExt on GymLocation {
+  String get name {
+    switch (this) {
+      case GymLocation.gym:
+        return "Phòng tập";
+      case GymLocation.home:
+        return "Nhà";
+    }
+  }
+}
+
 enum TargetMuscle {
   abductors,
   abs,

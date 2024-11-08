@@ -1,29 +1,29 @@
-import 'package:fit_master/config/logger/logger.dart';
 import 'package:fit_master/src/component/primary_button.dart';
+import 'package:fit_master/config/logger/logger.dart';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/welcome/services/hive_storage.dart';
-import 'package:fit_master/src/features/welcome/widgets/fitness_goal_card_tile.dart';
+import 'package:fit_master/src/features/welcome/widgets/gym_location_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class ChooseFitnessGoalPage extends StatefulWidget {
-  const ChooseFitnessGoalPage({super.key});
+class TrainingLocationPage extends StatefulWidget {
+  const TrainingLocationPage({super.key});
 
   @override
-  _ChooseFitnessGoalPageState createState() => _ChooseFitnessGoalPageState();
+  _TrainingLocationPageState createState() => _TrainingLocationPageState();
 }
 
-class _ChooseFitnessGoalPageState extends State<ChooseFitnessGoalPage>
+class _TrainingLocationPageState extends State<TrainingLocationPage>
     implements HiveStorage {
-  FitnessGoal _fitnessGoal = FitnessGoal.bodyWeight;
-  int selectedCardIndex = -1;
+  GymLocation _gymLocation = GymLocation.gym;
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    int gymLocationSelected = -1;
 
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +34,7 @@ class _ChooseFitnessGoalPageState extends State<ChooseFitnessGoalPage>
           color: colorScheme.onSurface,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("Mục tiêu luyện tập",
+        title: Text("Bạn muốn tập luyện ở đâu?",
             style: textTheme.headlineMedium
                 ?.copyWith(fontWeight: FontWeight.bold)),
         bottom: const PreferredSize(
@@ -51,7 +51,7 @@ class _ChooseFitnessGoalPageState extends State<ChooseFitnessGoalPage>
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -63,59 +63,58 @@ class _ChooseFitnessGoalPageState extends State<ChooseFitnessGoalPage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "“Giúp chúng tôi thiết kế lộ trình khớp với tỉ lệ trao chất của cơ thể.",
+                    "Chọn địa điểm tập luyện ưa thích của bạn để chúng tôi có thể thiết kế lộ trình phù hợp.",
                     style: textTheme.bodyLarge,
                   ),
                 ],
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: FitnessGoal.values.length,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                ),
+                itemCount: GymLocation.values.length,
                 itemBuilder: (context, index) {
-                  FitnessGoal fitnessGoal = FitnessGoal.values[index];
+                  GymLocation gymLocation = GymLocation.values[index];
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedCardIndex = index;
-                        _fitnessGoal = fitnessGoal;
+                        gymLocationSelected = gymLocation.index;
+                        _gymLocation = gymLocation;
                       });
                     },
                     child: Card(
-                      color: selectedCardIndex == index
+                      color: gymLocationSelected == index
                           ? colorScheme.primaryContainer
                           : colorScheme.surfaceBright,
                       elevation: 4,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                         side: BorderSide(
-                          color: selectedCardIndex == index
+                          color: gymLocationSelected == index
                               ? colorScheme.outline
                               : Colors.transparent,
                           width: 2,
                         ),
                       ),
-                      child: FitnessGoalCardTile(
-                        title: fitnessGoal.name,
-                        fitnessGoal: fitnessGoal,
+                      child: GymLocationCard(
+                        gymLocation: gymLocation,
                       ),
                     ),
                   );
                 },
               ),
             ),
-            Column(
-              children: [
-                PrimaryButton(
-                    label: "Tiếp tục",
-                    onPressed: selectedCardIndex != -1
-                        ? () {
-                            logger.d("Fitness goal: $_fitnessGoal");
-                            context.pushNamed('welcome-choose-year-of-birth');
-                            addToBox('fitnessGoal', _fitnessGoal.index);
-                          }
-                        : null),
-              ],
+            PrimaryButton(
+              label: "Tiếp tục",
+              onPressed: () {
+                // Handle continue button press
+                logger.d("Selected Location: $_gymLocation");
+                addToBox('location', _gymLocation.index);
+                context.pushNamed(
+                    'welcome-create-profile'); // Replace with your next page route
+              },
             ),
           ],
         ),
@@ -124,10 +123,10 @@ class _ChooseFitnessGoalPageState extends State<ChooseFitnessGoalPage>
   }
 
   @override
-  Future<void> addToBox(tag, value) async {
+  Future<void> addToBox(String tag, value) async {
     var box = Hive.box('userDataBox');
     box.put(tag, value);
     logger.d(
-        'Fitness goal added to box: $value, fitness goal type: ${value.runtimeType}');
+        'Gym location added to box: $value, Gym location type: ${value.runtimeType}');
   }
 }

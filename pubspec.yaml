@@ -42,6 +42,8 @@ dependencies:
   go_router: ^14.3.0
   step_progress_indicator: ^1.0.2
   provider: ^6.1.2
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +77,9 @@ flutter:
     - assets/images/icon/male.png
     - assets/images/icon/female.png
     - assets/images/icon/google.svg
+    - assets/images/background/
+    - assets/images/background/gym.jpg
+    - assets/images/background/home.jpg
     - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see

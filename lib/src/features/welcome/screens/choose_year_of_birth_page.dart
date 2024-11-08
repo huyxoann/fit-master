@@ -1,28 +1,31 @@
 import 'package:fit_master/src/component/primary_button.dart';
 import 'package:fit_master/config/logger/logger.dart';
+import 'package:fit_master/src/features/welcome/services/hive_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class WelcomePage6 extends StatefulWidget {
-  const WelcomePage6({super.key});
+class ChooseYearOrBirthPage extends StatefulWidget {
+  const ChooseYearOrBirthPage({super.key});
 
   @override
-  _WelcomePage6State createState() => _WelcomePage6State();
+  _ChooseYearOrBirthPageState createState() => _ChooseYearOrBirthPageState();
 }
 
-class _WelcomePage6State extends State<WelcomePage6> {
+class _ChooseYearOrBirthPageState extends State<ChooseYearOrBirthPage>
+    implements HiveStorage {
   final yearOfBirthController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  int yearOfBirth = DateTime.now().year; // Initialize with the current year
+  int yearOfBirth = 2009; // Initialize with the current year
   late FixedExtentScrollController scrollController;
 
   @override
   void initState() {
     super.initState();
     scrollController = FixedExtentScrollController(
-      initialItem: DateTime.now().year - yearOfBirth,
+      initialItem: DateTime.now().year - 15,
     );
   }
 
@@ -120,6 +123,7 @@ class _WelcomePage6State extends State<WelcomePage6> {
               label: "Tiếp tục",
               onPressed: () {
                 logger.d("Year of birth: $yearOfBirth");
+                addToBox('yearOfBirth', yearOfBirth);
                 context.pushNamed('welcome-choose-height-and-weight');
               },
             ),
@@ -127,5 +131,13 @@ class _WelcomePage6State extends State<WelcomePage6> {
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> addToBox(tag, value) async {
+    var box = Hive.box('userDataBox');
+    box.put(tag, value);
+    logger.d(
+        'Year of birth added to box: $value, year of birth type: ${value.runtimeType}');
   }
 }

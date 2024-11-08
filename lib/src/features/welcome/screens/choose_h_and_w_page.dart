@@ -1,18 +1,21 @@
 import 'package:fit_master/src/component/primary_button.dart';
 import 'package:fit_master/config/logger/logger.dart';
+import 'package:fit_master/src/features/welcome/services/hive_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class WelcomePage7 extends StatefulWidget {
-  const WelcomePage7({super.key});
+class ChooseHAndWPage extends StatefulWidget {
+  const ChooseHAndWPage({super.key});
 
   @override
-  _WelcomePage7State createState() => _WelcomePage7State();
+  _ChooseHAndWPageState createState() => _ChooseHAndWPageState();
 }
 
-class _WelcomePage7State extends State<WelcomePage7> {
+class _ChooseHAndWPageState extends State<ChooseHAndWPage>
+    implements HiveStorage {
   final formKey = GlobalKey<FormState>();
   late FixedExtentScrollController scrollController;
   late FixedExtentScrollController heightScrollController;
@@ -193,12 +196,21 @@ class _WelcomePage7State extends State<WelcomePage7> {
                 // Handle continue button press
                 logger.d(
                     "Height & Width: $selectedHeight cm, $selectedWeight kg");
-                context.pushNamed('welcome-choose-height-and-weight');
+                addToBox('height', selectedHeight);
+                addToBox('weight', selectedWeight);
+                context.pushNamed('welcome-gym-location');
               },
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> addToBox(tag, value) async {
+    var box = Hive.box('userDataBox');
+    box.put(tag, value);
+    logger.d('Insert value: $value of tag: $tag');
   }
 }
