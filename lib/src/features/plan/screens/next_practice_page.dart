@@ -1,18 +1,18 @@
-import 'package:fit_master/src/features/plan/screens/next_practice_page.dart';
+import 'package:fit_master/src/features/plan/screens/complete_plan_page.dart';
 import 'package:fit_master/src/features/plan/screens/plan_today_page.dart';
 import 'package:flutter/material.dart';
 import 'package:neon_circular_timer/neon_circular_timer.dart';
 
-class StartPracticeScreen extends StatefulWidget {
-  const StartPracticeScreen({super.key, required this.title});
+class NextPracticeScreen extends StatefulWidget {
+  const NextPracticeScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<StartPracticeScreen> createState() => _StartPracticeScreenState();
+  State<NextPracticeScreen> createState() => _NextPracticeScreenState();
 }
 
-class _StartPracticeScreenState extends State<StartPracticeScreen> {
+class _NextPracticeScreenState extends State<NextPracticeScreen> {
   @override
   Widget build(BuildContext context) {
     final CountDownController controller = CountDownController();
@@ -28,7 +28,6 @@ class _StartPracticeScreenState extends State<StartPracticeScreen> {
                 children: [
                   TextButton.icon(
                     onPressed: () {
-                      // Navigator.pop(context);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -90,56 +89,93 @@ class _StartPracticeScreenState extends State<StartPracticeScreen> {
                 ],
               ),
             ),
-            NeonCircularTimer(
-                onComplete: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NextPracticeScreen(
-                              title: 'Next Practice',
-                            )),
-                  );
-                },
-                width: 200,
-                controller: controller,
-                duration: 5,
-                strokeWidth: 10,
-                isTimerTextShown: true,
-                neumorphicEffect: true,
-                outerStrokeColor: Colors.grey.shade100,
-                innerFillGradient: LinearGradient(colors: [
-                  Colors.greenAccent.shade200,
-                  Colors.blueAccent.shade400
-                ]),
-                neonGradient: LinearGradient(colors: [
-                  Colors.greenAccent.shade200,
-                  Colors.blueAccent.shade400
-                ]),
-                strokeCap: StrokeCap.round,
-                innerFillColor: const Color.fromARGB(31, 255, 255, 255),
-                backgroundColor: const Color.fromARGB(255, 56, 56, 57),
-                neonColor: Colors.blue.shade900),
-            Padding(
-              padding: const EdgeInsets.all(40),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                        icon: const Icon(Icons.play_arrow),
-                        onPressed: () {
-                          controller.resume();
-                        }),
-                    IconButton(
-                        icon: const Icon(Icons.pause),
-                        onPressed: () {
-                          controller.pause();
-                        }),
-                    IconButton(
-                        icon: const Icon(Icons.repeat),
-                        onPressed: () {
-                          controller.restart();
-                        }),
-                  ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Center(
+                    child: Column(children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      'https://cdn.muscleandstrength.com/sites/default/files/taxonomy/image/videos/abs_0.jpg',
+                      width: 250,
+                      height: 150,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  const Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      child: Text(
+                        "Plank Swap",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  const Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                      child: Text(
+                        "20 reps",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  Padding(
+                      padding:
+                          const EdgeInsetsDirectional.symmetric(vertical: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: const Color.fromARGB(
+                                  255, 236, 61, 21), // Màu chữ trên button
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 10),
+                              textStyle: const TextStyle(fontSize: 18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    8), // Thiết lập radius cố định ở đây
+                              ),
+                            ),
+                            child: const Text("Bài trước"),
+                          ),
+                          const SizedBox(width: 20),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CompletePlanScreen(
+                                          title: 'Home Screen',
+                                        )),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: const Color.fromARGB(
+                                  255, 18, 129, 219), // Màu chữ trên button
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 10),
+                              textStyle: const TextStyle(fontSize: 18),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    8), // Thiết lập radius cố định ở đây
+                              ),
+                            ),
+                            child: const Text("Bài tiếp"),
+                          ),
+                        ],
+                      )),
+                ])),
+              ],
             ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 10),

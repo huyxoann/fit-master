@@ -1,6 +1,4 @@
-import 'package:fit_master/src/features/plan/screens/complete_plan_page.dart';
-import 'package:fit_master/src/features/plan/screens/plan_today_page.dart';
-import 'package:fit_master/src/features/plan/screens/start_practice_page.dart';
+import 'package:fit_master/src/features/plan/screens/next_practice_page.dart';
 import 'package:flutter/material.dart';
 
 import 'theme/theme.dart';
@@ -25,8 +23,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: theme.dark(),
       // home: const StartPracticeScreen(title: "Start practice"),
-      home: const PlanTodayScreen(title: 'Plan To Day'),
+      // home: const PlanTodayScreen(title: 'Plan To Day'),
       // home: const CompletePlanScreen(title: 'Plan To Day'),
+      home: const NextPracticeScreen(title: 'Next practice'),
     );
   }
 }
