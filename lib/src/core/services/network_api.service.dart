@@ -114,6 +114,6 @@ dynamic returnResponse(Response response) {
     case 404:
       throw UnauthorisedException(jsonDecode(response.body)['message'].toString());
     default:
-      throw FetchDataException('Error accured while communicating with server' 'with status code' + response.statusCode.toString());
+      throw FetchDataException('Error accured while communicating with serverwith status code${response.statusCode}');
   }
 }

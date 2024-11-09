@@ -38,7 +38,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                HeaderApp(),
+                const HeaderApp(),
                 const SizedBox(height: 16),
 
                 // Experience level filter
@@ -90,7 +90,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                           return const Center(child: Text('No exercises found.'));
                         }
                         return GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, // Set the number of columns
                             crossAxisSpacing: 16, // Horizontal space between items
                             mainAxisSpacing: 16, // Vertical space between items

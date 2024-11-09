@@ -18,7 +18,7 @@ class ChooseGenderPage extends StatefulWidget {
 
 class _ChooseGenderPageState extends State<ChooseGenderPage>
     implements HiveStorage {
-  Gender _gender = Gender.male;
+  Gender _gender = Gender.Male;
   int selectedCardIndex = -1;
 
   @override

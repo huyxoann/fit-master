@@ -42,8 +42,8 @@ class HeaderApp extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: 16,),
-            SearchWidget()
+            const SizedBox(height: 16,),
+            const SearchWidget()
           ],
         ),
       ),

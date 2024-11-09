@@ -1,5 +1,4 @@
 import 'package:fit_master/src/core/network/BaseApiService.dart';
-import 'package:fit_master/src/features/exercise/data/req/req.exercise.dart';
 import 'package:fit_master/src/features/exercise/data/res/res.exercise.dart';
 import '../../../core/constants/app_info.dart';
 import '../../../core/network/NetworkApiService.dart';

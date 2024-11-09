@@ -19,7 +19,7 @@ class _WorkoutDashBoardState extends State<WorkoutDashBoard> {
   void initState() {
     _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchWorkoutPlanDetail('', 0.toString());
     });
     super.initState();
@@ -95,7 +95,7 @@ class _WorkoutDashBoardState extends State<WorkoutDashBoard> {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(LucideIcons.clock),
+                                    const Icon(LucideIcons.clock),
                                     Text(
                                         '${model.workoutPlanDetail!.workoutSummary.programDuration} Tuần')
                                   ],
@@ -122,6 +122,6 @@ class _WorkoutDashBoardState extends State<WorkoutDashBoard> {
             ),
           );
         },
-        child: Center(child: CircularProgressIndicator()));
+        child: const Center(child: CircularProgressIndicator()));
   }
 }

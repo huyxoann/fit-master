@@ -31,11 +31,12 @@ class WorkoutPlanRepositoryImpl extends WorkoutPlanRepository {
         fitnessGoal: FitnessGoal.muscleBuilding,
         workoutType: WorkoutType.split,
         programDuration: 12,
-        targetGender: Gender.both,
-        trainingLevel: ExperienceLevel.intermediate,
+        targetGender: Gender.Both,
+        trainingLevel: ExperienceLevel.Intermediate,
         timePerWorkout: 60,
       ),
       createdAt: DateTime.now(),
+      workoutDays: [],
     );
     return Future.value(workoutPlan);
   }

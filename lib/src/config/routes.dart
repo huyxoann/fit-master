@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 
 // import '../src/features/welcome/screens/welcome_page_2.dart';
 
-final bool isLoggedIn = true;
+const bool isLoggedIn = true;
 
 final router = GoRouter(
   initialLocation: isLoggedIn ? '/' : '/welcome/choose-year-of-birth',

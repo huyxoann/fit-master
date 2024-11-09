@@ -6,11 +6,11 @@ class ExperienceFilterWidget extends StatefulWidget {
   final ValueChanged<String>? onSelected;
 
   const ExperienceFilterWidget({
-    Key? key,
+    super.key,
     required this.options,
     this.onSelected,
     required this.label,
-  }) : super(key: key);
+  });
 
   @override
   _ExperienceFilterWidgetState createState() => _ExperienceFilterWidgetState();

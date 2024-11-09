@@ -29,7 +29,7 @@ final router = GoRouter(
         GoRoute(
           name: 'welcome-choose-input-type',
           path: '/choose-input-type',
-          builder: (context, state) => ChooseDataInputTypePage(),
+          builder: (context, state) => const ChooseDataInputTypePage(),
         ),
         GoRoute(
           name: 'welcome-choose-gender',

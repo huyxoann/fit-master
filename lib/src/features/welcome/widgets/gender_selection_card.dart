@@ -19,11 +19,11 @@ class GenderSelectionCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(gender == Gender.male
+          Image.asset(gender == Gender.Male
               ? 'assets/images/icon/male.png'
               : 'assets/images/icon/female.png'),
           Text(
-            gender == Gender.male ? "Nam" : "Nữ",
+            gender == Gender.Male ? "Nam" : "Nữ",
             style: textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),

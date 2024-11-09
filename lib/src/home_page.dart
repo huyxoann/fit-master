@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
+import 'package:fit_master/src/features/workout_plan/screens/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 
@@ -17,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   final PageStorageBucket bucket = PageStorageBucket();
   final List<Widget> _pages = <Widget>[
-    Container(color: Colors.red),
+    WorkoutDashBoard(),
     ListExerciseScreen(),
     Container(color: Colors.blue),
     Container(color: Colors.yellow),
