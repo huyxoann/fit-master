@@ -1,3 +1,7 @@
+import 'package:fit_master/src/config/routes.dart';
+import 'package:fit_master/src/features/exercise/repositories/exercise.repoImpl.dart';
+import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
+import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.dart';
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/config/routes.dart';
@@ -15,6 +19,8 @@ void main() async {
     providers: [
       ChangeNotifierProvider(
           create: (context) => FoodViewModel(FoodRepositoryImpl())),
+      ChangeNotifierProvider(
+          create: (context) => ExerciseViewModel(ExerciseRepositoryImpl())),
     ],
     child: const MyApp(),
   ));
