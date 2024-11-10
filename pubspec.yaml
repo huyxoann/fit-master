@@ -79,9 +79,11 @@ flutter:
     - assets/images/icon/male.png
     - assets/images/icon/female.png
     - assets/images/icon/google.svg
+    - assets/images/icon/streak.svg
     - assets/images/background/
     - assets/images/background/gym.jpg
     - assets/images/background/home.jpg
+    - assets/images/background/wl_1.webp
     - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,4 @@
 import 'package:fit_master/src/component/appbar.dart';
-import 'package:fit_master/src/features/welcome/screens/create_profile.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/widgets/week_schedule_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +9,10 @@ class WorkoutDashBoard extends StatefulWidget {
   const WorkoutDashBoard({super.key});
 
   @override
-  _WorkoutDashBoardState createState() => _WorkoutDashBoardState();
+  WorkoutDashBoardState createState() => WorkoutDashBoardState();
 }
 
-class _WorkoutDashBoardState extends State<WorkoutDashBoard> {
+class WorkoutDashBoardState extends State<WorkoutDashBoard> {
   late WorkoutPlanViewModel _viewModel;
   @override
   void initState() {
@@ -74,7 +73,8 @@ class _WorkoutDashBoardState extends State<WorkoutDashBoard> {
                                 borderRadius: BorderRadius.circular(12.0),
                                 image: DecorationImage(
                                   image: AssetImage(
-                                      model.workoutPlanDetail!.coverImage),
+                                      model.workoutPlanDetail?.coverImage ??
+                                          ''),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -89,7 +89,7 @@ class _WorkoutDashBoardState extends State<WorkoutDashBoard> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    model.workoutPlanDetail!.planName,
+                                    model.workoutPlanDetail?.planName ?? '',
                                     style: textTheme.bodyMedium,
                                   ),
                                 ),
@@ -97,7 +97,7 @@ class _WorkoutDashBoardState extends State<WorkoutDashBoard> {
                                   children: [
                                     const Icon(LucideIcons.clock),
                                     Text(
-                                        '${model.workoutPlanDetail!.workoutSummary.programDuration} Tuần')
+                                        '${model.workoutPlanDetail?.workoutSummary.programDuration} Tuần')
                                   ],
                                 )
                               ],

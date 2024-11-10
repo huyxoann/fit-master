@@ -1,5 +1,5 @@
 import 'package:fit_master/src/component/primary_button.dart';
-import 'package:fit_master/config/logger/logger.dart';
+import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/welcome/services/hive_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';

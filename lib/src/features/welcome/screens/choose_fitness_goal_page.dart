@@ -1,4 +1,3 @@
-import 'package:fit_master/config/logger/logger.dart';
 import 'package:fit_master/src/component/primary_button.dart';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/welcome/services/hive_storage.dart';
@@ -8,6 +7,8 @@ import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+
+import '../../../config/logger/logger.dart';
 
 class ChooseFitnessGoalPage extends StatefulWidget {
   const ChooseFitnessGoalPage({super.key});

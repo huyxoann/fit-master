@@ -31,18 +31,21 @@ class HeaderApp extends StatelessWidget {
                       SizedBox(
                         height: 25,
                         width: 22,
-                        child: Image.asset("assets/images/steak.png"),
+                        child: Image.asset("assets/images/icon/streak.svg"),
                       ),
                       Text(
                         "5",
-                        style: TextStyle(color: colorTheme.onSurface, fontSize: 8),
+                        style:
+                            TextStyle(color: colorTheme.onSurface, fontSize: 8),
                       )
                     ],
                   ),
                 )
               ],
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             const SearchWidget()
           ],
         ),

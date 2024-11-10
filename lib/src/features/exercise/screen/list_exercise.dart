@@ -1,3 +1,4 @@
+import 'package:fit_master/src/component/appbar.dart';
 import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:fit_master/src/core/exception/response/status.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +35,11 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
       color: colorTheme.background,
       child: SafeArea(
         child: Scaffold(
+          appBar: FitnessAppBar(streak: 5),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                const HeaderApp(),
                 const SizedBox(height: 16),
 
                 // Experience level filter
@@ -46,10 +47,13 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                   builder: (context, viewModel, _) {
                     return ExperienceFilterWidget(
                       label: "Kinh nghiệm",
-                      options: ExperienceLevel.values.map((e) => e.vietnameseName).toList(),
+                      options: ExperienceLevel.values
+                          .map((e) => e.vietnameseName)
+                          .toList(),
                       onSelected: (value) {
                         // Update experience level in view model
-                        final selectedLevel = ExperienceLevel.values.firstWhere((e) => e.vietnameseName == value);
+                        final selectedLevel = ExperienceLevel.values
+                            .firstWhere((e) => e.vietnameseName == value);
                         viewModel.setExperienceLevel(selectedLevel.index);
                       },
                     );
@@ -63,10 +67,13 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                   builder: (context, viewModel, _) {
                     return ExperienceFilterWidget(
                       label: "Các loại bài tập",
-                      options: TargetMuscle.values.map((e) => e.vietnameseName).toList(),
+                      options: TargetMuscle.values
+                          .map((e) => e.vietnameseName)
+                          .toList(),
                       onSelected: (value) {
                         // Update target muscle in view model
-                        final selectedMuscle = TargetMuscle.values.firstWhere((e) => e.vietnameseName == value);
+                        final selectedMuscle = TargetMuscle.values
+                            .firstWhere((e) => e.vietnameseName == value);
                         viewModel.setTargetMuscle(selectedMuscle.index);
                       },
                     );
@@ -83,18 +90,23 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                       if (exercisesState.status == Status.LOADING) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (exercisesState.status == Status.ERROR) {
-                        return Center(child: Text('Error: ${exercisesState.message}'));
+                        return Center(
+                            child: Text('Error: ${exercisesState.message}'));
                       } else if (exercisesState.status == Status.COMPLETED) {
                         final exercises = exercisesState.data;
                         if (exercises == null || exercises.exercises.isEmpty) {
-                          return const Center(child: Text('No exercises found.'));
+                          return const Center(
+                              child: Text('No exercises found.'));
                         }
                         return GridView.builder(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, // Set the number of columns
-                            crossAxisSpacing: 16, // Horizontal space between items
+                            crossAxisSpacing:
+                                16, // Horizontal space between items
                             mainAxisSpacing: 16, // Vertical space between items
-                            childAspectRatio: 0.75, // Aspect ratio of each item (width/height)
+                            childAspectRatio:
+                                0.75, // Aspect ratio of each item (width/height)
                           ),
                           itemCount: exercises.exercises.length,
                           itemBuilder: (context, index) {
@@ -106,25 +118,30 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                                 children: [
                                   // Using FadeInImage for image loading with placeholder
                                   ClipRRect(
-                                      borderRadius: BorderRadius.circular(12), // Apply border radius
+                                    borderRadius: BorderRadius.circular(
+                                        12), // Apply border radius
                                     child: SizedBox(
-                                      
                                       height: 160,
                                       width: widthScreen * 0.44,
                                       child: FadeInImage.assetNetwork(
-                                        placeholder: 'assets/images/placeholder.png', // placeholder image
+                                        placeholder:
+                                            'assets/images/placeholder.png', // placeholder image
                                         image: data.coverImage,
                                         fit: BoxFit.cover,
-                                        fadeInDuration: const Duration(milliseconds: 300),
-                                        fadeOutDuration: const Duration(milliseconds: 300),
+                                        fadeInDuration:
+                                            const Duration(milliseconds: 300),
+                                        fadeOutDuration:
+                                            const Duration(milliseconds: 300),
                                       ),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
                                     data.title,
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                    overflow: TextOverflow.ellipsis, // Prevent text overflow
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium,
+                                    overflow: TextOverflow
+                                        .ellipsis, // Prevent text overflow
                                   ),
                                 ],
                               ),

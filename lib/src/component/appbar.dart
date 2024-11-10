@@ -7,14 +7,14 @@ class FitnessAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return AppBar(
       leading: Container(
+        color: colorScheme.background,
         margin: const EdgeInsets.only(left: 16.0),
         child: Image.asset('assets/images/logo/fitmaster_logo.png'),
       ),
-      actions: <Widget>[
-        StreakWidget(streak: streak)
-      ],
+      actions: <Widget>[StreakWidget(streak: streak)],
       centerTitle: true,
     );
   }

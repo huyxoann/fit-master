@@ -1,13 +1,11 @@
 import 'package:fit_master/src/core/models/enum.dart';
-import 'package:fit_master/src/core/services/base_api.service.dart';
-import 'package:fit_master/src/core/services/network_api.service.dart';
+import 'package:fit_master/src/core/network/BaseApiService.dart';
+import 'package:fit_master/src/core/network/NetworkApiService.dart';
 import 'package:fit_master/src/features/workout_plan/models/workout_plan.dart';
 import 'package:fit_master/src/features/workout_plan/models/workout_summary.dart';
 import 'package:fit_master/src/features/workout_plan/repositories/workout_plan.repository.dart';
 
 class WorkoutPlanRepositoryImpl extends WorkoutPlanRepository {
-  final BaseApisService _apisService = NetworkApiService();
-
   @override
   Future<List<WorkoutPlan>> fetchListWorkoutPlan(String token) {
     throw UnimplementedError();

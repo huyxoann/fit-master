@@ -1,4 +1,4 @@
-import 'package:fit_master/config/logger/logger.dart';
+import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
