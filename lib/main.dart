@@ -4,6 +4,7 @@ import 'package:fit_master/src/features/exercise/repositories/exercise.repoImpl.
 import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.dart';
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
+import 'package:fit_master/src/features/login/viewmodel/user_view_model.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,6 +25,7 @@ void main() async {
           create: (context) => ExerciseViewModel(ExerciseRepositoryImpl())),
       ChangeNotifierProvider(
           create: (context) => WorkoutPlanViewModel(repository: locator())),
+      ChangeNotifierProvider(create: (context) => UserViewModel())
     ],
     child: const MyApp(),
   ));
@@ -42,10 +44,20 @@ class MyApp extends StatelessWidget {
 
     MyAppTheme theme = MyAppTheme(textTheme);
 
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: theme.dark(),
-      routerConfig: router,
+    return Consumer<UserViewModel>(
+      builder: (context, model, child) {
+        if (model.isLoggedIn) {
+          router.go('/home');
+        } else {
+          router.go('/welcome');
+        }
+
+        return MaterialApp.router(
+          title: 'Flutter Demo',
+          theme: theme.dark(),
+          routerConfig: router,
+        );
+      },
     );
   }
 }

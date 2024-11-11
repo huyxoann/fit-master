@@ -1,10 +1,6 @@
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_3.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_4.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_5.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_6.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_7.dart';
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
 import 'package:fit_master/src/features/login/screens/login_screen.dart';
+import 'package:fit_master/src/features/login/services/auth.service.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_fitness_goal_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_gender_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_h_and_w_page.dart';
@@ -19,10 +15,8 @@ import 'package:go_router/go_router.dart';
 
 // import '../src/features/welcome/screens/welcome_page_2.dart';
 
-const bool isLoggedIn = true;
-
 final router = GoRouter(
-  initialLocation: isLoggedIn ? '/' : '/welcome',
+  initialLocation: '/',
   routes: [
     GoRoute(
       name: 'home',
