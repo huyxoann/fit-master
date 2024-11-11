@@ -3,7 +3,6 @@ import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:fit_master/src/core/exception/response/status.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../commom_widgets/header.dart';
 import '../../../core/models/enum.dart';
 import '../view_model/exercise.view_model.dart';
 import 'widgets/filter.dart';
@@ -35,7 +34,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
       color: colorTheme.background,
       child: SafeArea(
         child: Scaffold(
-          appBar: FitnessAppBar(streak: 5),
+          appBar: const FitnessAppBar(streak: 5),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(

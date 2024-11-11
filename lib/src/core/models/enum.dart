@@ -451,3 +451,14 @@ enum WorkoutType {
   split,
   fullBody,
 }
+
+extension WorkoutTypeExt on WorkoutType {
+  String get name {
+    switch (this) {
+      case WorkoutType.split:
+        return "Chia Ngày";
+      case WorkoutType.fullBody:
+        return "Toàn Thân";
+    }
+  }
+}

@@ -13,6 +13,7 @@ import 'package:fit_master/src/features/welcome/screens/choose_year_of_birth_pag
 import 'package:fit_master/src/features/welcome/screens/create_profile.dart';
 import 'package:fit_master/src/features/welcome/screens/training_location_page.dart';
 import 'package:fit_master/src/features/welcome/screens/welcome_page.dart';
+import 'package:fit_master/src/features/workout_plan/screens/workout_plan_detail_page.dart';
 import 'package:fit_master/src/home_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,12 +22,20 @@ import 'package:go_router/go_router.dart';
 const bool isLoggedIn = true;
 
 final router = GoRouter(
-  initialLocation: isLoggedIn ? '/' : '/welcome/choose-year-of-birth',
+  initialLocation: isLoggedIn ? '/' : '/welcome',
   routes: [
     GoRoute(
       name: 'home',
       path: '/',
       builder: (context, state) => const MyHomePage(title: "Home"),
+    ),
+    GoRoute(
+      name: 'workout-plan-detail',
+      path: '/workout-plan/:id',
+      builder: (context, state) {
+        final id = int.parse(state.pathParameters['id']!);
+        return WorkoutPlanDetailPage(id: id);
+      },
     ),
     GoRoute(
       name: 'welcome',

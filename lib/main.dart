@@ -4,7 +4,6 @@ import 'package:fit_master/src/features/exercise/repositories/exercise.repoImpl.
 import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.dart';
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
-import 'package:fit_master/src/features/workout_plan/screens/dashboard_page.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

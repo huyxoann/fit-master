@@ -1,0 +1,299 @@
+import 'package:fit_master/src/core/models/enum.dart';
+import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../models/workout_day.dart';
+
+class WorkoutPlanDetailPage extends StatefulWidget {
+  final int id;
+  const WorkoutPlanDetailPage({
+    super.key,
+    required this.id,
+  });
+
+  @override
+  WorkoutPlanDetailPageState createState() => WorkoutPlanDetailPageState();
+}
+
+class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
+  late WorkoutPlanViewModel _viewModel;
+
+  @override
+  void initState() {
+    _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel.fetchWorkoutPlanDetail('', widget.id.toString());
+    });
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    return Consumer<WorkoutPlanViewModel>(
+      builder: (_, model, child) {
+        if (model.isLoading) {
+          return child ?? const SizedBox();
+        }
+        List<WorkoutDay> workoutDays =
+            model.workoutPlanDetail?.workoutDays ?? [];
+        return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(LucideIcons.chevron_left),
+              onPressed: () => context.pop(),
+            ),
+            title: Text(
+              "Chi tiết bài tập",
+              style: textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
+              ),
+            ),
+            backgroundColor: colorScheme.surface,
+            iconTheme: IconThemeData(color: colorScheme.onSurface),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.width * 9 / 16,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    image: DecorationImage(
+                      image:
+                          AssetImage(model.workoutPlanDetail?.coverImage ?? ''),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  alignment: Alignment.bottomLeft,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 2 / 3,
+                    child: Text(
+                      model.workoutPlanDetail?.planName ?? "",
+                      style: textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurface,
+                        shadows: [
+                          Shadow(
+                            offset: const Offset(0, 0),
+                            color: colorScheme.outlineVariant,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 12.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        model.workoutPlanDetail?.planDescription ?? "",
+                        style: textTheme.bodyMedium,
+                      ),
+                      const SizedBox(height: 8.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "About The Program",
+                            style: textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8.0),
+                          Container(
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: colorScheme.surfaceVariant,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(LucideIcons.goal, size: 28),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                        '${model.workoutPlanDetail?.workoutSummary.fitnessGoal.name}',
+                                        style: textTheme.bodyMedium)
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    const Icon(LucideIcons.dumbbell, size: 28),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      '${model.workoutPlanDetail?.workoutSummary.workoutType.name}',
+                                      style: textTheme.bodyMedium,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    const Icon(LucideIcons.chevrons_up,
+                                        size: 28),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      '${model.workoutPlanDetail?.workoutSummary.trainingLevel.vietnameseName}',
+                                      style: textTheme.bodyMedium,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    const Icon(LucideIcons.calendar_days,
+                                        size: 28),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      '${model.workoutPlanDetail?.workoutSummary.programDuration} Tuần',
+                                      style: textTheme.bodyMedium,
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    const Icon(LucideIcons.clock, size: 28),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      '${model.workoutPlanDetail?.workoutSummary.timePerWorkout} Phút / buổi',
+                                      style: textTheme.bodyMedium,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8.0),
+                          Text(
+                            "Program Detail",
+                            style: textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8.0),
+                          Container(
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: colorScheme.surfaceVariant,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Column(
+                              children: [
+                                for (WorkoutDay workoutDay in workoutDays)
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                              child: Text(
+                                            workoutDay.name,
+                                            softWrap: true,
+                                            style:
+                                                textTheme.bodyLarge?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ))
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Table(
+                                        children: [
+                                          TableRow(children: [
+                                            Text(
+                                              "Bài tập",
+                                              style: textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Sets",
+                                              style: textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Reps",
+                                              style: textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ]),
+                                          TableRow(
+                                            children: [
+                                              Text(
+                                                workoutDay.exercise.title,
+                                                style: textTheme.bodyMedium
+                                                    ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                workoutDay.sets.toString(),
+                                                style: textTheme.bodyMedium
+                                                    ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                workoutDay.reps.join(", "),
+                                                style: textTheme.bodyMedium
+                                                    ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      const Divider(),
+                                      const SizedBox(height: 8),
+                                    ],
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FilledButton(
+                              onPressed: () {},
+                              child: const Text("Chọn lộ trình"),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+      child: const Center(child: CircularProgressIndicator()),
+    );
+  }
+}

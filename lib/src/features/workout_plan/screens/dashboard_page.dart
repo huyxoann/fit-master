@@ -3,6 +3,7 @@ import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.vie
 import 'package:fit_master/src/features/workout_plan/widgets/week_schedule_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutDashBoard extends StatefulWidget {
@@ -66,43 +67,50 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
                           style: textTheme.headlineSmall
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
-                        Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      model.workoutPlanDetail?.coverImage ??
-                                          ''),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              width: double.infinity,
-                              height: (MediaQuery.of(context).size.width - 32) *
-                                  9 /
-                                  16,
-                            ),
-                            const SizedBox(width: 4),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    model.workoutPlanDetail?.planName ?? '',
-                                    style: textTheme.bodyMedium,
+                        GestureDetector(
+                          onTap: () => context.pushNamed(
+                            'workout-plan-detail',
+                            pathParameters: {'id': '1'},
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        model.workoutPlanDetail?.coverImage ??
+                                            ''),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    const Icon(LucideIcons.clock),
-                                    Text(
-                                        '${model.workoutPlanDetail?.workoutSummary.programDuration} Tuần')
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
+                                width: double.infinity,
+                                height:
+                                    (MediaQuery.of(context).size.width - 32) *
+                                        9 /
+                                        16,
+                              ),
+                              const SizedBox(width: 4),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      model.workoutPlanDetail?.planName ?? '',
+                                      style: textTheme.bodyMedium,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(LucideIcons.clock),
+                                      Text(
+                                          '${model.workoutPlanDetail?.workoutSummary.programDuration} Tuần')
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),

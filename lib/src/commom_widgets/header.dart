@@ -1,5 +1,4 @@
 import 'package:fit_master/src/commom_widgets/search.dart';
-import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:flutter/material.dart';
 
 class HeaderApp extends StatelessWidget {
