@@ -279,7 +279,7 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                         children: [
                           Expanded(
                             child: FilledButton(
-                              onPressed: () {},
+                              onPressed: () => context.pushNamed('home'),
                               child: const Text("Chọn lộ trình"),
                             ),
                           ),

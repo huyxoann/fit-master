@@ -8,10 +8,11 @@ class WorkoutDay {
   final int sets;
   final List<int> reps;
 
-  WorkoutDay(
-      {required this.name,
-      required this.dayOfWeek,
-      required this.exercise,
-      required this.sets,
-      required this.reps});
+  WorkoutDay({
+    required this.name,
+    required this.dayOfWeek,
+    required this.exercise,
+    required this.sets,
+    required this.reps,
+  });
 }

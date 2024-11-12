@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     return Consumer<UserViewModel>(
       builder: (context, model, child) {
         if (model.isLoggedIn) {
-          router.go('/home');
+          router.go('/');
         } else {
           router.go('/welcome');
         }

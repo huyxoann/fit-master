@@ -1,6 +1,10 @@
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
+import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
 import 'package:fit_master/src/features/login/screens/login_screen.dart';
 import 'package:fit_master/src/features/login/services/auth.service.dart';
+import 'package:fit_master/src/features/plan/screen/complete_plan_page.dart';
+import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
+import 'package:fit_master/src/features/plan/screen/user_workout_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_fitness_goal_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_gender_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_h_and_w_page.dart';
@@ -9,6 +13,7 @@ import 'package:fit_master/src/features/welcome/screens/choose_year_of_birth_pag
 import 'package:fit_master/src/features/welcome/screens/create_profile.dart';
 import 'package:fit_master/src/features/welcome/screens/training_location_page.dart';
 import 'package:fit_master/src/features/welcome/screens/welcome_page.dart';
+import 'package:fit_master/src/features/welcome/screens/workout_recommend.dart';
 import 'package:fit_master/src/features/workout_plan/screens/workout_plan_detail_page.dart';
 import 'package:fit_master/src/home_page.dart';
 import 'package:go_router/go_router.dart';
@@ -71,6 +76,11 @@ final router = GoRouter(
           path: '/create-profile',
           builder: (context, state) => const LoadingScreen(),
         ),
+        GoRoute(
+          name: 'workout-recommendation',
+          path: '/workout-recommendation',
+          builder: (context, state) => const WorkoutRecommendScreen(),
+        ),
       ],
     ),
     GoRoute(
@@ -81,6 +91,26 @@ final router = GoRouter(
       name: 'login',
       path: '/login',
       builder: (context, state) => const LoginScreen(),
-    )
+    ),
+    GoRoute(
+      name: 'gym_nearby',
+      path: '/gym_nearby',
+      builder: (context, state) => const GymListScreen(),
+    ),
+    GoRoute(
+      name: 'plan_today',
+      path: '/plan_today',
+      builder: (context, state) => const PlanTodayScreen(),
+    ),
+    GoRoute(
+      name: 'plan_complete',
+      path: '/plan_complete',
+      builder: (context, state) => const CompletePlanScreen(),
+    ),
+    GoRoute(
+      name: 'profile',
+      path: '/profile',
+      builder: (context, state) => const UserWorkoutPage(),
+    ),
   ],
 );

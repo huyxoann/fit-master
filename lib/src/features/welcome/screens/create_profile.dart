@@ -1,5 +1,7 @@
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -30,18 +32,21 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 20),
-            Text(
+            const CircularProgressIndicator(),
+            const SizedBox(height: 20),
+            const Text(
               'Vui lòng đợi để hệ thống khởi tạo lộ trình riêng cho bạn',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
+            FilledButton(
+                onPressed: () => context.pushNamed('workout-recommendation'),
+                child: const Text('Xem lộ trình'))
           ],
         ),
       ),

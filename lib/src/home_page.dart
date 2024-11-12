@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
+import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
+import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
 import 'package:fit_master/src/features/workout_plan/screens/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
@@ -20,8 +23,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _pages = <Widget>[
     WorkoutDashBoard(),
     ListExerciseScreen(),
-    Container(color: Colors.blue),
-    Container(color: Colors.yellow),
+    PlanTodayScreen(),
+    GymListScreen()
   ];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -82,9 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(LucideIcons.settings),
+              child: Icon(LucideIcons.locate_fixed),
             ),
-            label: 'Cài đặt',
+            label: 'Gym ở gần',
           ),
         ],
       ),
