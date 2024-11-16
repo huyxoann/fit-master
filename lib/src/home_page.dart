@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
 import 'package:flutter/material.dart';
@@ -50,10 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
         bucket: bucket,
         child: _pages[_selectedIndex],
       ),
+      
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onItemTapped,
         unselectedItemColor: colorScheme.onSurface,
         selectedItemColor: colorScheme.onPrimaryContainer,
+  
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -70,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Icon(LucideIcons.biceps_flexed),
             ),
             label: 'Bài tập',
+        
           ),
           BottomNavigationBarItem(
             icon: Padding(
@@ -77,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Icon(LucideIcons.calendar),
             ),
             label: 'Lộ trình',
+            backgroundColor: colorScheme.surfaceBright,
           ),
           BottomNavigationBarItem(
             icon: Padding(

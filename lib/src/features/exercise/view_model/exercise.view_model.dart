@@ -1,3 +1,4 @@
+import 'package:fit_master/src/features/exercise/data/res/res.exercise_detail.dart';
 import 'package:fit_master/src/features/exercise/repositories/exercise.repo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fit_master/src/features/exercise/data/res/res.exercise.dart';
@@ -10,6 +11,9 @@ class ExerciseViewModel extends ChangeNotifier {
   // Update ApiResponse to expect a single GetListExerciseResponse
   ApiResponse<GetListExerciseResponse> _exercises = ApiResponse.loading();
   ApiResponse<GetListExerciseResponse> get exercises => _exercises;
+
+  ApiResponse<ExerciseDetailResponse> _exerciseDetail = ApiResponse.loading();
+  ApiResponse<ExerciseDetailResponse> get exerciseDetail => _exerciseDetail;
 
  // Default selected filter values
   int _experienceLevel = 1;
@@ -46,12 +50,33 @@ class ExerciseViewModel extends ChangeNotifier {
         experienceLevel: _experienceLevel,
         targetMuscle: _targetMuscle,
         offset: _offset,
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInV1aWQiOiI2MTg2NzJhZS05MTg2LTRmMmItYjJiYS0xMzNlNjA2ZWFmMjgiLCJpYXQiOjE3MzE3OTI3MzcsImV4cCI6MTczMTgwMzUzN30.Pwg9E3gKgcXiWR_ELIBrogltcysYFHCTGutYAzlaYYU"
       );
         print("lay thanh cong ${response.exercises.length}");
       _exercises = ApiResponse.completed(response);
     
     } catch (e) {
       _exercises = ApiResponse.error(e.toString());
+    }
+
+    notifyListeners();
+  }
+
+   Future<void> fetchExerciseDetail(int exerId) async {
+    _exerciseDetail = ApiResponse.loading();
+    notifyListeners();
+    print("danng kay dât ở viewwmdoel");
+    try {
+      final response = await _exerciseRepository.fetchExerciseDetail(
+        exerciseId: exerId,
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInV1aWQiOiI2MTg2NzJhZS05MTg2LTRmMmItYjJiYS0xMzNlNjA2ZWFmMjgiLCJpYXQiOjE3MzE3OTI3MzcsImV4cCI6MTczMTgwMzUzN30.Pwg9E3gKgcXiWR_ELIBrogltcysYFHCTGutYAzlaYYU"
+      );
+        print("lay thanh cong ${response.toString()}");
+      _exerciseDetail = ApiResponse.completed(response);
+    
+    } catch (e) {
+       print("lay khong thanh cong detail");
+      _exerciseDetail = ApiResponse.error(e.toString());
     }
 
     notifyListeners();

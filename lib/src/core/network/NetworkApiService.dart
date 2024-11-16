@@ -27,7 +27,7 @@ class NetworkApiService extends BaseApisService {
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     } catch (e) {
-      // print("ee $e");
+      print("ee $e");
     }
 
     return responseJson;

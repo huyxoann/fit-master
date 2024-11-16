@@ -13,10 +13,10 @@ class Exercise {
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
     return Exercise(
-      exerciseId: json['exercise_exercise_id'] ?? 0, // Ensure it defaults to 0 if null
-      title: json['exercise_title'] ?? 'No Title', // Default title if null
-      coverImage: json['exercise_cover_image'] ?? '', // Empty string for missing image
-      exerProfileId: json['exercise_profile_exer_profile_id']?? 0,
+      exerciseId: json['exercise_id'] ?? 0, // Ensure it defaults to 0 if null
+      title: json['title'] ?? 'No Title', // Default title if null
+      coverImage: json['cover_image'] ?? '', // Empty string for missing image
+      exerProfileId: json['profile_exer_profile_id']?? 0,
     );
   }
 }
