@@ -1,3 +1,4 @@
+import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
@@ -16,7 +17,8 @@ Future<Position?> _getCurrentLocation() async {
   permission = await Geolocator.checkPermission();
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       return null;
     }
   }
@@ -37,6 +39,7 @@ Future<List<dynamic>> getNearbyGyms(double latitude, double longitude) async {
 
   if (response.statusCode == 200) {
     final data = json.decode(response.body);
+    logger.d(data['results']);
     return data['results'];
   } else {
     throw Exception('Failed to load gyms');
@@ -107,7 +110,8 @@ class _GymListScreenState extends State<GymListScreen> {
             'vicinity': gym['vicinity'],
             'lat': gymLat,
             'lng': gymLng,
-            'distance': (distanceInMeters / 1000).toStringAsFixed(2), // Convert to kilometers
+            'distance': (distanceInMeters / 1000)
+                .toStringAsFixed(2), // Convert to kilometers
           };
         }).toList();
       });
@@ -135,7 +139,8 @@ class _GymListScreenState extends State<GymListScreen> {
   }
 
   Future<void> _openMap(double latitude, double longitude) async {
-    final googleMapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude&travelmode=driving';
+    final googleMapsUrl =
+        'https://www.google.com/maps/dir/?api=1&destination=$latitude,$longitude&travelmode=driving';
     if (await canLaunch(googleMapsUrl)) {
       await launch(googleMapsUrl);
     } else {
@@ -174,16 +179,17 @@ class _GymListScreenState extends State<GymListScreen> {
             child: _gyms.isEmpty
                 ? Center(child: CircularProgressIndicator())
                 : ListView.builder(
-              itemCount: _gyms.length,
-              itemBuilder: (context, index) {
-                final gym = _gyms[index];
-                return ListTile(
-                  title: Text(gym['name']),
-                  subtitle: Text('${gym['vicinity']} - ${gym['distance']} km away'),
-                  onTap: () => _openMap(gym['lat'], gym['lng']),
-                );
-              },
-            ),
+                    itemCount: _gyms.length,
+                    itemBuilder: (context, index) {
+                      final gym = _gyms[index];
+                      return ListTile(
+                        title: Text(gym['name']),
+                        subtitle: Text(
+                            '${gym['vicinity']} - ${gym['distance']} km away'),
+                        onTap: () => _openMap(gym['lat'], gym['lng']),
+                      );
+                    },
+                  ),
           ),
         ],
       ),

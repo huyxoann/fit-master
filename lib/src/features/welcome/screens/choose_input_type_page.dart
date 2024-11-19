@@ -70,7 +70,7 @@ class ChooseDataInputTypePage extends StatelessWidget {
                         context.pushNamed('welcome-choose-gender')),
                 SecondaryButton(
                     label: "Nhập dữ liệu từ Inbody", onPressed: () {}),
-                NeutralButton(label: "Bỏ qua", onPressed: () {}),
+                NeutralButton(label: "Bỏ qua", onPressed: () =>   context.pushNamed('home')),
               ],
             )
           ],
