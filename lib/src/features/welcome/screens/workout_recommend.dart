@@ -41,7 +41,7 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    WorkoutCard(model: model.workoutPlanDetail ?? null),
+                    WorkoutCard(model: model.workoutPlanDetail),
                   ],
                 ),
               ),

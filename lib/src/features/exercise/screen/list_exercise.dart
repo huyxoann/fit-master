@@ -31,7 +31,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
     var widthScreen = AppInfo.getScreenWidth(context);
 
     return Container(
-      color: colorTheme.background,
+      color: colorTheme.surface,
       child: SafeArea(
         child: Scaffold(
           appBar: const FitnessAppBar(streak: 5),

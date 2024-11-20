@@ -10,7 +10,7 @@ class FitnessAppBar extends StatelessWidget implements PreferredSizeWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return AppBar(
       leading: Container(
-        color: colorScheme.background,
+        color: colorScheme.surface,
         margin: const EdgeInsets.only(left: 16.0),
         child: Image.asset('assets/images/logo/fitmaster_logo.png'),
       ),

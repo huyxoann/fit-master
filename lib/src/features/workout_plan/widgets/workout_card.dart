@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 class WorkoutCard extends StatelessWidget {
   final WorkoutPlan? model;
 
-  const WorkoutCard({super.key, this.model = null});
+  const WorkoutCard({super.key, this.model});
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;

@@ -117,7 +117,7 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                           Container(
                             padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
-                              color: colorScheme.surfaceVariant,
+                              color: colorScheme.surfaceContainerHighest,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: Column(
@@ -191,7 +191,7 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                           Container(
                             padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
-                              color: colorScheme.surfaceVariant,
+                              color: colorScheme.surfaceContainerHighest,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: Column(

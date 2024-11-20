@@ -26,4 +26,5 @@ class AppInfo {
   static const loginEndPoint = "$baseUrl/auth/signin";
   static const registerEndPoint = "$baseUrl/auth/register";
   static const getListExerEndPoint = "$baseUrl/exercises/list";
+  static const getMyPlan = "$baseUrl/workouts/my_plan/";
 }

@@ -31,7 +31,7 @@ Future<Position?> _getCurrentLocation() async {
 }
 
 Future<List<dynamic>> getNearbyGyms(double latitude, double longitude) async {
-  final String apiKey = 'AlzaSykrTZNB6QxDEY7NmEtJhtp6WcqLFEMDuIK';
+  const String apiKey = 'AlzaSykrTZNB6QxDEY7NmEtJhtp6WcqLFEMDuIK';
   final String url =
       'https://maps.gomaps.pro/maps/api/place/nearbysearch/json?location=$latitude,$longitude&radius=4000&type=gym&key=$apiKey';
 
@@ -47,7 +47,7 @@ Future<List<dynamic>> getNearbyGyms(double latitude, double longitude) async {
 }
 
 Future<Map<String, dynamic>> getLocationFromAddress(String address) async {
-  final String apiKey = 'AlzaSykrTZNB6QxDEY7NmEtJhtp6WcqLFEMDuIK';
+  const String apiKey = 'AlzaSykrTZNB6QxDEY7NmEtJhtp6WcqLFEMDuIK';
   final String url =
       'https://maps.gomaps.pro/maps/api/geocode/json?address=$address&key=$apiKey';
 
@@ -66,7 +66,7 @@ Future<Map<String, dynamic>> getLocationFromAddress(String address) async {
 }
 
 class GymListScreen extends StatefulWidget {
-  const GymListScreen({Key? key}) : super(key: key);
+  const GymListScreen({super.key});
 
   @override
   _GymListScreenState createState() => _GymListScreenState();
@@ -152,7 +152,7 @@ class _GymListScreenState extends State<GymListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nearby Gyms'),
+        title: const Text('Nearby Gyms'),
       ),
       body: Column(
         children: [
@@ -163,13 +163,13 @@ class _GymListScreenState extends State<GymListScreen> {
                 Expanded(
                   child: TextField(
                     controller: _searchController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Search for a location',
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: _searchLocation,
                 ),
               ],
@@ -177,7 +177,7 @@ class _GymListScreenState extends State<GymListScreen> {
           ),
           Expanded(
             child: _gyms.isEmpty
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     itemCount: _gyms.length,
                     itemBuilder: (context, index) {

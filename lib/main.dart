@@ -5,6 +5,8 @@ import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.
 import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.dart';
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/src/features/login/viewmodel/user_view_model.dart';
+import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
+import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -25,7 +27,9 @@ void main() async {
           create: (context) => ExerciseViewModel(ExerciseRepositoryImpl())),
       ChangeNotifierProvider(
           create: (context) => WorkoutPlanViewModel(repository: locator())),
-      ChangeNotifierProvider(create: (context) => UserViewModel())
+      ChangeNotifierProvider(create: (context) => UserViewModel()),
+      ChangeNotifierProvider(
+          create: (context) => MyPlanViewModel(myPlanRepository: locator())),
     ],
     child: const MyApp(),
   ));
@@ -49,7 +53,7 @@ class MyApp extends StatelessWidget {
         if (model.isLoggedIn) {
           router.go('/');
         } else {
-          router.go('/welcome');
+          router.go('/plan_today');
         }
 
         return MaterialApp.router(

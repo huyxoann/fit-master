@@ -1,7 +1,7 @@
 class Exercise {
   final String name;
   final int sets;
-  final dynamic reps;
+  final List<dynamic> reps;
 
   Exercise({
     required this.name,
@@ -11,9 +11,9 @@ class Exercise {
 
   factory Exercise.fromJson(Map<String, dynamic> json) {
     return Exercise(
-      name: json['name'],
-      sets: json['sets'],
-      reps: json['reps'],
+      name: json['e_title'] ?? "",
+      sets: json['ed_set'] ?? 0,
+      reps: json['ed_reps'] ?? [0, 0],
     );
   }
 }

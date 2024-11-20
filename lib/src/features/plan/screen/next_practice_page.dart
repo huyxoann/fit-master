@@ -129,10 +129,10 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Text(
                         currentExercise!.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
@@ -272,11 +272,11 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 0),
                                     child: Text(
                                       "${nextExercise.reps} reps",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color:
                                             Color.fromARGB(255, 255, 255, 255),
                                         fontSize: 12,
@@ -318,11 +318,11 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                       ),
                     ),
                   )
-                : Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                : const Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: Text(
                       "Đã hoàn thành các bài tập hôm nay",
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Color.fromARGB(255, 21, 133, 193),
                           fontSize: 20,
                           fontWeight: FontWeight.bold),

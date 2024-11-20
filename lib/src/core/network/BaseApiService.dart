@@ -9,4 +9,5 @@ abstract class BaseApisService {
   Future<dynamic> putApiResponse(String url, dynamic data, String? token);
 
   Future<dynamic> fileApiResponse(String url, File data, String? token);
+
 }
