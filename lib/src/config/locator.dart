@@ -1,3 +1,6 @@
+import 'package:fit_master/src/features/login/repository/auth_repository.dart';
+import 'package:fit_master/src/features/login/repository/auth_repository_impl.dart';
+import 'package:fit_master/src/features/login/services/auth.service.dart';
 import 'package:fit_master/src/features/plan/repository/workout_plan.repository.dart';
 import 'package:fit_master/src/features/plan/repository/workout_plan.repositoryImpl.dart';
 import 'package:fit_master/src/features/workout_plan/repositories/workout_plan.repository.dart';
@@ -12,6 +15,8 @@ void setupLocator() {
   locator.registerFactory<WorkoutPlanRepository>(
       () => WorkoutPlanRepositoryImpl());
 
-  locator.registerFactory<MyPlanRepository>(
-      () => MyPlanRepositoryIpml());
+  locator.registerFactory<MyPlanRepository>(() => MyPlanRepositoryIpml());
+
+  locator.registerFactory<AuthRepository>(() => AuthRepositoryImpl());
+  locator.registerFactory<AuthService>(() => AuthService());
 }

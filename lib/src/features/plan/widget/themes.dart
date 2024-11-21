@@ -7,14 +7,14 @@ class MyThemes {
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
     primaryColorDark: primaryColor,
-    colorScheme: ColorScheme.dark(primary: primary),
+    colorScheme: const ColorScheme.dark(primary: primary),
     dividerColor: Colors.white,
   );
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: const Color.fromARGB(255, 15, 239, 243),
     primaryColor: primaryColor,
-    colorScheme: ColorScheme.light(primary: primary),
+    colorScheme: const ColorScheme.light(primary: primary),
     dividerColor: Colors.black,
   );
 }

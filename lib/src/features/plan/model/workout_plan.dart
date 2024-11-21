@@ -1,4 +1,3 @@
-import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
 
 class WorkoutPlan {

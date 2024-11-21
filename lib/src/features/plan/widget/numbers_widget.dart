@@ -21,9 +21,9 @@ class NumbersWidget extends StatelessWidget {
           buildButton(context, "$height m", 'Height'),
         ],
       );
-  Widget buildDivider() => SizedBox(
+  Widget buildDivider() => const SizedBox(
         height: 24,
-        child: const VerticalDivider(),
+        child: VerticalDivider(),
       );
 
   Widget buildButton(BuildContext context, String value, String text) =>

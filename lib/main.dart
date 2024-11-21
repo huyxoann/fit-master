@@ -4,8 +4,8 @@ import 'package:fit_master/src/features/exercise/repositories/exercise.repoImpl.
 import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.dart';
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
+import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/login/viewmodel/user_view_model.dart';
-import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +27,20 @@ void main() async {
           create: (context) => ExerciseViewModel(ExerciseRepositoryImpl())),
       ChangeNotifierProvider(
           create: (context) => WorkoutPlanViewModel(repository: locator())),
-      ChangeNotifierProvider(create: (context) => UserViewModel()),
+      ChangeNotifierProvider(
+        create: (context) => UserViewModel(
+          authService: locator(),
+          authRepository: locator(),
+        ),
+      ),
       ChangeNotifierProvider(
           create: (context) => MyPlanViewModel(myPlanRepository: locator())),
+      ChangeNotifierProvider(
+        create: (context) => AuthViewModel(
+          authService: locator(),
+          authRepository: locator(),
+        ),
+      )
     ],
     child: const MyApp(),
   ));
@@ -50,11 +61,13 @@ class MyApp extends StatelessWidget {
 
     return Consumer<UserViewModel>(
       builder: (context, model, child) {
-        if (model.isLoggedIn) {
-          router.go('/');
-        } else {
-          router.go('/plan_today');
-        }
+        model.checkLoginState().then((isLoggedIn) {
+          if (isLoggedIn) {
+            router.go('/');
+          } else {
+            router.go('/welcome');
+          }
+        });
 
         return MaterialApp.router(
           title: 'Flutter Demo',

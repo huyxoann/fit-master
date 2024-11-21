@@ -9,8 +9,10 @@ class MyPlanRepositoryIpml extends MyPlanRepository {
   final BaseApisService _networkApiService = NetworkApiService();
 
   @override
-  Future<MyPlan> fetchMyPlan(
-      {required int userId, required String token}) async {
+  Future<MyPlan> fetchMyPlan({
+    required int userId,
+    required String token,
+  }) async {
     try {
       final response = await _networkApiService.getApiResponse(
         '${AppInfo.baseUrl}/workouts/my_plan/$userId',

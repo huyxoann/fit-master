@@ -3,7 +3,6 @@
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
 import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
 import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
-import 'package:fit_master/src/features/plan/screen/user_workout_page.dart';
 import 'package:fit_master/src/features/workout_plan/screens/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';

@@ -23,7 +23,7 @@ class AppInfo {
     return getScreenHeight(context) < 660;
   }
 
-  static const loginEndPoint = "$baseUrl/auth/signin";
+  static const loginEndPoint = "$baseUrl/auth/login";
   static const registerEndPoint = "$baseUrl/auth/register";
   static const getListExerEndPoint = "$baseUrl/exercises/list";
   static const getMyPlan = "$baseUrl/workouts/my_plan/";
