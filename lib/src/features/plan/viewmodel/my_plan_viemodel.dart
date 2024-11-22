@@ -1,6 +1,6 @@
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/plan/model/my_plan.dart';
-import 'package:fit_master/src/features/plan/repository/workout_plan.repository.dart';
+import 'package:fit_master/src/features/plan/repository/my_plan.repository.dart';
 import 'package:flutter/widgets.dart';
 
 class MyPlanViewModel extends ChangeNotifier {

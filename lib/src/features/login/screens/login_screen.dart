@@ -1,6 +1,5 @@
 import 'package:fit_master/src/component/primary_button.dart';
 import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
-import 'package:fit_master/src/features/login/viewmodel/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';

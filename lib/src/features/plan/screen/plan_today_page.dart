@@ -6,6 +6,7 @@ import 'package:fit_master/src/features/plan/screen/next_practice_page.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:hive/hive.dart';
 import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -36,11 +37,17 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
     _viewModel = Provider.of<MyPlanViewModel>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _viewModel.fetchMyPlan(1,
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInV1aWQiOiJjZDBjOWMxNC05YjJiLTQ4ZGMtYTdlMi1iNDI0ZDkwYmZlMWEiLCJpYXQiOjE3MzIwOTgxMTMsImV4cCI6MTczMjEwODkxM30.tS8UH_Ohwt2_xXaOz3nHkL7awU9RyUnE0VPUY5vx8Vs");
+      getUserData();
     });
 
     super.initState();
+  }
+
+  Future<void> getUserData() async {
+    final box = await Hive.openBox('userDataBox');
+    final userId = box.get('userId');
+    final token = box.get('token');
+    _viewModel.fetchMyPlan(userId, token);
   }
 
   @override

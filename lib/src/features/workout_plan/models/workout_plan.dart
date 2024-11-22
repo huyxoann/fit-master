@@ -22,4 +22,22 @@ class WorkoutPlan {
     required this.workoutSummary,
     required this.createdAt,
   });
+
+  factory WorkoutPlan.fromJson(Map<String, dynamic> json) {
+    return WorkoutPlan(
+      planID: json['planID'],
+      planName: json['planName'],
+      planDescription: json['planDescription'],
+      workoutCategories: (json['workoutCategories'] as List)
+          .map((e) => WorkoutCategory.values
+              .firstWhere((element) => element.toString() == e))
+          .toList(),
+      workoutDays: (json['workoutDays'] as List)
+          .map((e) => WorkoutDay.fromJson(e))
+          .toList(),
+      coverImage: json['coverImage'],
+      workoutSummary: WorkoutSummary.fromJson(json['workoutSummary']),
+      createdAt: DateTime.parse(json['createdAt']),
+    );
+  }
 }

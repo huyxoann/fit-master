@@ -26,7 +26,8 @@ void main() async {
       ChangeNotifierProvider(
           create: (context) => ExerciseViewModel(ExerciseRepositoryImpl())),
       ChangeNotifierProvider(
-          create: (context) => WorkoutPlanViewModel(repository: locator())),
+          create: (context) => WorkoutPlanViewModel(
+              repository: locator(), myPlanRepository: locator())),
       ChangeNotifierProvider(
         create: (context) => UserViewModel(
           authService: locator(),
@@ -59,22 +60,15 @@ class MyApp extends StatelessWidget {
 
     MyAppTheme theme = MyAppTheme(textTheme);
 
-    return Consumer<UserViewModel>(
-      builder: (context, model, child) {
-        model.checkLoginState().then((isLoggedIn) {
-          if (isLoggedIn) {
-            router.go('/');
-          } else {
-            router.go('/welcome');
-          }
-        });
-
-        return MaterialApp.router(
-          title: 'Flutter Demo',
-          theme: theme.dark(),
-          routerConfig: router,
-        );
-      },
+    // return MaterialApp.router(
+    //   title: 'Flutter Demo',
+    //   theme: theme.dark(),
+    //   routerConfig: router,
+    // );
+    return MaterialApp.router(
+      title: 'Flutter Demo',
+      theme: theme.dark(),
+      routerConfig: router,
     );
   }
 }

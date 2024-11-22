@@ -1,3 +1,4 @@
+import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/login/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_master/src/features/login/services/auth.service.dart';
@@ -7,7 +8,7 @@ class UserViewModel extends ChangeNotifier {
   final AuthRepository _authRepository;
 
   bool _isLoggedIn = false;
-  bool _isLoading = false;
+  final bool _isLoading = false;
   String? _errorMessage;
 
   UserViewModel(
@@ -22,6 +23,7 @@ class UserViewModel extends ChangeNotifier {
 
   Future<bool> checkLoginState() async {
     _isLoggedIn = await _authService.checkLoginState();
+    logger.d('UserViewModel: checkLoginState: $_isLoggedIn');
     notifyListeners();
     return _isLoggedIn;
   }

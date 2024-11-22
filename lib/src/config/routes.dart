@@ -20,7 +20,7 @@ import 'package:go_router/go_router.dart';
 // import '../src/features/welcome/screens/welcome_page_2.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/welcome',
   routes: [
     GoRoute(
       name: 'home',

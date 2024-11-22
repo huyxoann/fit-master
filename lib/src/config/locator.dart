@@ -1,8 +1,8 @@
 import 'package:fit_master/src/features/login/repository/auth_repository.dart';
 import 'package:fit_master/src/features/login/repository/auth_repository_impl.dart';
 import 'package:fit_master/src/features/login/services/auth.service.dart';
-import 'package:fit_master/src/features/plan/repository/workout_plan.repository.dart';
-import 'package:fit_master/src/features/plan/repository/workout_plan.repositoryImpl.dart';
+import 'package:fit_master/src/features/plan/repository/my_plan.repository.dart';
+import 'package:fit_master/src/features/plan/repository/my_plan.repositoryImpl.dart';
 import 'package:fit_master/src/features/workout_plan/repositories/workout_plan.repository.dart';
 import 'package:fit_master/src/features/workout_plan/repositories/workout_plan.repositoryImpl.dart';
 import 'package:get_it/get_it.dart';

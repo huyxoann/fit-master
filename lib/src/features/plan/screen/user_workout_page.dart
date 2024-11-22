@@ -1,6 +1,6 @@
 import 'package:fit_master/src/features/plan/model/my_plan.dart';
 import 'package:fit_master/src/features/plan/model/user.dart';
-import 'package:fit_master/src/features/plan/repository/workout_plan.repositoryImpl.dart';
+import 'package:fit_master/src/features/plan/repository/my_plan.repositoryImpl.dart';
 // import 'package:fit_master/src/features/plan/services/workout_service.dart';
 import 'package:fit_master/src/features/plan/widget/button_widget.dart';
 import 'package:flutter/material.dart';

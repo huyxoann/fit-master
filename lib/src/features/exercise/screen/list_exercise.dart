@@ -20,6 +20,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
     super.initState();
     // Fetch exercises when the screen is initialized
     Future.microtask(() {
+      if (!mounted) return;
       final viewModel = Provider.of<ExerciseViewModel>(context, listen: false);
       viewModel.fetchExercises();
     });

@@ -1,11 +1,13 @@
+import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/core/models/enum.dart';
+import 'package:fit_master/src/features/plan/model/workout_day.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../models/workout_day.dart';
+import '../../plan/model/exercise.dart';
 
 class WorkoutPlanDetailPage extends StatefulWidget {
   final int id;
@@ -26,8 +28,10 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
     _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _viewModel.fetchWorkoutPlanDetail('', widget.id.toString());
+      _viewModel.fetchWorkoutDetailById(widget.id);
     });
+
+    logger.d("WorkoutPlanDetailPageState: ${widget.id}");
 
     super.initState();
   }
@@ -42,8 +46,7 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
         if (model.isLoading) {
           return child ?? const SizedBox();
         }
-        List<WorkoutDay> workoutDays =
-            model.workoutPlanDetail?.workoutDays ?? [];
+        List<WorkoutDay>? workoutDays = model.workoutPlanDetail?.workoutDay;
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -71,8 +74,8 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     image: DecorationImage(
-                      image:
-                          AssetImage(model.workoutPlanDetail?.coverImage ?? ''),
+                      image: NetworkImage(
+                          model.workoutPlanDetail?.coverImage ?? ''),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -196,80 +199,100 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                             ),
                             child: Column(
                               children: [
-                                for (WorkoutDay workoutDay in workoutDays)
-                                  Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                              child: Text(
-                                            workoutDay.name,
-                                            softWrap: true,
-                                            style:
-                                                textTheme.bodyLarge?.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ))
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Table(
-                                        children: [
-                                          TableRow(children: [
-                                            Text(
-                                              "Bài tập",
-                                              style: textTheme.bodyMedium
-                                                  ?.copyWith(
+                                if (workoutDays != null)
+                                  for (WorkoutDay workoutDay in workoutDays)
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: Text(
+                                              workoutDay.workoutDayName,
+                                              softWrap: true,
+                                              style:
+                                                  textTheme.bodyLarge?.copyWith(
                                                 fontWeight: FontWeight.bold,
                                               ),
-                                            ),
-                                            Text(
-                                              "Sets",
-                                              style: textTheme.bodyMedium
-                                                  ?.copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Reps",
-                                              style: textTheme.bodyMedium
-                                                  ?.copyWith(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ]),
-                                          TableRow(
-                                            children: [
+                                            ))
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Table(
+                                          columnWidths: const {
+                                            0: FlexColumnWidth(4),
+                                            1: FlexColumnWidth(1),
+                                            2: FlexColumnWidth(1),
+                                          },
+                                          children: [
+                                            TableRow(children: [
                                               Text(
-                                                workoutDay.exercise.title,
+                                                "Bài tập",
                                                 style: textTheme.bodyMedium
                                                     ?.copyWith(
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                               Text(
-                                                workoutDay.sets.toString(),
+                                                "Sets",
                                                 style: textTheme.bodyMedium
                                                     ?.copyWith(
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                               Text(
-                                                workoutDay.reps.join(", "),
+                                                "Reps",
                                                 style: textTheme.bodyMedium
                                                     ?.copyWith(
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      const Divider(),
-                                      const SizedBox(height: 8),
-                                    ],
-                                  ),
+                                            ]),
+                                            for (Exercise exercise
+                                                in workoutDay.exercises)
+                                              TableRow(
+                                                children: [
+                                                  Text(
+                                                    exercise.name,
+                                                    style: textTheme.bodyMedium
+                                                        ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Text(
+                                                      exercise.sets.toString(),
+                                                      style: textTheme
+                                                          .bodyMedium
+                                                          ?.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Text(
+                                                      exercise.reps.join(", "),
+                                                      style: textTheme
+                                                          .bodyMedium
+                                                          ?.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Divider(),
+                                      ],
+                                    ),
                               ],
                             ),
                           ),

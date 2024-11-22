@@ -1,5 +1,4 @@
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
-import 'package:fit_master/src/features/workout_plan/widgets/workout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +16,7 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
     _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _viewModel.fetchWorkoutPlanDetail('', 0.toString());
+      // _viewModel.fetchWorkoutCard('', 0.toString());
     });
     super.initState();
   }
@@ -41,7 +40,7 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    WorkoutCard(model: model.workoutPlanDetail),
+                    // WorkoutCard(model: model.workoutPlanDetail),
                   ],
                 ),
               ),

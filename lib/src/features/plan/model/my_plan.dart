@@ -16,7 +16,7 @@ class MyPlan {
   factory MyPlan.fromJson(Map<String, dynamic> json) {
     return MyPlan(
       userId: json['user_id'],
-      workoutPlan: WorkoutPlan.fromJson(json['workout_plan']),
+      workoutPlan: WorkoutPlan.fromJson(json),
       startDate: DateTime.parse(json['start_date']),
       completedSession: json['completed_session'],
     );

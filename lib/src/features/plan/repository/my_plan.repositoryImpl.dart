@@ -3,7 +3,7 @@ import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:fit_master/src/core/network/BaseApiService.dart';
 import 'package:fit_master/src/core/network/NetworkApiService.dart';
 import 'package:fit_master/src/features/plan/model/my_plan.dart';
-import 'package:fit_master/src/features/plan/repository/workout_plan.repository.dart';
+import 'package:fit_master/src/features/plan/repository/my_plan.repository.dart';
 
 class MyPlanRepositoryIpml extends MyPlanRepository {
   final BaseApisService _networkApiService = NetworkApiService();
