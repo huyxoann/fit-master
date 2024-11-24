@@ -27,6 +27,9 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Consumer<WorkoutPlanViewModel>(
       builder: (_, model, child) {
+        if (model.isLoading) {
+          return child ?? const SizedBox();
+        }
         return SafeArea(
           child: Scaffold(
             body: Padding(

@@ -6,4 +6,6 @@ abstract class WorkoutPlanRepository {
   Future<WorkoutPlan?> fetchWorkoutPlanDetail(String token, String id);
 
   Future<WorkoutCard?> fetchWorkoutCard(String token, String id);
+
+  Future<WorkoutPlan?> fetchRecommendedWorkoutPlan(int gender, int fitnessGoal, int age, double bmi);
 }

@@ -19,11 +19,12 @@ class TrainingLocationPage extends StatefulWidget {
 class _TrainingLocationPageState extends State<TrainingLocationPage>
     implements HiveStorage {
   GymLocation _gymLocation = GymLocation.gym;
+  int gymLocationSelected = -1;
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    int gymLocationSelected = -1;
 
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +35,7 @@ class _TrainingLocationPageState extends State<TrainingLocationPage>
           color: colorScheme.onSurface,
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("Bạn muốn tập luyện ở đâu?",
+        title: Text("Địa điểm luyện tập",
             style: textTheme.headlineMedium
                 ?.copyWith(fontWeight: FontWeight.bold)),
         bottom: const PreferredSize(
@@ -80,7 +81,7 @@ class _TrainingLocationPageState extends State<TrainingLocationPage>
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        gymLocationSelected = gymLocation.index;
+                        gymLocationSelected = index;
                         _gymLocation = gymLocation;
                       });
                     },
@@ -113,7 +114,7 @@ class _TrainingLocationPageState extends State<TrainingLocationPage>
                 logger.d("Selected Location: $_gymLocation");
                 addToBox('location', _gymLocation.index);
                 context.pushNamed(
-                    'welcome-create-profile'); // Replace with your next page route
+                    'workout-recommendation'); // Replace with your next page route
               },
             ),
           ],

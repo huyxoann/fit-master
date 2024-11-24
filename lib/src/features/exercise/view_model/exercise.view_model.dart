@@ -1,3 +1,4 @@
+import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/exercise/repositories/exercise.repo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fit_master/src/features/exercise/data/res/res.exercise.dart';
@@ -49,6 +50,7 @@ class ExerciseViewModel extends ChangeNotifier {
       );
         print("lay thanh cong ${response.exercises.length}");
       _exercises = ApiResponse.completed(response);
+      logger.d("At exercise view model: ${response.exercises}");
     
     } catch (e) {
       _exercises = ApiResponse.error(e.toString());

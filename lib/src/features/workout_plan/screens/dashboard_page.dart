@@ -1,4 +1,10 @@
 import 'package:fit_master/src/component/appbar.dart';
+import 'package:fit_master/src/core/constants/app_info.dart';
+import 'package:fit_master/src/core/exception/response/status.dart';
+import 'package:fit_master/src/core/models/enum.dart';
+import 'package:fit_master/src/features/exercise/screen/widgets/filter.dart';
+import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
+import 'package:fit_master/src/features/exercise/widgets/exercise_tile.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/widgets/week_schedule_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,130 +21,186 @@ class WorkoutDashBoard extends StatefulWidget {
 
 class WorkoutDashBoardState extends State<WorkoutDashBoard> {
   late WorkoutPlanViewModel _viewModel;
+  late ExerciseViewModel _exerciseViewModel;
+
   @override
   void initState() {
     _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchMyPlan();
+    });
+    _exerciseViewModel = Provider.of<ExerciseViewModel>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _exerciseViewModel.fetchExercises();
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Consumer<WorkoutPlanViewModel>(
-        builder: (_, model, child) {
-          if (model.isLoading) {
-            return child ?? const SizedBox();
-          }
-          return Scaffold(
-            appBar: const FitnessAppBar(
-              streak: 5,
-            ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Tìm kiếm...',
-                        prefixIcon: const Icon(LucideIcons.search),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                        ),
-                        filled: true,
-                        fillColor: colorScheme.surfaceBright,
-                      ),
-                    ),
-                    WeekScheduleWidget(
-                      startDay: DateTime.now().day,
-                      currentStep: 3,
-                      planTotalCount: 10,
-                    ),
-                    model.myPlan != null
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Lộ trình của bạn",
-                                style: textTheme.headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              GestureDetector(
-                                onTap: () => context.pushNamed(
-                                  'workout-plan-detail',
-                                  pathParameters: {
-                                    'id': '${model.myPlan?.workoutPlan.planId}'
-                                  },
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        image: DecorationImage(
-                                          image: NetworkImage(model.myPlan
-                                                  ?.workoutPlan.coverImage ??
-                                              ''),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      width: double.infinity,
-                                      height:
-                                          (MediaQuery.of(context).size.width -
-                                                  32) *
-                                              9 /
-                                              16,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            model.myPlan?.workoutPlan
-                                                    .planName ??
-                                                '',
-                                            style: textTheme.bodyMedium,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Icon(LucideIcons.clock),
-                                            Text(
-                                                '${model.myPlan?.workoutPlan.programDuration} Tuần')
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
-                        : const SizedBox(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Bài tập được đề xuất",
-                          style: textTheme.headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+      builder: (_, model, child) {
+        if (model.isLoading) {
+          return child ?? const SizedBox();
+        }
+        return Scaffold(
+          appBar: const FitnessAppBar(streak: 5),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  _buildSearchField(context),
+                  const SizedBox(height: 16),
+                  _buildWeekSchedule(),
+                  const SizedBox(height: 16),
+                  if (model.myPlan != null) _buildMyPlanSection(context, model),
+                  const SizedBox(height: 16),
+                  _buildRecommendedExercisesSection(context),
+                ],
               ),
             ),
-          );
-        },
-        child: const Center(child: CircularProgressIndicator()));
+          ),
+        );
+      },
+      child: const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget _buildSearchField(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'Tìm kiếm...',
+        prefixIcon: const Icon(LucideIcons.search),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+        ),
+        filled: true,
+        fillColor: Theme.of(context).colorScheme.surfaceBright,
+      ),
+    );
+  }
+
+  Widget _buildWeekSchedule() {
+    return WeekScheduleWidget(
+      startDay: DateTime.now().day,
+      currentStep: 3,
+      planTotalCount: 10,
+    );
+  }
+
+  Widget _buildMyPlanSection(BuildContext context, WorkoutPlanViewModel model) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Lộ trình của bạn",
+          style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        GestureDetector(
+          onTap: () => context.pushNamed(
+            'workout-plan-detail',
+            pathParameters: {'id': '${model.myPlan?.workoutPlan.planId}'},
+          ),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        model.myPlan?.workoutPlan.coverImage ?? ''),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                width: double.infinity,
+                height: (MediaQuery.of(context).size.width - 32) * 9 / 16,
+              ),
+              const SizedBox(width: 4),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      model.myPlan?.workoutPlan.planName ?? '',
+                      style: textTheme.bodyMedium,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      const Icon(LucideIcons.clock),
+                      Text('${model.myPlan?.workoutPlan.programDuration} Tuần')
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildRecommendedExercisesSection(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Bài tập được đề xuất",
+          style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        Consumer<ExerciseViewModel>(
+          builder: (context, viewModel, _) {
+            return ExperienceFilterWidget(
+              label: "",
+              options:
+                  ExperienceLevel.values.map((e) => e.vietnameseName).toList(),
+              onSelected: (value) {
+                final selectedLevel = ExperienceLevel.values
+                    .firstWhere((e) => e.vietnameseName == value);
+                viewModel.setExperienceLevel(selectedLevel.index);
+              },
+            );
+          },
+        ),
+        const SizedBox(height: 16),
+        Consumer<ExerciseViewModel>(
+          builder: (context, viewModel, _) {
+            final exercisesState = viewModel.exercises;
+            if (exercisesState.status == Status.LOADING) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (exercisesState.status == Status.ERROR) {
+              return Center(child: Text('Error: ${exercisesState.message}'));
+            } else if (exercisesState.status == Status.COMPLETED) {
+              final exercises = exercisesState.data;
+              if (exercises == null || exercises.exercises.isEmpty) {
+                return const Center(child: Text('No exercises found.'));
+              }
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: double.infinity,
+                  mainAxisExtent: 40,
+                  mainAxisSpacing: 12,
+                ),
+                itemCount: exercises.exercises.length,
+                itemBuilder: (context, index) {
+                  final data = exercises.exercises[index];
+                  return ExerciseTile(
+                    name: data.title,
+                    coverImage: data.coverImage,
+                  );
+                },
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
   }
 }
