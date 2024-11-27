@@ -1,7 +1,10 @@
+import 'package:fit_master/src/config/locator.dart';
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
 import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
 import 'package:fit_master/src/features/login/screens/login_screen.dart';
+import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/plan/screen/complete_plan_page.dart';
+import 'package:fit_master/src/features/plan/screen/next_practice_page.dart';
 import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
 import 'package:fit_master/src/features/plan/screen/user_workout_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_fitness_goal_page.dart';
@@ -17,7 +20,7 @@ import 'package:fit_master/src/features/workout_plan/screens/workout_plan_detail
 import 'package:fit_master/src/home_page.dart';
 import 'package:go_router/go_router.dart';
 
-// import '../src/features/welcome/screens/welcome_page_2.dart';
+final AuthViewModel authViewModel = AuthViewModel(authRepository: locator());
 
 final router = GoRouter(
   initialLocation: '/welcome',
@@ -106,10 +109,24 @@ final router = GoRouter(
       path: '/plan_complete',
       builder: (context, state) => const CompletePlanScreen(),
     ),
+    // GoRoute(
+    //   name: 'next_plan',
+    //   path: '/next_plan',
+    //   builder: (context, state) => const NextPracticeScreen(
+    //   ),
+    // ),
     GoRoute(
       name: 'profile',
       path: '/profile',
       builder: (context, state) => const UserWorkoutPage(),
     ),
   ],
+  redirect: (context, state) async {
+    final isLoggedIn = await authViewModel.isLoggedInApp();
+    final loggingIn = state.topRoute?.name == 'login';
+
+    if (!isLoggedIn && !loggingIn) return '/login';
+    if (isLoggedIn && loggingIn) return '/';
+    return null;
+  },
 );

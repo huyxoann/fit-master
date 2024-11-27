@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 class WorkoutRecommendViewmodel extends ChangeNotifier {
   final WorkoutPlanRepository workoutPlanRepository;
 
-  WorkoutRecommendViewmodel(this.workoutPlanRepository);
+  WorkoutRecommendViewmodel({required this.workoutPlanRepository});
 
   WorkoutPlan? _recommendedWorkoutPlan;
   List<WorkoutPlan>? _otherWorkoutPlans;

@@ -1,3 +1,4 @@
+import 'package:fit_master/src/features/welcome/viewmodel/workout_recommend_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +11,10 @@ class WorkoutRecommendScreen extends StatefulWidget {
 }
 
 class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
-  late WorkoutPlanViewModel _viewModel;
+  late WorkoutRecommendViewmodel _viewModel;
   @override
   void initState() {
-    _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
+    _viewModel = Provider.of<WorkoutRecommendViewmodel>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // _viewModel.fetchWorkoutCard('', 0.toString());
@@ -25,7 +26,7 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    return Consumer<WorkoutPlanViewModel>(
+    return Consumer<WorkoutRecommendViewmodel>(
       builder: (_, model, child) {
         if (model.isLoading) {
           return child ?? const SizedBox();
@@ -43,6 +44,7 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+
                     // WorkoutCard(model: model.workoutPlanDetail),
                   ],
                 ),

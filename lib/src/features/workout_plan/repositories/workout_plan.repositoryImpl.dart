@@ -56,9 +56,23 @@ class WorkoutPlanRepositoryImpl extends WorkoutPlanRepository {
 
   @override
   Future<WorkoutPlan?> fetchRecommendedWorkoutPlan(
-      int gender, int fitnessGoal, int age, double bmi) {
+      int gender, int fitnessGoal, int age, double bmi) async {
     try {
-      final response = _networkApiService.postApiResponse(url, data, token);
-    } catch (e) {}
+      final response = await _networkApiService.postApiResponse(
+        AppInfo.pythonUrl,
+        {"gender": gender, "fitnessGoal": fitnessGoal, "age": age, "bmi": bmi},
+        null,
+      );
+      logger.d("At fetchRecommendedWorkoutPlan: $response");
+      if (response is Map<String, dynamic>) {
+        int recommendedWorkoutPlanId = response['predictions'];
+        logger.d("At fetchRecommendedWorkoutPlan: $recommendedWorkoutPlanId");
+        return await fetchWorkoutPlanDetail(
+            "", recommendedWorkoutPlanId.toString());
+      }
+    } catch (e) {
+      logger.e("Error in fetchRecommendedWorkoutPlan: $e");
+    }
+    return null;
   }
 }

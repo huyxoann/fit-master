@@ -7,6 +7,7 @@ import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/login/viewmodel/user_view_model.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
+import 'package:fit_master/src/features/welcome/viewmodel/workout_recommend_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -38,8 +39,12 @@ void main() async {
           create: (context) => MyPlanViewModel(myPlanRepository: locator())),
       ChangeNotifierProvider(
         create: (context) => AuthViewModel(
-          authService: locator(),
           authRepository: locator(),
+        ),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => WorkoutRecommendViewmodel(
+          workoutPlanRepository: locator(),
         ),
       )
     ],
@@ -60,11 +65,6 @@ class MyApp extends StatelessWidget {
 
     MyAppTheme theme = MyAppTheme(textTheme);
 
-    // return MaterialApp.router(
-    //   title: 'Flutter Demo',
-    //   theme: theme.dark(),
-    //   routerConfig: router,
-    // );
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: theme.dark(),

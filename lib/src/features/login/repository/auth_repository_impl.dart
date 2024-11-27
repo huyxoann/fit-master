@@ -1,3 +1,4 @@
+import 'package:fit_master/src/config/auth_storage.dart';
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:fit_master/src/core/network/BaseApiService.dart';
@@ -35,6 +36,7 @@ class AuthRepositoryImpl extends AuthRepository {
           response['access_token'],
           response['user_id'],
         );
+        await AuthStorage().saveToken(response['access_token']);
         return true;
       }
     } catch (e) {

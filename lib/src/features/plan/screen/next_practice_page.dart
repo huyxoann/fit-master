@@ -39,6 +39,8 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     final currentExercise = widget.workoutDay?.exercises.isNotEmpty == true
         ? widget.workoutDay!.exercises[currentExerciseIndex]
         : null;
@@ -129,13 +131,16 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                     ),
                   ),
                   Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Text(
                         currentExercise!.name,
                         style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       )),
                   Padding(
                       padding:
@@ -265,15 +270,14 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                                 children: [
                                   Text(
                                     nextExercise.name,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: textTheme.bodyMedium,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
                                     child: Text(
                                       "${nextExercise.reps} reps",
                                       style: const TextStyle(
@@ -286,33 +290,22 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                                 ],
                               ),
                             ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 18, 129, 219),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        Icons.arrow_right_sharp,
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        size: 24,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Container(
+                            //   width: 40,
+                            //   height: 40,
+                            //   decoration: BoxDecoration(
+                            //     color: const Color.fromARGB(255, 18, 129, 219),
+                            //     borderRadius: BorderRadius.circular(8),
+                            //   ),
+                            //   child: IconButton(
+                            //     icon: const Icon(
+                            //       Icons.arrow_right_sharp,
+                            //       color: Color.fromARGB(255, 255, 255, 255),
+                            //       size: 24,
+                            //     ),
+                            //     onPressed: () {},
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

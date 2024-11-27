@@ -1,4 +1,5 @@
 import 'package:fit_master/src/config/logger/logger.dart';
+import 'package:fit_master/src/config/routes.dart';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/exercise.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
@@ -6,6 +7,7 @@ import 'package:fit_master/src/features/plan/screen/next_practice_page.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
 import 'package:intl/intl.dart';
@@ -288,6 +290,9 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                                                     .workoutDay[0],
                                                               )),
                                                     );
+                                                    // context.pushNamed(
+                                                    //     'next_plan'
+                                                    // );
                                                   }
                                                 : null,
                                             style: ElevatedButton.styleFrom(
