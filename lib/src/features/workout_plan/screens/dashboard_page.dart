@@ -5,6 +5,7 @@ import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/exercise/screen/widgets/filter.dart';
 import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/exercise/widgets/exercise_tile.dart';
+import 'package:fit_master/src/features/workout_plan/viewmodels/dashboard_exercise_list_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/widgets/week_schedule_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class WorkoutDashBoard extends StatefulWidget {
 class WorkoutDashBoardState extends State<WorkoutDashBoard> {
   late WorkoutPlanViewModel _viewModel;
   late ExerciseViewModel _exerciseViewModel;
+  late DashboardExerciseListViewmodel _dashboardExerciseListViewmodel;
 
   @override
   void initState() {
@@ -33,6 +35,13 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _exerciseViewModel.fetchExercises();
     });
+    _dashboardExerciseListViewmodel =
+        Provider.of<DashboardExerciseListViewmodel>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _dashboardExerciseListViewmodel
+          .fetchExerciseWithLevel(ExperienceLevel.Beginner.index);
+    });
+
     super.initState();
   }
 
@@ -151,7 +160,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
           "Bài tập được đề xuất",
           style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
-        Consumer<ExerciseViewModel>(
+        Consumer<DashboardExerciseListViewmodel>(
           builder: (context, viewModel, _) {
             return ExperienceFilterWidget(
               label: "",
@@ -160,13 +169,13 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
               onSelected: (value) {
                 final selectedLevel = ExperienceLevel.values
                     .firstWhere((e) => e.vietnameseName == value);
-                viewModel.setExperienceLevel(selectedLevel.index);
+                viewModel.fetchExerciseWithLevel(selectedLevel.index);
               },
             );
           },
         ),
         const SizedBox(height: 16),
-        Consumer<ExerciseViewModel>(
+        Consumer<DashboardExerciseListViewmodel>(
           builder: (context, viewModel, _) {
             final exercisesState = viewModel.exercises;
             if (exercisesState.status == Status.LOADING) {

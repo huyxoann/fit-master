@@ -30,4 +30,5 @@ class AppInfo {
   static const getListExerEndPoint = "$baseUrl/exercises/list";
   static const getMyPlan = "$baseUrl/workouts/my_plan/";
   static const getWorkoutPlanInfoForCard = "$baseUrl/workouts/get_for_card/";
+  static const getExerDetailEndPoint = "$baseUrl/exercises/";
 }

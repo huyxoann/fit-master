@@ -2,6 +2,7 @@ import 'package:fit_master/src/component/appbar.dart';
 import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:fit_master/src/core/exception/response/status.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../../core/models/enum.dart';
 import '../view_model/exercise.view_model.dart';
@@ -100,7 +101,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                         }
                         return GridView.builder(
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, // Set the number of columns
                             crossAxisSpacing:
                                 16, // Horizontal space between items
@@ -111,39 +112,53 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                           itemCount: exercises.exercises.length,
                           itemBuilder: (context, index) {
                             final data = exercises.exercises[index];
-                            return Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Using FadeInImage for image loading with placeholder
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                        12), // Apply border radius
-                                    child: SizedBox(
-                                      height: 160,
-                                      width: widthScreen * 0.44,
-                                      child: FadeInImage.assetNetwork(
-                                        placeholder:
-                                            'assets/images/placeholder.png', // placeholder image
-                                        image: data.coverImage,
-                                        fit: BoxFit.cover,
-                                        fadeInDuration:
-                                            const Duration(milliseconds: 300),
-                                        fadeOutDuration:
-                                            const Duration(milliseconds: 300),
+
+                            return GestureDetector(
+                              onTap: () => context.goNamed(
+                                'exerciseDetails',
+                                extra: {
+                                  'exerciseId': data.exerciseId,
+                                  'title': data.title,
+                                  'coverImage': data.coverImage,
+                                  'exerProfileId': data.exerProfileId,
+                                },
+                              ),
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Using FadeInImage for image loading with placeholder
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          12), // Apply border radius
+                                      child: SizedBox(
+                                        height: 160,
+                                        width: widthScreen * 0.44,
+                                        child: FadeInImage.assetNetwork(
+                                          placeholder:
+                                              'assets/images/placeholder.png', // placeholder image
+                                          image: data.coverImage,
+                                          fit: BoxFit.cover,
+                                          fadeInDuration:
+                                              const Duration(milliseconds: 300),
+                                          fadeOutDuration:
+                                              const Duration(milliseconds: 300),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    data.title,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                    overflow: TextOverflow
-                                        .ellipsis, // Prevent text overflow
-                                  ),
-                                ],
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      data.title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                      overflow: TextOverflow
+                                          .ellipsis, // Prevent text overflow
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },
