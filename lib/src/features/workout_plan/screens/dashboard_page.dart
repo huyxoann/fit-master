@@ -29,6 +29,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
 
   @override
   void initState() {
+    super.initState();
     _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchMyPlan();
@@ -44,8 +45,6 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
       _dashboardExerciseListViewmodel
           .fetchExerciseWithLevel(ExperienceLevel.Beginner.index);
     });
-
-    super.initState();
   }
 
   @override

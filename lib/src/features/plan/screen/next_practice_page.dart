@@ -1,8 +1,7 @@
-// import 'package:demo_app/model/user.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:neon_circular_timer/neon_circular_timer.dart';
 
 class NextPracticeScreen extends StatefulWidget {
   final WorkoutDay? workoutDay;
@@ -16,7 +15,6 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
   int currentExerciseIndex = 0;
   void showNextExercise() {
     setState(() {
-      // Kiểm tra nếu còn bài tập tiếp theo để hiển thị
       if (currentExerciseIndex <
           (widget.workoutDay?.exercises.length ?? 0) - 1) {
         currentExerciseIndex++;
@@ -28,11 +26,10 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
 
   void showPreviousExercise() {
     setState(() {
-      // Giảm chỉ số để quay lại bài tập trước đó
       if (currentExerciseIndex > 0) {
         currentExerciseIndex--;
       } else {
-        context.pushNamed('plan_today');
+        context.pop();
       }
     });
   }
@@ -60,50 +57,41 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                 children: [
                   TextButton.icon(
                     onPressed: () {
-                      context.pushNamed('plan_today');
+                      context.pop();
                     },
                     icon: const Icon(
-                      Icons.arrow_back_ios_outlined,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      size: 14,
-                    ), // Icon của nút
-                    label: const Text(
+                      LucideIcons.chevron_left,
+                      size: 20,
+                    ),
+                    label: Text(
                       'Trở lại',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color.fromARGB(255, 255, 255, 255), // Màu chữ
-                      ),
+                      style: textTheme.bodyMedium,
                     ),
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(8), // Độ cong của góc nút
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      // Xử lý khi nhấn nút
-                    },
+                    onPressed: () {},
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4), // Padding cho nút
+                          horizontal: 8, vertical: 4),
                     ),
                     child: const Row(
-                      mainAxisSize: MainAxisSize
-                          .min, // Đảm bảo Row không chiếm toàn bộ chiều rộng
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           'Chi tiết',
                           style: TextStyle(
                             fontSize: 14,
-                            color:
-                                Color.fromARGB(255, 255, 255, 255), // Màu chữ
+                            color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
-                        SizedBox(width: 4), // Khoảng cách giữa Text và Icon
+                        SizedBox(width: 4),
                         Icon(
                           Icons.contact_support_outlined,
                           color: Color.fromARGB(255, 255, 255, 255),
@@ -119,13 +107,12 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Center(
-                    child: Column(children: [
+                Column(children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
                       'https://cdn.muscleandstrength.com/sites/default/files/taxonomy/image/videos/abs_0.jpg',
-                      width: 250,
+                      width: 150,
                       height: 150,
                       fit: BoxFit.fitWidth,
                     ),
@@ -135,10 +122,7 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                           const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                       child: Text(
                         currentExercise!.name,
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: textTheme.bodyLarge,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       )),
@@ -151,66 +135,66 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       )),
                   Padding(
-                      padding:
-                          const EdgeInsetsDirectional.symmetric(vertical: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton(
-                            onPressed: showPreviousExercise,
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor: const Color.fromARGB(
-                                  255, 236, 61, 21), // Màu chữ trên button
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 10),
-                              textStyle: const TextStyle(fontSize: 18),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    8), // Thiết lập radius cố định ở đây
-                              ),
+                    padding:
+                        const EdgeInsetsDirectional.symmetric(vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: showPreviousExercise,
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor:
+                                const Color.fromARGB(255, 236, 61, 21),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10),
+                            textStyle: const TextStyle(fontSize: 18),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Text("Bài trước"),
                           ),
-                          const SizedBox(width: 20),
-                          nextExercise != null
-                              ? ElevatedButton(
-                                  onPressed: showNextExercise,
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.white,
-                                    backgroundColor: const Color.fromARGB(255,
-                                        18, 129, 219), // Màu chữ trên button
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30, vertical: 10),
-                                    textStyle: const TextStyle(fontSize: 18),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          8), // Thiết lập radius cố định ở đây
-                                    ),
+                          child: const Text("Bài trước"),
+                        ),
+                        const SizedBox(width: 20),
+                        nextExercise != null
+                            ? ElevatedButton(
+                                onPressed: showNextExercise,
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 18, 129, 219),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30, vertical: 10),
+                                  textStyle: const TextStyle(fontSize: 18),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Text("Bài tiếp"),
-                                )
-                              : ElevatedButton(
-                                  onPressed: showNextExercise,
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.white,
-                                    backgroundColor: const Color.fromARGB(255,
-                                        79, 156, 47), // Màu chữ trên button
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30, vertical: 10),
-                                    textStyle: const TextStyle(fontSize: 18),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          8), // Thiết lập radius cố định ở đây
-                                    ),
+                                ),
+                                child: const Text("Bài tiếp"),
+                              )
+                            : ElevatedButton(
+                                onPressed: showNextExercise,
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 79, 156, 47),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30, vertical: 10),
+                                  textStyle: const TextStyle(fontSize: 18),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Text("Hoàn thành"),
-                                )
-                        ],
-                      )),
-                ])),
+                                ),
+                                child: const Text("Hoàn thành"),
+                              )
+                      ],
+                    ),
+                  ),
+                ]),
               ],
             ),
             const Row(
@@ -285,40 +269,23 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                                             Color.fromARGB(255, 255, 255, 255),
                                         fontSize: 12,
                                       ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            // Container(
-                            //   width: 40,
-                            //   height: 40,
-                            //   decoration: BoxDecoration(
-                            //     color: const Color.fromARGB(255, 18, 129, 219),
-                            //     borderRadius: BorderRadius.circular(8),
-                            //   ),
-                            //   child: IconButton(
-                            //     icon: const Icon(
-                            //       Icons.arrow_right_sharp,
-                            //       color: Color.fromARGB(255, 255, 255, 255),
-                            //       size: 24,
-                            //     ),
-                            //     onPressed: () {},
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
                     ),
                   )
-                : const Padding(
+                : Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: Text(
                       "Đã hoàn thành các bài tập hôm nay",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 21, 133, 193),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      style: textTheme.bodyMedium,
                     ),
                   )
           ],

@@ -14,6 +14,7 @@ class MainWrapper extends StatefulWidget {
 
 class _MainWrapperState extends State<MainWrapper> {
   int selectedIndex = 0;
+  // Key _pageKey = ValueKey(0);
 
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
@@ -32,6 +33,7 @@ class _MainWrapperState extends State<MainWrapper> {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
+        // key: _pageKey,
         child: widget.navigationShell,
       ),
       bottomNavigationBar: !isHideBottomBar
@@ -41,6 +43,7 @@ class _MainWrapperState extends State<MainWrapper> {
               onTap: (index) {
                 setState(() {
                   selectedIndex = index;
+                  // _pageKey = ValueKey(index);
                 });
                 _goBranch(selectedIndex);
               },

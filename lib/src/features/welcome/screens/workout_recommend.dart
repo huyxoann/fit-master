@@ -15,8 +15,10 @@ class WorkoutRecommendScreen extends StatefulWidget {
 
 class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
   late WorkoutRecommendViewmodel _viewModel;
+
   @override
   void initState() {
+    super.initState();
     _viewModel = Provider.of<WorkoutRecommendViewmodel>(context, listen: false);
 
     var box = Hive.box('userDataBox');
@@ -27,12 +29,10 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
     double height = box.get('height');
     double weight = box.get('weight');
     double bmi = weight / (height / 100 * height / 100);
-    // final trainingLocation = box.get('trainingLocation');
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchRecommendedWorkoutPlan(gender, fitnessGoal, age, bmi);
     });
-    super.initState();
   }
 
   @override
@@ -42,52 +42,44 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
     return Consumer<WorkoutRecommendViewmodel>(
       builder: (_, model, child) {
         if (model.isLoading) {
-          return child ?? const SizedBox();
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (model.recommendedWorkoutPlan == null) {
+          return const Center(child: Text('No workout plan available.'));
         }
         return SafeArea(
           child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: colorScheme.surface,
-              elevation: 0,
-              leading: IconButton(
-                icon: const Icon(LucideIcons.chevron_left),
-                color: colorScheme.onSurface,
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              title: Text("Recommended Workout Plan",
+              appBar: AppBar(
+                backgroundColor: colorScheme.surface,
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(LucideIcons.chevron_left),
+                  color: colorScheme.onSurface,
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                title: Text(
+                  "Recommended Workout Plan",
                   style: textTheme.headlineMedium
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-              bottom: const PreferredSize(
-                preferredSize: Size.fromHeight(4.0),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: StepProgressIndicator(
-                    totalSteps: 5,
-                    roundedEdges: Radius.circular(12),
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(4.0),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: StepProgressIndicator(
+                      totalSteps: 5,
+                      roundedEdges: Radius.circular(12),
+                    ),
                   ),
                 ),
               ),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      'Đây là bài tập chúng tôi đề xuất cho bạn',
-                      style: textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    WorkoutCard(
-                      model: model.recommendedWorkoutPlan,
-                    )
-                    // WorkoutCard(model: model.workoutPlanDetail),
-                  ],
-                ),
-              ),
-            ),
-          ),
+              body: Column(
+                children: [
+                  Flexible(
+                    child: WorkoutCard(model: model.recommendedWorkoutPlan),
+                  ),
+                ],
+              )),
         );
       },
     );

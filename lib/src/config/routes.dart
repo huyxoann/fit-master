@@ -8,6 +8,7 @@ import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/main_wrapper.dart';
 import 'package:fit_master/src/features/options/screens/setting_screen.dart';
 import 'package:fit_master/src/features/plan/screen/complete_plan_page.dart';
+import 'package:fit_master/src/features/plan/screen/next_practice_page.dart';
 import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_fitness_goal_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_gender_page.dart';
@@ -23,6 +24,8 @@ import 'package:fit_master/src/features/workout_plan/screens/workout_plan_detail
 import 'package:fit_master/src/home_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+
+import '../features/plan/model/workout_day.dart';
 
 const bool isLoggedIn = true;
 
@@ -105,6 +108,15 @@ GoRouter router = GoRouter(
       name: 'login',
       path: '/login',
       builder: (context, state) => const LoginScreen(),
+    ),
+
+    GoRoute(
+      path: '/next_exercise',
+      name: 'next_exercise',
+      builder: (context, state) {
+        final workoutDay = state.extra as WorkoutDay;
+        return NextPracticeScreen(workoutDay: workoutDay);
+      },
     ),
 
     GoRoute(

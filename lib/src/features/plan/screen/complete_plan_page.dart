@@ -56,7 +56,7 @@ class _CompletePlanScreenState extends State<CompletePlanScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        context.pushNamed('home');
+                        context.goNamed('home');
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
@@ -72,25 +72,25 @@ class _CompletePlanScreenState extends State<CompletePlanScreen> {
                       ),
                       child: const Text("Trang chủ"),
                     ),
-                    const SizedBox(width: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.pushNamed('home');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromARGB(
-                            255, 180, 52, 6), // Màu chữ trên button
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 10),
-                        textStyle: const TextStyle(fontSize: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              8), // Thiết lập radius cố định ở đây
-                        ),
-                      ),
-                      child: const Text("Món Ăn"),
-                    ),
+                    // const SizedBox(width: 20),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     context.pushNamed('home');
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     foregroundColor: Colors.white,
+                    //     backgroundColor: const Color.fromARGB(
+                    //         255, 180, 52, 6), // Màu chữ trên button
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 30, vertical: 10),
+                    //     textStyle: const TextStyle(fontSize: 14),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(
+                    //           8), // Thiết lập radius cố định ở đây
+                    //     ),
+                    //   ),
+                    //   child: const Text("Món Ăn"),
+                    // ),
                   ],
                 )),
           ],

@@ -71,7 +71,8 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                 ),
                 TextButton(
                   onPressed: () {
-                   context.pop();
+                    // context.pop();
+                    context.goNamed('home');
                     _viewModel.chooseThisPlan(
                         _viewModel.workoutPlanDetail?.planId ?? 0);
                   },
@@ -83,6 +84,7 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
         );
       } else {
         _viewModel.chooseThisPlan(_viewModel.workoutPlanDetail?.planId ?? 0);
+        context.goNamed('home');
       }
     });
   }
@@ -106,7 +108,7 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
               onPressed: () => context.pop(),
             ),
             title: Text(
-              "Chi tiết bài tập",
+              "Chi tiết lộ trình",
               style: textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: colorScheme.onSurface,
@@ -358,7 +360,10 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                                       _viewModel.workoutPlanDetail?.planId
                                   ? null
                                   : () => _chooseThisPlan(),
-                              child: const Text("Chọn lộ trình"),
+                              child: Text(_myPlan?.workoutPlan.planId ==
+                                      _viewModel.workoutPlanDetail?.planId
+                                  ? "Đã chọn lộ trình này"
+                                  : "Chọn lộ trình này"),
                             ),
                           ),
                         ],
