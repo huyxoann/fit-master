@@ -18,7 +18,7 @@ class ExerciseViewModel extends ChangeNotifier {
 
   // Default selected filter values
   int _experienceLevel = 1;
-  int _targetMuscle = 1;
+  int _targetMuscle = 2;
   int _offset = 0;
 
   int get experienceLevel => _experienceLevel;
@@ -51,8 +51,7 @@ class ExerciseViewModel extends ChangeNotifier {
           experienceLevel: _experienceLevel,
           targetMuscle: _targetMuscle,
           offset: _offset,
-          token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInV1aWQiOiI2MTg2NzJhZS05MTg2LTRmMmItYjJiYS0xMzNlNjA2ZWFmMjgiLCJpYXQiOjE3MzE3OTI3MzcsImV4cCI6MTczMTgwMzUzN30.Pwg9E3gKgcXiWR_ELIBrogltcysYFHCTGutYAzlaYYU");
+          token: "");
       print("lay thanh cong ${response.exercises.length}");
       _exercises = ApiResponse.completed(response);
       logger.d("At exercise view model: ${response.exercises}");

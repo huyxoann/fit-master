@@ -10,6 +10,7 @@ import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:fit_master/src/features/welcome/viewmodel/workout_recommend_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/dashboard_exercise_list_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
+import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan_detail_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +52,11 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => DashboardExerciseListViewmodel(
           exerciseRepository: locator(),
+        ),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => WorkoutPlanDetailViewmodel(
+          repository: locator(),
         ),
       )
     ],

@@ -1,13 +1,15 @@
 import 'package:fit_master/src/component/appbar.dart';
-import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:fit_master/src/core/exception/response/status.dart';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/exercise/screen/widgets/filter.dart';
 import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/exercise/widgets/exercise_tile.dart';
+import 'package:fit_master/src/features/plan/model/workout_plan.dart';
+import 'package:fit_master/src/features/workout_plan/models/workout_summary.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/dashboard_exercise_list_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/widgets/week_schedule_widget.dart';
+import 'package:fit_master/src/features/workout_plan/widgets/workout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
@@ -30,6 +32,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
     _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchMyPlan();
+      _viewModel.fetchListWorkoutPlan("");
     });
     _exerciseViewModel = Provider.of<ExerciseViewModel>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -63,7 +66,10 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
                   const SizedBox(height: 16),
                   _buildWeekSchedule(),
                   const SizedBox(height: 16),
-                  if (model.myPlan != null) _buildMyPlanSection(context, model),
+                  model.myPlan != null
+                      ? _buildMyPlanSection(context, model)
+                      : Container(),
+                  _recommendPlan(context, model),
                   const SizedBox(height: 16),
                   _buildRecommendedExercisesSection(context),
                 ],
@@ -76,10 +82,39 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
     );
   }
 
+  Widget _recommendPlan(BuildContext context, WorkoutPlanViewModel model) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Lộ trình được đề xuất",
+          style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 200, // Set a fixed height
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: model.workoutPlans?.length ?? 0,
+            itemBuilder: (context, index) {
+              final data = model.workoutPlans?[index];
+              return Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: WorkoutCard(model: data),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildSearchField(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        hintText: 'Tìm kiếm...',
+        hintText: 'Search...',
         prefixIcon: const Icon(LucideIcons.search),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),

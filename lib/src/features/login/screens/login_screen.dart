@@ -31,6 +31,9 @@ class LoginScreenState extends State<LoginScreen> {
       if (model.isLoading) {
         return const Center(child: CircularProgressIndicator());
       }
+      if (model.isLoggedIn) {
+        GoRouter.of(context).go('/');
+      }
       return Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -126,10 +129,6 @@ class LoginScreenState extends State<LoginScreen> {
                         _usernameController.text,
                         _passwordController.text,
                       );
-
-                      if (model.isLoggedIn) {
-                        context.goNamed('home');
-                      }
                     }
                   },
                 ),

@@ -1,10 +1,14 @@
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/core/models/enum.dart';
+import 'package:fit_master/src/features/plan/model/my_plan.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
+import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
+import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan_detail_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../plan/model/exercise.dart';
@@ -21,14 +25,25 @@ class WorkoutPlanDetailPage extends StatefulWidget {
 }
 
 class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
-  late WorkoutPlanViewModel _viewModel;
+  late WorkoutPlanDetailViewmodel _viewModel;
+  late MyPlanViewModel _myPlanViewModel;
+  late MyPlan? _myPlan;
 
   @override
   void initState() {
-    _viewModel = Provider.of<WorkoutPlanViewModel>(context, listen: false);
+    _viewModel =
+        Provider.of<WorkoutPlanDetailViewmodel>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchWorkoutDetailById(widget.id);
+      _viewModel.checkHavePlan();
+    });
+
+    _myPlanViewModel = Provider.of<MyPlanViewModel>(context, listen: false);
+    _myPlan = _myPlanViewModel.myPlan;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _myPlanViewModel.fetchMyPlan();
+      _myPlan = _myPlanViewModel.myPlan;
     });
 
     logger.d("WorkoutPlanDetailPageState: ${widget.id}");
@@ -36,16 +51,53 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
     super.initState();
   }
 
+  _chooseThisPlan() {
+    _viewModel.checkHavePlan();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_viewModel.isHavePlan) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Confirm'),
+              content: const Text(
+                  'You already have a plan. Do you want to replace it with this one?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                   context.pop();
+                    _viewModel.chooseThisPlan(
+                        _viewModel.workoutPlanDetail?.planId ?? 0);
+                  },
+                  child: const Text('Confirm'),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        _viewModel.chooseThisPlan(_viewModel.workoutPlanDetail?.planId ?? 0);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Consumer<WorkoutPlanViewModel>(
+    return Consumer<WorkoutPlanDetailViewmodel>(
       builder: (_, model, child) {
         if (model.isLoading) {
           return child ?? const SizedBox();
         }
+
         List<WorkoutDay>? workoutDays = model.workoutPlanDetail?.workoutDay;
         return Scaffold(
           appBar: AppBar(
@@ -302,7 +354,10 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                         children: [
                           Expanded(
                             child: FilledButton(
-                              onPressed: () => context.pushNamed('home'),
+                              onPressed: _myPlan?.workoutPlan.planId ==
+                                      _viewModel.workoutPlanDetail?.planId
+                                  ? null
+                                  : () => _chooseThisPlan(),
                               child: const Text("Chọn lộ trình"),
                             ),
                           ),

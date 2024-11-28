@@ -33,6 +33,7 @@ class AuthViewModel extends ChangeNotifier {
     try {
       _isLoggedIn = await _authRepository.login(username, password);
       _errorMessage = null;
+      notifyListeners();
     } catch (e) {
       _errorMessage = e.toString();
     } finally {

@@ -1,233 +1,3 @@
-// import 'package:fit_master/src/config/locator.dart';
-// import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
-// import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
-// import 'package:fit_master/src/features/login/screens/login_screen.dart';
-// import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
-// import 'package:fit_master/src/features/plan/screen/complete_plan_page.dart';
-// import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
-// import 'package:fit_master/src/features/plan/screen/user_workout_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/choose_fitness_goal_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/choose_gender_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/choose_h_and_w_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/choose_input_type_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/choose_year_of_birth_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/create_profile.dart';
-// import 'package:fit_master/src/features/welcome/screens/training_location_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page.dart';
-// import 'package:fit_master/src/features/welcome/screens/workout_recommend.dart';
-// import 'package:fit_master/src/features/workout_plan/screens/workout_plan_detail_page.dart';
-// import 'package:fit_master/src/features/exercise/screen/exercise_detail.dart';
-// import 'package:fit_master/src/features/main_wrapper.dart';
-// import 'package:fit_master/src/home_page.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:flutter/material.dart';
-
-// final AuthViewModel authViewModel = AuthViewModel(authRepository: locator());
-
-// final _rootNavigatorKey = GlobalKey<NavigatorState>();
-// final _shellNavigatorHome = GlobalKey<NavigatorState>(debugLabel: 'shellHome');
-// final _shellNavigatorExercise =
-//     GlobalKey<NavigatorState>(debugLabel: 'shellExercise');
-// final _shellNavigatorSchedule =
-//     GlobalKey<NavigatorState>(debugLabel: 'shellSchedule');
-// final _shellNavigatorSettings =
-//     GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
-
-// final router = GoRouter(
-//   initialLocation: '/welcome',
-//   debugLogDiagnostics: true,
-//   navigatorKey: _rootNavigatorKey,
-//   routes: [
-//     GoRoute(
-//       name: 'home',
-//       path: '/',
-//       builder: (context, state) => const MyHomePage(title: "Home"),
-//     ),
-//     GoRoute(
-//       name: 'workout-plan-detail',
-//       path: '/workout-plan/:id',
-//       builder: (context, state) {
-//         final id = int.parse(state.pathParameters['id']!);
-//         return WorkoutPlanDetailPage(id: id);
-//       },
-//     ),
-//     GoRoute(
-//       name: 'welcome',
-//       path: '/welcome',
-//       builder: (context, state) => const WelcomePage(),
-//       routes: <RouteBase>[
-//         GoRoute(
-//           name: 'welcome-choose-input-type',
-//           path: '/choose-input-type',
-//           builder: (context, state) => const ChooseDataInputTypePage(),
-//         ),
-//         GoRoute(
-//           name: 'welcome-choose-gender',
-//           path: '/choose-gender',
-//           builder: (context, state) => const ChooseGenderPage(),
-//         ),
-//         GoRoute(
-//           name: 'welcome-choose-fitness-goal',
-//           path: '/choose-fitness-goal',
-//           builder: (context, state) => const ChooseFitnessGoalPage(),
-//         ),
-//         GoRoute(
-//           name: 'welcome-choose-year-of-birth',
-//           path: '/choose-year-of-birth',
-//           builder: (context, state) => const ChooseYearOrBirthPage(),
-//         ),
-//         GoRoute(
-//           name: 'welcome-choose-height-and-weight',
-//           path: '/height-and-weight',
-//           builder: (context, state) => const ChooseHAndWPage(),
-//         ),
-//         GoRoute(
-//           name: 'welcome-gym-location',
-//           path: '/gym-location',
-//           builder: (context, state) => const TrainingLocationPage(),
-//         ),
-//         GoRoute(
-//           name: 'welcome-create-profile',
-//           path: '/create-profile',
-//           builder: (context, state) => const LoadingScreen(),
-//         ),
-//         GoRoute(
-//           name: 'workout-recommendation',
-//           path: '/workout-recommendation',
-//           builder: (context, state) => const WorkoutRecommendScreen(),
-//         ),
-//       ],
-//     ),
-//     GoRoute(
-//       name: 'login',
-//       path: '/login',
-//       builder: (context, state) => const LoginScreen(),
-//     ),
-//     GoRoute(
-//       name: 'gym_nearby',
-//       path: '/gym_nearby',
-//       builder: (context, state) => const GymListScreen(),
-//     ),
-//     GoRoute(
-//       name: 'plan_today',
-//       path: '/plan_today',
-//       builder: (context, state) => const PlanTodayScreen(),
-//     ),
-//     GoRoute(
-//       name: 'plan_complete',
-//       path: '/plan_complete',
-//       builder: (context, state) => const CompletePlanScreen(),
-//     ),
-//     StatefulShellRoute.indexedStack(
-//       builder: (context, state, navigationShell) {
-//         return MainWrapper(
-//           navigationShell: navigationShell,
-//         );
-//       },
-//       branches: <StatefulShellBranch>[
-//         /// Brach Home
-//         StatefulShellBranch(
-//           navigatorKey: _shellNavigatorHome,
-//           routes: <RouteBase>[
-//             GoRoute(
-//               path: "/home",
-//               name: "Home",
-//               builder: (BuildContext context, GoRouterState state) => Center(
-//                 child: Container(
-//                   child: Text("Home"),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-
-//         /// Brach Setting
-//         StatefulShellBranch(
-//           navigatorKey: _shellNavigatorExercise,
-//           routes: <RouteBase>[
-//             GoRoute(
-//               path: "/exercises",
-//               name: "exercises",
-//               builder: (BuildContext context, GoRouterState state) =>
-//                   const ListExerciseScreen(),
-//               routes: [
-//                 GoRoute(
-//                   path: "details",
-//                   name: "exerciseDetails",
-//                   pageBuilder: (context, state) {
-//                     final extraData = state.extra as Map<dynamic, dynamic>;
-//                     final exerciseId = extraData['exerciseId'];
-//                     final title = extraData['title'];
-//                     final coverImage = extraData['coverImage'];
-//                     final exerProfileId = extraData['exerProfileId'];
-//                     return CustomTransitionPage<void>(
-//                       key: state.pageKey,
-//                       child: ExerciseDetailScreen(
-//                         exerciseId: exerciseId,
-//                         title: title,
-//                         coverImage: coverImage,
-//                         exerProfileId: exerProfileId,
-//                       ),
-//                       transitionsBuilder: (
-//                         context,
-//                         animation,
-//                         secondaryAnimation,
-//                         child,
-//                       ) =>
-//                           FadeTransition(opacity: animation, child: child),
-//                     );
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-
-//         StatefulShellBranch(
-//           navigatorKey: _shellNavigatorSchedule,
-//           routes: <RouteBase>[
-//             GoRoute(
-//               path: "/schedule",
-//               name: "schedule",
-//               builder: (BuildContext context, GoRouterState state) =>
-//                   const PlanTodayScreen(),
-//             ),
-//           ],
-//         ),
-
-//         StatefulShellBranch(
-//           navigatorKey: _shellNavigatorSettings,
-//           routes: <RouteBase>[
-//             GoRoute(
-//               path: "/setting",
-//               name: "setting",
-//               builder: (BuildContext context, GoRouterState state) =>
-//                   Center(child: Container(child: Text("Setting"))),
-//             ),
-//           ],
-//         ),
-//       ],
-//     ),
-//     GoRoute(
-//       name: 'profile',
-//       path: '/profile',
-//       builder: (context, state) => const UserWorkoutPage(),
-//     ),
-//   ],
-//   redirect: (context, state) async {
-//     final isLoggedIn = await authViewModel.isLoggedInApp();
-//     final loggingIn = state.topRoute?.name == 'login';
-
-//     if (!isLoggedIn && !loggingIn) return '/login';
-//     if (isLoggedIn && loggingIn) return '/';
-//     return null;
-//   },
-// );
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_3.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_4.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_5.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_6.dart';
-// import 'package:fit_master/src/features/welcome/screens/welcome_page_7.dart';
 import 'package:fit_master/src/config/extra/exercise_detail.dart';
 import 'package:fit_master/src/config/locator.dart';
 import 'package:fit_master/src/features/exercise/screen/exercise_detail.dart';
@@ -236,6 +6,7 @@ import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
 import 'package:fit_master/src/features/login/screens/login_screen.dart';
 import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/main_wrapper.dart';
+import 'package:fit_master/src/features/options/screens/setting_screen.dart';
 import 'package:fit_master/src/features/plan/screen/complete_plan_page.dart';
 import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_fitness_goal_page.dart';
@@ -253,77 +24,7 @@ import 'package:fit_master/src/home_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
-// import '../src/features/welcome/screens/welcome_page_2.dart';
-
-final bool isLoggedIn = true;
-
-// final router = GoRouter(
-//   initialLocation: isLoggedIn ? '/' : '/welcome/choose-year-of-birth',
-//   errorBuilder: (context, state ) => const Scaffold(body: Center(child: Text("Not found page"),),),
-//   routes: [
-//     GoRoute(
-//       name: 'home',
-//       path: '/',
-//       builder: (context, state) => const MyHomePage(title: "Home"),
-//     ),
-//     // GoRoute(
-//     //     name: 'welcome',
-//     //     path: '/welcome',
-//     //     builder: (context, state) => const WelcomePage2(),
-//     //     routes: <RouteBase>[
-//     //       GoRoute(
-//     //         name: 'welcome-choose-input-type',
-//     //         path: '/choose-input-type',
-//     //         builder: (context, state) => WelcomePage3(),
-//     //       ),
-//     //       GoRoute(
-//     //         name: 'welcome-choose-gender',
-//     //         path: '/choose-gender',
-//     //         builder: (context, state) => WelcomePage4(),
-//     //       ),
-//     //       GoRoute(
-//     //         name: 'welcome-choose-fitness-goal',
-//     //         path: '/choose-fitness-goal',
-//     //         builder: (context, state) => WelcomePage5(),
-//     //       ),
-//     //       GoRoute(
-//     //         name: 'welcome-choose-year-of-birth',
-//     //         path: '/choose-year-of-birth',
-//     //         builder: (context, state) => WelcomePage6(),
-//     //       ),
-//     //       GoRoute(
-//     //         name: 'welcome-choose-height-and-weight',
-//     //         path: '/height-and-weight',
-//     //         builder: (context, state) => WelcomePage7(),
-//     //       ),
-//     //     ]),
-//      GoRoute(
-//       name: 'exercises',
-//       path: '/exercises',
-//       builder: (context, state) => const ListExerciseScreen(),
-//       routes: [
-//         GoRoute(
-//           name: 'exerciseDetails',
-//           path: '/details',
-//           builder: (context, state) {
-//             final extraData = state.extra as Map<dynamic, dynamic>;
-//             final exerciseId = extraData['exerciseId'];
-//             final title = extraData['title'];
-//             final coverImage = extraData['coverImage'];
-//             final exerProfileId = extraData['exerProfileId'];
-
-//             return ExerciseDetailScreen(
-//               exerciseId: exerciseId,
-//               title: title,
-//               coverImage: coverImage,
-//               exerProfileId: exerProfileId,
-//             );
-//           },
-//         ),
-//       ],
-//     ),
-//   ],
-// );
+const bool isLoggedIn = true;
 
 const String initial = "/home";
 final AuthViewModel authViewModel = AuthViewModel(authRepository: locator());
@@ -429,19 +130,6 @@ GoRouter router = GoRouter(
               name: "home",
               builder: (BuildContext context, GoRouterState state) =>
                   const WorkoutDashBoard(),
-              // routes: [
-              //   GoRoute(
-              //     path: 'subHome',
-              //     name: 'subHome',
-              //     pageBuilder: (context, state) => CustomTransitionPage<void>(
-              //       key: state.pageKey,
-              //       child: const SubHomeView(),
-              //       transitionsBuilder:
-              //           (context, animation, secondaryAnimation, child) =>
-              //               FadeTransition(opacity: animation, child: child),
-              //     ),
-              //   ),
-              // ],
             ),
           ],
         ),
@@ -515,8 +203,7 @@ GoRouter router = GoRouter(
             GoRoute(
               path: "/setting",
               name: "setting",
-              builder: (BuildContext context, GoRouterState state) =>
-                  Center(child: Container(child: Text("Setting"))),
+              builder: (context, state) => const SettingScreen(),
             ),
           ],
         ),
@@ -527,7 +214,7 @@ GoRouter router = GoRouter(
     final isLoggedIn = await authViewModel.isLoggedInApp();
     final loggingIn = state.topRoute?.name == 'login';
 
-    if (!isLoggedIn && !loggingIn) return '/login';
+    if (!isLoggedIn && !loggingIn) return '/welcome';
     if (isLoggedIn && loggingIn) return '/';
     return null;
   },

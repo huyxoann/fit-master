@@ -29,7 +29,7 @@ class AuthRepositoryImpl extends AuthRepository {
         // throw Exception("Login failed, invalid credentials");
         return false;
       } else {
-        logger.d("API call successful, response: $response");
+        logger.d("API login successful, response: $response");
         await AuthService().saveUserData(
           username,
           password,

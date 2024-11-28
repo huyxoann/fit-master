@@ -12,10 +12,10 @@ class WorkoutCard {
 
   factory WorkoutCard.fromJson(Map<String, dynamic> json) {
     return WorkoutCard(
-      id: json['wp_plan_id'],
-      planName: json['wp_plan_name'],
-      coverImage: json['wp_cover_image'],
-      programDuration: json['ws_program_duration'],
+      id: json['wp_plan_id'] ?? json['plan_id'],
+      planName: json['wp_plan_name'] ?? json['plan_name'],
+      coverImage: json['wp_cover_image'] ?? json['cover_image'],
+      programDuration: json['ws_program_duration'] ?? json['program_duration'],
     );
   }
 }

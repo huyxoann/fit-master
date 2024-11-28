@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lucide/flutter_lucide.dart';
 
 class LabelTextExeProfile extends StatelessWidget {
   const LabelTextExeProfile(

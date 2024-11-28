@@ -18,14 +18,14 @@ class _ChooseYearOrBirthPageState extends State<ChooseYearOrBirthPage>
     implements HiveStorage {
   final yearOfBirthController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  int yearOfBirth = 2009; // Initialize with the current year
+  int yearOfBirth = 2009; // Initialize with the default year
   late FixedExtentScrollController scrollController;
 
   @override
   void initState() {
     super.initState();
     scrollController = FixedExtentScrollController(
-      initialItem: DateTime.now().year - 15,
+      initialItem: DateTime.now().year - 2009 - 15,
     );
   }
 

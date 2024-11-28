@@ -29,4 +29,15 @@ class WorkoutSummary {
       targetGender: Gender.values[json['ws_target']],
     );
   }
+  factory WorkoutSummary.fromJson2(Map<String, dynamic> json) {
+    return WorkoutSummary(
+      fitnessGoal: FitnessGoal.values[json['main_goal']],
+      programDuration: json['program_duration'],
+      workoutType: WorkoutType.values[json['workout_type']],
+      trainingLevel: ExperienceLevel.values[json['training_level']],
+      daysPerWeek: json['day_per_week'],
+      timePerWorkout: json['time_per_workout'],
+      targetGender: Gender.values[json['target_gender']],
+    );
+  }
 }

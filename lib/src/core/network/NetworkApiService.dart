@@ -39,7 +39,7 @@ class NetworkApiService extends BaseApisService {
     dynamic responseJson;
     try {
       final headers = {
-        HttpHeaders.authorizationHeader: 'Bearer $token',
+        HttpHeaders.authorizationHeader: '$token',
         HttpHeaders.contentTypeHeader: 'application/json',
       };
       Response response =

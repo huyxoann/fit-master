@@ -30,11 +30,17 @@ class WorkoutPlanViewModel extends ChangeNotifier {
   MyPlan? get myPlan => _myPlan;
 
   Future<void> fetchListWorkoutPlan(String token) async {
+    final boxe = await Hive.openBox('userDataBox');
+    int fitnessGoal = boxe.get('fitnessGoal') ?? 0;
+    logger.e("At workout plan: $fitnessGoal");
+
     _isLoading = true;
     notifyListeners();
 
     try {
-      _workoutPlans = await _repository.fetchListWorkoutPlan(token);
+      _workoutPlans =
+          await _repository.fetchListWorkoutPlan(token, fitnessGoal);
+      logger.d("At workout plan: ${_workoutPlans.toString()}");
     } catch (e) {
       // Handle error
     } finally {

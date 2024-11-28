@@ -91,8 +91,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                       if (exercisesState.status == Status.LOADING) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (exercisesState.status == Status.ERROR) {
-                        return Center(
-                            child: Text('Error: ${exercisesState.message}'));
+                        return const Center(child: Text('No exercises found.'));
                       } else if (exercisesState.status == Status.COMPLETED) {
                         final exercises = exercisesState.data;
                         if (exercises == null || exercises.exercises.isEmpty) {
@@ -101,7 +100,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                         }
                         return GridView.builder(
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, // Set the number of columns
                             crossAxisSpacing:
                                 16, // Horizontal space between items

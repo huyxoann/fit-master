@@ -1,6 +1,4 @@
-import 'package:fit_master/src/core/constants/app_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 
 class ExerciseTile extends StatelessWidget {

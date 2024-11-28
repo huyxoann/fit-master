@@ -26,7 +26,7 @@ class HeaderAppBarCanBack extends StatelessWidget {
                 icon: Icon(
                   Icons.arrow_back_ios_new, 
                   size: 24, 
-                  color: colorTheme.onBackground,
+                  color: colorTheme.onSurface,
                 ),
             ),
             // Tiêu đề ở giữa
@@ -39,7 +39,7 @@ class HeaderAppBarCanBack extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 20,)
+            const SizedBox(width: 20,)
           ],
         ),
       ),

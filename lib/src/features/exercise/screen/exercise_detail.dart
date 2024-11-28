@@ -92,7 +92,7 @@ class ExerciseDetailScreen extends StatelessWidget {
                                 Expanded(
                                   child: Container(
                                     height: 1,
-                                    color: colorTheme.onBackground,
+                                    color: colorTheme.onSurface,
                                   ),
                                 ),
                                 const Expanded(
@@ -107,7 +107,7 @@ class ExerciseDetailScreen extends StatelessWidget {
                                 Expanded(
                                   child: Container(
                                     height: 1,
-                                    color: colorTheme.onBackground,
+                                    color: colorTheme.onSurface,
                                   ),
                                 ),
                               ],
@@ -227,13 +227,13 @@ class ExerciseDetailScreen extends StatelessWidget {
                                     insets: EdgeInsets.symmetric(
                                         horizontal: widthScreen * 0.25)),
                               ),
-                              Container(
+                              SizedBox(
                                 height: 160, // Tab content height
                                 child: TabBarView(
                                   children: [
                                     // Tab 1: Hướng dẫn
                                     Padding(
-                                      padding: EdgeInsets.all(16.0),
+                                      padding: const EdgeInsets.all(16.0),
                                       child: SingleChildScrollView(
                                           child: ReadMoreText(
                                         exerciseDetail.instruction.join("\n"),
@@ -242,14 +242,14 @@ class ExerciseDetailScreen extends StatelessWidget {
                                         colorClickableText: Colors.pink,
                                         trimCollapsedText: 'Show more',
                                         trimExpandedText: 'Show less',
-                                        moreStyle: TextStyle(
+                                        moreStyle: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       )),
                                     ),
                                     // Tab 2: Mẹo
                                     Padding(
-                                      padding: EdgeInsets.all(16.0),
+                                      padding: const EdgeInsets.all(16.0),
                                       child: SingleChildScrollView(
                                           child: ReadMoreText(
                                         exerciseDetail.tip.join("\n"),
@@ -258,7 +258,7 @@ class ExerciseDetailScreen extends StatelessWidget {
                                         colorClickableText: Colors.pink,
                                         trimCollapsedText: 'Show more',
                                         trimExpandedText: 'Show less',
-                                        moreStyle: TextStyle(
+                                        moreStyle: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       )),

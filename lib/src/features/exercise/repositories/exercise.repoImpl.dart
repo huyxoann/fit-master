@@ -78,6 +78,7 @@ class ExerciseRepositoryImpl implements ExerciseRepository {
           'limit': limit.toString(),
         },
       );
+      
 
       logger.d("API call successful, response: $response");
       return GetListExerciseResponse.fromJson(response);

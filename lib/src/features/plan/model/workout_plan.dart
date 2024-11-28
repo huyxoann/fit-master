@@ -34,6 +34,18 @@ class WorkoutPlan {
     );
   }
 
+  factory WorkoutPlan.fromJsonList(Map<String, dynamic> json) {
+    return WorkoutPlan(
+      planId: json['plan_id'],
+      planName: json['plan_name'],
+      planDescription: json['plan_details'],
+      coverImage: json['cover_image'],
+      programDuration: json['program_duration'],
+      workoutDay: [],
+      workoutSummary: WorkoutSummary.fromJson2(json),
+    );
+  }
+
   @override
   String toString() {
     return 'WorkoutPlan(planId: $planId, planName: $planName, planDescription: $planDescription, workoutDay: $workoutDay, workoutSummary: $workoutSummary, coverImage: $coverImage, programDuration: $programDuration)';

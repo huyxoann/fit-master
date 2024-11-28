@@ -2,8 +2,6 @@ import 'package:flutter/widgets.dart';
 
 class AppInfo {
   static const baseUrl = 'http://192.168.1.3:3000/api';
-  
-  static const pythonUrl = 'http://192.168.1.9:5000/api';
 
   static double getScreenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
@@ -31,4 +29,5 @@ class AppInfo {
   static const getMyPlan = "$baseUrl/workouts/my_plan/";
   static const getWorkoutPlanInfoForCard = "$baseUrl/workouts/get_for_card/";
   static const getExerDetailEndPoint = "$baseUrl/exercises/";
+  static const getRecommendedWorkoutPlan = "$baseUrl/workouts/create_recommendation";
 }
