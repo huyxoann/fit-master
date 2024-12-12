@@ -6,6 +6,7 @@ import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.da
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/login/viewmodel/user_view_model.dart';
+import 'package:fit_master/src/features/options/viewmodel/setting_viewmodel.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:fit_master/src/features/welcome/viewmodel/workout_recommend_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/dashboard_exercise_list_viewmodel.dart';
@@ -58,7 +59,9 @@ void main() async {
         create: (context) => WorkoutPlanDetailViewmodel(
           repository: locator(),
         ),
-      )
+      ),
+      ChangeNotifierProvider(
+          create: (context) => SettingViewmodel(authService: locator()))
     ],
     child: const MyApp(),
   ));

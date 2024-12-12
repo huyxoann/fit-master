@@ -26,7 +26,7 @@ class AuthViewModel extends ChangeNotifier {
     return !isTokenExpired(token);
   }
 
-  Future<void> login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     _isLoading = true;
     notifyListeners();
 
@@ -34,8 +34,10 @@ class AuthViewModel extends ChangeNotifier {
       _isLoggedIn = await _authRepository.login(username, password);
       _errorMessage = null;
       notifyListeners();
+      return true;
     } catch (e) {
       _errorMessage = e.toString();
+      return false;
     } finally {
       _isLoading = false;
       notifyListeners();

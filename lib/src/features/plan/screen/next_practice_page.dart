@@ -282,7 +282,7 @@ class _NextPracticeScreenState extends State<NextPracticeScreen> {
                     ),
                   )
                 : Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: Text(
                       "Đã hoàn thành các bài tập hôm nay",
                       style: textTheme.bodyMedium,

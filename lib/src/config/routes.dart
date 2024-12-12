@@ -1,4 +1,3 @@
-import 'package:fit_master/src/config/extra/exercise_detail.dart';
 import 'package:fit_master/src/config/locator.dart';
 import 'package:fit_master/src/features/exercise/screen/exercise_detail.dart';
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
@@ -21,7 +20,6 @@ import 'package:fit_master/src/features/welcome/screens/welcome_page.dart';
 import 'package:fit_master/src/features/welcome/screens/workout_recommend.dart';
 import 'package:fit_master/src/features/workout_plan/screens/dashboard_page.dart';
 import 'package:fit_master/src/features/workout_plan/screens/workout_plan_detail_page.dart';
-import 'package:fit_master/src/home_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +43,7 @@ final _shellNavigatorSettings =
     GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
 
 GoRouter router = GoRouter(
-  initialLocation: '/welcome',
+  initialLocation: '/',
   debugLogDiagnostics: true,
   navigatorKey: _rootNavigatorKey,
   routes: [
@@ -222,12 +220,12 @@ GoRouter router = GoRouter(
       ],
     ),
   ],
-  redirect: (context, state) async {
-    final isLoggedIn = await authViewModel.isLoggedInApp();
-    final loggingIn = state.topRoute?.name == 'login';
+  // redirect: (context, state) async {
+  //   final isLoggedIn = await authViewModel.isLoggedInApp();
+  //   final loggingIn = state.topRoute?.name == 'login';
 
-    if (!isLoggedIn && !loggingIn) return '/welcome';
-    if (isLoggedIn && loggingIn) return '/';
-    return null;
-  },
+  //   if (!isLoggedIn && !loggingIn) return '/welcome';
+  //   if (isLoggedIn && loggingIn) return '/';
+  //   return null;
+  // },
 );

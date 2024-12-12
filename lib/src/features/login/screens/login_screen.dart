@@ -1,4 +1,5 @@
 import 'package:fit_master/src/component/primary_button.dart';
+import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -30,9 +31,6 @@ class LoginScreenState extends State<LoginScreen> {
     return Consumer<AuthViewModel>(builder: (_, model, child) {
       if (model.isLoading) {
         return const Center(child: CircularProgressIndicator());
-      }
-      if (model.isLoggedIn) {
-        GoRouter.of(context).go('/');
       }
       return Scaffold(
         body: Padding(
@@ -123,12 +121,19 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
                 PrimaryButton(
                   label: "Đăng nhập",
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
-                      model.login(
+                      final isLoginSuccess = await model.login(
                         _usernameController.text,
                         _passwordController.text,
                       );
+                      if (isLoginSuccess) {
+                        context.goNamed('home');
+                      } else {
+                        if (mounted) {
+                          logger.e(model.errorMessage ?? "Error");
+                        }
+                      }
                     }
                   },
                 ),

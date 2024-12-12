@@ -1,4 +1,3 @@
-import 'package:fit_master/src/config/auth_storage.dart';
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/plan/model/workout_plan.dart';
 import 'package:fit_master/src/features/workout_plan/repositories/workout_plan.repository.dart';

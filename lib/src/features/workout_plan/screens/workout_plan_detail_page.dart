@@ -3,12 +3,10 @@ import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/my_plan.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
-import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan_detail_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../plan/model/exercise.dart';

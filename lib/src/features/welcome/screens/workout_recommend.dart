@@ -32,6 +32,7 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchRecommendedWorkoutPlan(gender, fitnessGoal, age, bmi);
+      _viewModel.fetchListWorkoutPlan("");
     });
   }
 
@@ -73,12 +74,38 @@ class _WorkoutRecommendScreenState extends State<WorkoutRecommendScreen> {
                   ),
                 ),
               ),
-              body: Column(
-                children: [
-                  Flexible(
-                    child: WorkoutCard(model: model.recommendedWorkoutPlan),
-                  ),
-                ],
+              body: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Đề xuất cho bạn",
+                      style: textTheme.headlineSmall,
+                    ),
+                    Flexible(
+                      child: WorkoutCard(model: model.recommendedWorkoutPlan),
+                    ),
+                    Text(
+                      "Các bài tập khác",
+                      style: textTheme.headlineSmall,
+                    ),
+                    SizedBox(
+                      height: 200, // Set a fixed height
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: model.otherWorkoutPlans?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          final data = model.otherWorkoutPlans?[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: WorkoutCard(model: data),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               )),
         );
       },
