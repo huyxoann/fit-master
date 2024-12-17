@@ -21,4 +21,9 @@ class MyPlan {
       completedSession: json['completed_session'],
     );
   }
+
+  @override
+  String toString() {
+    return 'MyPlan(userId: $userId, workoutPlan: $workoutPlan, startDate: $startDate, completedSession: $completedSession)';
+  }
 }

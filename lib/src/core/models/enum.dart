@@ -360,12 +360,12 @@ extension FitnessGoalExt on FitnessGoal {
 
 enum DayOfWeek {
   Monday,
-  Wednesday,
-  Friday,
-  Sunday,
   Tuesday,
+  Wednesday,
   Thursday,
-  Saturday
+  Friday,
+  Saturday,
+  Sunday,
 }
 
 extension DayOfWeekExtension on DayOfWeek {

@@ -34,4 +34,8 @@ class MyPlanViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> refreshMyPlan() async {
+    await fetchMyPlan();
+  }
 }

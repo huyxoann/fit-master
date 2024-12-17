@@ -16,14 +16,14 @@ class SettingScreen extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to logout?'),
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -31,7 +31,7 @@ class SettingScreen extends StatelessWidget {
                 context.goNamed('login');
                 Provider.of<SettingViewmodel>(context, listen: false).logout();
               },
-              child: Text('Logout'),
+              child: const Text('Logout'),
             ),
           ],
         );
@@ -44,20 +44,20 @@ class SettingScreen extends StatelessWidget {
     return Consumer<SettingViewmodel>(
       builder: (_, model, child) {
         return Scaffold(
-          appBar: FitnessAppBar(streak: 0),
+          appBar: const FitnessAppBar(streak: 0),
           body: Column(
             children: [
               ListTile(
-                leading: Icon(LucideIcons.circle_user_round),
-                title: Text('Profile'),
+                leading: const Icon(LucideIcons.circle_user_round),
+                title: const Text('Profile'),
                 onTap: () {},
               ),
               ListTile(
-                title: Text('Workout Perference'),
+                title: const Text('Workout Perference'),
                 onTap: () {},
               ),
               ListTile(
-                title: Text('Logout'),
+                title: const Text('Logout'),
                 onTap: () => _showLogoutConfirmation(context),
               ),
             ],

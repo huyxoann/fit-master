@@ -16,4 +16,9 @@ class Exercise {
       reps: json['ed_reps'] ?? [0, 0],
     );
   }
+
+  @override
+  String toString() {
+    return 'Exercise{name: $name, sets: $sets, reps: $reps}';
+  }
 }

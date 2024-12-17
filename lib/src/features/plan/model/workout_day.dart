@@ -29,4 +29,9 @@ class WorkoutDay {
           .toList(),
     );
   }
+
+  @override
+  String toString() {
+    return 'WorkoutDay{workoutDayId: $workoutDayId, workoutDayName: $workoutDayName, dayOfWeek: $dayOfWeek, exercises: $exercises}';
+  }
 }

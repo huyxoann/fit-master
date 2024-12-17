@@ -7,7 +7,7 @@ import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/main_wrapper.dart';
 import 'package:fit_master/src/features/options/screens/setting_screen.dart';
 import 'package:fit_master/src/features/plan/screen/complete_plan_page.dart';
-import 'package:fit_master/src/features/plan/screen/next_practice_page.dart';
+import 'package:fit_master/src/features/plan/screen/doing_exercise_page.dart';
 import 'package:fit_master/src/features/plan/screen/plan_today_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_fitness_goal_page.dart';
 import 'package:fit_master/src/features/welcome/screens/choose_gender_page.dart';
@@ -111,9 +111,15 @@ GoRouter router = GoRouter(
     GoRoute(
       path: '/next_exercise',
       name: 'next_exercise',
+      // builder: (context, state) {
+      //   final workoutDay = state.extra as WorkoutDay;
+      //   return NextPracticeScreen(workoutDay: workoutDay);
+      // },
       builder: (context, state) {
-        final workoutDay = state.extra as WorkoutDay;
-        return NextPracticeScreen(workoutDay: workoutDay);
+        final todayWorkout = state.extra as WorkoutDay;
+        return DoingExercisePage(
+          todayWorkout: todayWorkout,
+        );
       },
     ),
 
