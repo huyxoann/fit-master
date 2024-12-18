@@ -31,7 +31,7 @@ Future<Position?> _getCurrentLocation() async {
 }
 
 Future<List<dynamic>> getNearbyGyms(double latitude, double longitude) async {
-  const String apiKey = 'AlzaSykrTZNB6QxDEY7NmEtJhtp6WcqLFEMDuIK';
+  const String apiKey = 'AlzaSyS5pphQelruymLECcL2-v7c7lcScAwnM_k';
   final String url =
       'https://maps.gomaps.pro/maps/api/place/nearbysearch/json?location=$latitude,$longitude&radius=4000&type=gym&key=$apiKey';
 

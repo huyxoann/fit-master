@@ -462,3 +462,12 @@ extension WorkoutTypeExt on WorkoutType {
     }
   }
 }
+
+enum StepType {
+  exercise,
+  rest,
+  superset,
+  circuit,
+  warmup,
+  cooldown,
+}

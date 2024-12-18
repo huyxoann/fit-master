@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class AppInfo {
-  static const baseUrl = 'http://192.168.1.4:3000/api';
+  static const baseUrl = 'http://192.168.1.14:3000/api';
 
   static double getScreenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;

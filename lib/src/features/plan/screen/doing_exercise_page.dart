@@ -1,4 +1,5 @@
 import 'package:fit_master/src/config/logger/logger.dart';
+import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
 import 'package:fit_master/src/features/plan/viewmodel/doing_exercise_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class _DoingExercisePageState extends State<DoingExercisePage> {
                           IconButton(
                             icon: const Icon(LucideIcons.x),
                             onPressed: () {
-                              context.pop();
+                              showLeaveConfirm(context);
                             },
                             color: colorScheme.onSurface,
                           ),
@@ -149,6 +150,32 @@ class _DoingExercisePageState extends State<DoingExercisePage> {
                           ),
                           Consumer<DoingExerciseViewModel>(
                             builder: (context, value, child) {
+                              if (value.steps[value.currentStep].type ==
+                                  StepType.rest) {
+                                if (value.restSeconds <= 0) {
+                                  value.incrementStep(context);
+                                }
+                                return Text(
+                                  '${value.restSeconds ~/ 60}:${(value.restSeconds % 60).toString().padLeft(2, '0')}',
+                                  style: textTheme.headlineLarge?.copyWith(
+                                    color: colorScheme.onSurface,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+                              }
+                              if (value.steps[value.currentStep].type ==
+                                  StepType.cooldown) {
+                                if (value.restSeconds <= 0) {
+                                  value.incrementStep(context);
+                                }
+                                return Text(
+                                  '${value.restSeconds ~/ 60}:${(value.restSeconds % 60).toString().padLeft(2, '0')}',
+                                  style: textTheme.headlineLarge?.copyWith(
+                                    color: colorScheme.onSurface,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+                              }
                               return Text(
                                 'x ${value.steps[value.currentStep].reps.toString()}',
                                 style: textTheme.headlineLarge?.copyWith(
@@ -207,6 +234,35 @@ class _DoingExercisePageState extends State<DoingExercisePage> {
               },
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void showLeaveConfirm(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Exit'),
+          content: const Text(
+              'Do you want to exit? All exercises you have done will not save.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                context.pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                context.pop();
+                context.pop();
+                context.pop();
+              },
+              child: const Text('Leave'),
+            ),
+          ],
         );
       },
     );

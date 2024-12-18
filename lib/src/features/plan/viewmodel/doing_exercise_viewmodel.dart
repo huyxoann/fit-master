@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/step.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
 import 'package:flutter/material.dart';
@@ -15,18 +16,41 @@ class DoingExerciseViewModel extends ChangeNotifier {
   int _elapsedSeconds = 0;
   int get elapsedSeconds => _elapsedSeconds;
 
+  Timer? _restTimer;
+  int _restSeconds = 0;
+  int get restSeconds => _restSeconds;
+
+  StepType _stepType = StepType.exercise;
+  StepType get stepType => _stepType;
+
   void generateSteps(WorkoutDay workoutDay) {
     List<StepExercise> steps = [];
-    workoutDay.exercises.forEach((exercise) {
+    for (var exercise in workoutDay.exercises) {
       for (int i = 0; i < exercise.sets; i++) {
         steps.add(
           StepExercise(
             title: exercise.name,
             reps: exercise.reps[i] ?? exercise.reps.last,
+            type: StepType.exercise,
+          ),
+        );
+        steps.add(
+          StepExercise(
+            title: 'Take a break',
+            reps: 0,
+            type: StepType.cooldown,
           ),
         );
       }
-    });
+      steps.removeLast();
+      steps.add(
+        StepExercise(
+          title: 'Take a rest',
+          reps: 0,
+          type: StepType.rest,
+        ),
+      );
+    }
     _steps = steps;
 
     _startTimer();
@@ -46,9 +70,39 @@ class DoingExerciseViewModel extends ChangeNotifier {
     _timer?.cancel();
   }
 
+  void startRestTimer(int totalRestSeconds) {
+    _restSeconds = totalRestSeconds;
+    _restTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_restSeconds > 0) {
+        _restSeconds--;
+        notifyListeners();
+      } else {
+        stopRestTimer();
+      }
+    });
+  }
+
+  void stopRestTimer() {
+    _restTimer?.cancel();
+  }
+
+  void resetRestTimer(int totalRestSeconds) {
+    stopRestTimer();
+    startRestTimer(totalRestSeconds);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+  }
+
   void incrementStep(BuildContext context) {
     if (_currentStep < _steps.length - 1) {
       _currentStep++;
+      _stepType = _steps[_currentStep].type;
+      if (_stepType == StepType.rest) {
+        resetRestTimer(45);
+      } else if (_stepType == StepType.cooldown) {
+        resetRestTimer(15);
+      }
       WidgetsBinding.instance.addPostFrameCallback((_) {
         notifyListeners();
       });
@@ -63,6 +117,12 @@ class DoingExerciseViewModel extends ChangeNotifier {
   void decrementStep() {
     if (_currentStep > 0) {
       _currentStep--;
+      _stepType = _steps[_currentStep].type;
+      if (_stepType == StepType.rest) {
+        resetRestTimer(45);
+      } else if (_stepType == StepType.cooldown) {
+        resetRestTimer(15);
+      }
       WidgetsBinding.instance.addPostFrameCallback((_) {
         notifyListeners();
       });
@@ -89,6 +149,7 @@ class DoingExerciseViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _stopTimer();
+    stopRestTimer();
     super.dispose();
   }
 }
