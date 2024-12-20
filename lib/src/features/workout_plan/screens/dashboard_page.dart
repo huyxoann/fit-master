@@ -4,6 +4,8 @@ import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/exercise/screen/widgets/filter.dart';
 import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/exercise/widgets/exercise_tile.dart';
+import 'package:fit_master/src/features/plan/model/workout_history.dart';
+import 'package:fit_master/src/features/plan/services/workout_history_service.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/dashboard_exercise_list_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/widgets/week_schedule_widget.dart';
@@ -32,6 +34,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchMyPlan();
       _viewModel.fetchListWorkoutPlan("");
+      _viewModel.getWorkoutHistories();
     });
     _exerciseViewModel = Provider.of<ExerciseViewModel>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -61,7 +64,14 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
                 children: [
                   _buildSearchField(context),
                   const SizedBox(height: 16),
-                  _buildWeekSchedule(),
+                  model.myPlan != null
+                      ? _buildWeekSchedule(
+                          model.workoutHistories,
+                          model.myPlan?.workoutPlan.programDuration ?? 1,
+                          model.myPlan?.workoutPlan.workoutSummary
+                                  .daysPerWeek ??
+                              0)
+                      : Container(),
                   const SizedBox(height: 16),
                   model.myPlan != null
                       ? _buildMyPlanSection(context, model)
@@ -122,11 +132,16 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
     );
   }
 
-  Widget _buildWeekSchedule() {
+  Widget _buildWeekSchedule(List<WorkoutHistory> workoutHistories,
+      int programDuration, int currentStep) {
+    int mondayDate =
+        DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).day;
+
     return WeekScheduleWidget(
-      startDay: DateTime.now().day,
-      currentStep: 3,
-      planTotalCount: 10,
+      startDay: mondayDate,
+      currentStep: currentStep,
+      planTotalCount: programDuration,
+      workoutHistories: workoutHistories,
     );
   }
 

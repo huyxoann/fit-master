@@ -1,7 +1,9 @@
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/plan/model/my_plan.dart';
+import 'package:fit_master/src/features/plan/model/workout_history.dart';
 import 'package:fit_master/src/features/plan/model/workout_plan.dart';
 import 'package:fit_master/src/features/plan/repository/my_plan.repository.dart';
+import 'package:fit_master/src/features/plan/services/workout_history_service.dart';
 import 'package:fit_master/src/features/workout_plan/models/workout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_master/src/features/workout_plan/repositories/workout_plan.repository.dart';
@@ -29,6 +31,8 @@ class WorkoutPlanViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   MyPlan? get myPlan => _myPlan;
 
+  List<WorkoutHistory> workoutHistories = [];
+
   Future<void> fetchListWorkoutPlan(String token) async {
     final boxe = await Hive.openBox('userDataBox');
     int fitnessGoal = boxe.get('fitnessGoal') ?? 0;
@@ -47,6 +51,12 @@ class WorkoutPlanViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> getWorkoutHistories() async {
+    WorkoutHistoryService workoutHistoryService = WorkoutHistoryService();
+    workoutHistories = await workoutHistoryService.getWorkoutHistory();
+    notifyListeners();
   }
 
   Future<void> fetchWorkoutCard() async {

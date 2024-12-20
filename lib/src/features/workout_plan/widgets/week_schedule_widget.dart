@@ -1,4 +1,5 @@
 import 'package:fit_master/src/core/models/trophy_state_enum.dart';
+import 'package:fit_master/src/features/plan/model/workout_history.dart';
 import 'package:fit_master/src/features/workout_plan/widgets/cup_wigdet.dart';
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -7,11 +8,14 @@ class WeekScheduleWidget extends StatelessWidget {
   final int startDay;
   final int planTotalCount;
   final int currentStep;
-  const WeekScheduleWidget(
-      {super.key,
-      required this.planTotalCount,
-      required this.currentStep,
-      required this.startDay});
+  final List<WorkoutHistory> workoutHistories;
+  const WeekScheduleWidget({
+    super.key,
+    required this.planTotalCount,
+    required this.currentStep,
+    required this.startDay,
+    required this.workoutHistories,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class WeekScheduleWidget extends StatelessWidget {
                 style: textTheme.titleSmall,
               ),
               Text(
-                '1/3',
+                '${workoutHistories.map((e) => e.date.day > startDay).length}/$currentStep',
                 style: textTheme.titleSmall,
               ),
             ],
@@ -37,15 +41,7 @@ class WeekScheduleWidget extends StatelessWidget {
           const SizedBox(width: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CupWidget(day: startDay, state: TrophyStateEnum.completed),
-              CupWidget(day: startDay + 1, state: TrophyStateEnum.notCompleted),
-              CupWidget(day: startDay + 2, state: TrophyStateEnum.today),
-              CupWidget(day: startDay + 3, state: TrophyStateEnum.notCompleted),
-              CupWidget(day: startDay + 4, state: TrophyStateEnum.notCompleted),
-              CupWidget(day: startDay + 5, state: TrophyStateEnum.notCompleted),
-              CupWidget(day: startDay + 6, state: TrophyStateEnum.notCompleted),
-            ],
+            children: _buildCup,
           ),
           const SizedBox(width: 4),
           Row(
@@ -59,7 +55,7 @@ class WeekScheduleWidget extends StatelessWidget {
               Expanded(
                 child: StepProgressIndicator(
                   totalSteps: planTotalCount,
-                  currentStep: currentStep,
+                  currentStep: workoutHistories.length,
                   selectedColor: colorScheme.primary,
                   unselectedColor: colorScheme.surfaceContainerHighest,
                   size: 12,
@@ -72,5 +68,19 @@ class WeekScheduleWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<Widget> get _buildCup {
+    return [
+      for (int i = 0; i < 7; i++)
+        CupWidget(
+            day: startDay + i,
+            state: workoutHistories
+                    .map((e) => e.date.day)
+                    .toList()
+                    .contains(startDay + i)
+                ? TrophyStateEnum.completed
+                : TrophyStateEnum.notCompleted),
+    ];
   }
 }

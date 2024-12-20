@@ -28,7 +28,7 @@ class Exercise {
       exerProfileId: json['exer_profile_id'],
       instruction: List<String>.from(json['instruction']),
       tip: List<String>.from(json['tip']),
-      coverImage: json['cover_image'],
+      coverImage: json['cover_image'] ?? 'https://placehold.co/400',
       isDelete: json['is_delete'],
       exerciseProfile: ExerciseProfile.fromJson(json['exercise_profile']),
     );

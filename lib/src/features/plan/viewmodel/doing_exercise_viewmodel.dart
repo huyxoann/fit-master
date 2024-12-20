@@ -3,10 +3,14 @@ import 'dart:async';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/step.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
+import 'package:fit_master/src/features/plan/model/workout_history.dart';
+import 'package:fit_master/src/features/plan/services/workout_history_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DoingExerciseViewModel extends ChangeNotifier {
+  WorkoutHistoryService _workoutHistoryService = WorkoutHistoryService();
+
   List<StepExercise> _steps = [];
   List<StepExercise> get steps => _steps;
   int _currentStep = 0;
@@ -94,7 +98,7 @@ class DoingExerciseViewModel extends ChangeNotifier {
     });
   }
 
-  void incrementStep(BuildContext context) {
+  void incrementStep(BuildContext context) async {
     if (_currentStep < _steps.length - 1) {
       _currentStep++;
       _stepType = _steps[_currentStep].type;
@@ -108,9 +112,13 @@ class DoingExerciseViewModel extends ChangeNotifier {
       });
     } else {
       _stopTimer();
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.pushNamed('plan_complete');
-      });
+      await _workoutHistoryService.addWorkoutHistory(
+        WorkoutHistory(
+          date: DateTime.now(),
+          status: WorkoutStatusEnum.completed,
+        ),
+      );
+      context.pushNamed('plan_complete');
     }
   }
 
@@ -138,11 +146,15 @@ class DoingExerciseViewModel extends ChangeNotifier {
     });
   }
 
-  void checkAndNavigate(BuildContext context) {
-    if (_currentStep >= _steps.length) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.pushNamed('plan_complete');
-      });
+  void checkAndNavigate(BuildContext context) async {
+    if (_currentStep >= _steps.length && context.mounted) {
+      await _workoutHistoryService.addWorkoutHistory(
+        WorkoutHistory(
+          date: DateTime.now(),
+          status: WorkoutStatusEnum.completed,
+        ),
+      );
+      context.pushNamed('plan_complete');
     }
   }
 
