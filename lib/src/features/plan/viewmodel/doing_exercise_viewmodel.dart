@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DoingExerciseViewModel extends ChangeNotifier {
-  WorkoutHistoryService _workoutHistoryService = WorkoutHistoryService();
+  final WorkoutHistoryService _workoutHistoryService = WorkoutHistoryService();
 
   List<StepExercise> _steps = [];
   List<StepExercise> get steps => _steps;

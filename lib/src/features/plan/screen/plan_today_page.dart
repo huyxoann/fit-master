@@ -2,6 +2,7 @@ import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/exercise.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
+import 'package:fit_master/src/features/plan/model/workout_history.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
@@ -29,6 +30,7 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
     _viewModel = Provider.of<MyPlanViewModel>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel.fetchMyPlan();
+      _viewModel.getWorkoutHistories();
     });
   }
 
@@ -230,42 +232,49 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                             const SizedBox(height: 12),
                                             ElevatedButton(
                                               onPressed: dayOfWeek ==
-                                                      currentdayOfWeek
+                                                          currentdayOfWeek &&
+                                                      model.workoutHistory
+                                                          .contains(
+                                                        WorkoutHistory(
+                                                            date: selectedDate,
+                                                            status:
+                                                                WorkoutStatusEnum
+                                                                    .completed),
+                                                      )
                                                   ? () async {
-                                                      showDialog(
-                                                        context: context,
-                                                        barrierDismissible:
-                                                            false,
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 52,
-                                                              height: 52,
-                                                              child:
-                                                                  LoadingIndicator(
-                                                                indicatorType:
-                                                                    Indicator
-                                                                        .ballScale,
-                                                                colors: [
-                                                                  colorScheme
-                                                                      .primaryContainer
-                                                                ],
-                                                                strokeWidth:
-                                                                    1.0,
-                                                                pathBackgroundColor:
-                                                                    colorScheme
-                                                                        .surface,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-
                                                       context.pushNamed(
                                                         'next_exercise',
                                                         extra: todayWorkoutDay,
                                                       );
+                                                      // showDialog(
+                                                      //   context: context,
+                                                      //   barrierDismissible:
+                                                      //       false,
+                                                      //   builder: (BuildContext
+                                                      //       context) {
+                                                      //     return Center(
+                                                      //       child: SizedBox(
+                                                      //         width: 52,
+                                                      //         height: 52,
+                                                      //         child:
+                                                      //             LoadingIndicator(
+                                                      //           indicatorType:
+                                                      //               Indicator
+                                                      //                   .ballScale,
+                                                      //           colors: [
+                                                      //             colorScheme
+                                                      //                 .primaryContainer
+                                                      //           ],
+                                                      //           strokeWidth:
+                                                      //               1.0,
+                                                      //           pathBackgroundColor:
+                                                      //               colorScheme
+                                                      //                   .surface,
+                                                      //         ),
+                                                      //       ),
+                                                      //     );
+                                                      //   },
+                                                      // );
                                                     }
                                                   : null,
                                               style: ElevatedButton.styleFrom(

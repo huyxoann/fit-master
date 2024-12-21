@@ -19,7 +19,7 @@ class DoingExercisePage extends StatefulWidget {
 }
 
 class _DoingExercisePageState extends State<DoingExercisePage> {
-  WorkoutHistoryService _workoutHistoryService = WorkoutHistoryService();
+  final WorkoutHistoryService _workoutHistoryService = WorkoutHistoryService();
   late DoingExerciseViewModel _viewmodel;
   late String imageUrl;
 

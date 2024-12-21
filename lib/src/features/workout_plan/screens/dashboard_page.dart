@@ -5,7 +5,6 @@ import 'package:fit_master/src/features/exercise/screen/widgets/filter.dart';
 import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.dart';
 import 'package:fit_master/src/features/exercise/widgets/exercise_tile.dart';
 import 'package:fit_master/src/features/plan/model/workout_history.dart';
-import 'package:fit_master/src/features/plan/services/workout_history_service.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/dashboard_exercise_list_viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/viewmodels/workout_plan.viewmodel.dart';
 import 'package:fit_master/src/features/workout_plan/widgets/week_schedule_widget.dart';

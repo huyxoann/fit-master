@@ -1,4 +1,5 @@
 import 'package:fit_master/src/config/logger/logger.dart';
+import 'package:collection/collection.dart';
 import 'package:fit_master/src/features/plan/model/workout_history.dart';
 import 'package:hive/hive.dart';
 
@@ -10,8 +11,18 @@ class WorkoutHistoryService {
 
   Future<void> addWorkoutHistory(WorkoutHistory workoutHistory) async {
     final box = await _box;
-    await box.add(workoutHistory);
-    logger.i('Workout history added');
+    final existingHistory = box.values.firstWhereOrNull(
+      (element) => element.date == workoutHistory.date,
+    );
+
+    if (existingHistory != null) {
+      final key = box.keyAt(box.values.toList().indexOf(existingHistory));
+      await box.put(key, workoutHistory);
+      logger.i('Workout history updated');
+    } else {
+      await box.add(workoutHistory);
+      logger.i('Workout history added');
+    }
   }
 
   Future<List<WorkoutHistory>> getWorkoutHistory() async {
