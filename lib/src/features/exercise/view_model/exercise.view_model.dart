@@ -1,8 +1,6 @@
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/features/exercise/data/res/res.exercise_detail.dart';
 import 'package:fit_master/src/features/exercise/repositories/exercise.repo.dart';
-import 'package:fit_master/src/features/plan/model/workout_history.dart';
-import 'package:fit_master/src/features/plan/services/workout_history_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fit_master/src/features/exercise/data/res/res.exercise.dart';
 import '../../../core/exception/response/api_response.dart';

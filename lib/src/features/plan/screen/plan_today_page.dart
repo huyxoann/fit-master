@@ -2,7 +2,6 @@ import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/exercise.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
-import 'package:fit_master/src/features/plan/model/workout_history.dart';
 import 'package:fit_master/src/features/plan/viewmodel/my_plan_viemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
@@ -368,7 +367,8 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                                               BorderRadius
                                                                   .circular(8),
                                                           child: Image.network(
-                                                            'https://cdn.muscleandstrength.com/sites/default/files/taxonomy/image/videos/abs_0.jpg',
+                                                            exercise?.image ??
+                                                                'https://cdn.muscleandstrength.com/sites/default/files/taxonomy/image/videos/abs_0.jpg',
                                                             width: 80,
                                                             height: 80,
                                                             fit: BoxFit.cover,
@@ -416,41 +416,6 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                                         ),
                                                       ),
                                                     ),
-                                                    // Column(
-                                                    //   mainAxisSize:
-                                                    //       MainAxisSize.max,
-                                                    //   children: [
-                                                    //     Padding(
-                                                    //       padding:
-                                                    //           const EdgeInsetsDirectional
-                                                    //               .fromSTEB(
-                                                    //               0, 0, 10, 0),
-                                                    //       child: Container(
-                                                    //         width: 40,
-                                                    //         height: 40,
-                                                    //         decoration:
-                                                    //             BoxDecoration(
-                                                    //           color: colorScheme
-                                                    //               .primaryContainer,
-                                                    //           borderRadius:
-                                                    //               BorderRadius
-                                                    //                   .circular(
-                                                    //                       8),
-                                                    //         ),
-                                                    //         child: IconButton(
-                                                    //           icon: Icon(
-                                                    //             LucideIcons
-                                                    //                 .play,
-                                                    //             color: colorScheme
-                                                    //                 .onPrimaryContainer,
-                                                    //             size: 24,
-                                                    //           ),
-                                                    //           onPressed: () {},
-                                                    //         ),
-                                                    //       ),
-                                                    //     ),
-                                                    //   ],
-                                                    // ),
                                                   ],
                                                 ),
                                               ),

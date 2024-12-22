@@ -36,6 +36,7 @@ class DoingExerciseViewModel extends ChangeNotifier {
             title: exercise.name,
             reps: exercise.reps[i] ?? exercise.reps.last,
             type: StepType.exercise,
+            coverImage: exercise.image,
           ),
         );
         steps.add(

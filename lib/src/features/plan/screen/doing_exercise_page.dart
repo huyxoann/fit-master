@@ -29,7 +29,7 @@ class _DoingExercisePageState extends State<DoingExercisePage> {
     _viewmodel.generateSteps(widget.todayWorkout);
     logger.d('Today workout: ${widget.todayWorkout}');
     imageUrl =
-        'https://www.marbosport.eu/data/gfx/pictures/large/2/0/28502_1.jpg';
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQujF6yFWmDOLkuho7zgqvzApdR6fMU9JUXlg&s';
   }
 
   @override
@@ -112,22 +112,27 @@ class _DoingExercisePageState extends State<DoingExercisePage> {
                     SizedBox(
                       height: screenHeight * 0.02,
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
-                      child: Container(
-                        width: screenWidth,
-                        height: screenWidth,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(screenWidth * 0.02),
-                          image: DecorationImage(
-                            image: NetworkImage(imageUrl),
-                            fit: BoxFit.cover,
+                    Consumer<DoingExerciseViewModel>(
+                        builder: (context, value, child) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.04),
+                        child: Container(
+                          width: screenWidth,
+                          height: screenWidth,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(screenWidth * 0.02),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  value.steps[value.currentStep].coverImage ??
+                                      imageUrl),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                     Expanded(
                       child: Column(
                         children: [
@@ -145,7 +150,28 @@ class _DoingExercisePageState extends State<DoingExercisePage> {
                                 },
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Exercise Info'),
+                                        content: Text(value
+                                                .steps[value.currentStep]
+                                                .description ??
+                                            'No discription'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              context.pop();
+                                            },
+                                            child: const Text('Close'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                                 icon: const Icon(
                                     LucideIcons.message_circle_question),
                               )
@@ -259,9 +285,12 @@ class _DoingExercisePageState extends State<DoingExercisePage> {
             ),
             TextButton(
               onPressed: () {
-                context.pop();
-                context.pop();
-                context.pop();
+                if (context.canPop()) {
+                  context.pop();
+                  context.pop();
+                } else {
+                  context.pop();
+                }
               },
               child: const Text('Leave'),
             ),
