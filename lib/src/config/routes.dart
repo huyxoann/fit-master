@@ -3,6 +3,7 @@ import 'package:fit_master/src/features/exercise/screen/exercise_detail.dart';
 import 'package:fit_master/src/features/exercise/screen/list_exercise.dart';
 import 'package:fit_master/src/features/gymlocation/screen/GymLocation.dart';
 import 'package:fit_master/src/features/login/screens/login_screen.dart';
+import 'package:fit_master/src/features/login/screens/sign_up_screen.dart';
 import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
 import 'package:fit_master/src/features/main_wrapper.dart';
 import 'package:fit_master/src/features/options/screens/setting_screen.dart';
@@ -106,6 +107,11 @@ GoRouter router = GoRouter(
       name: 'login',
       path: '/login',
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      name: 'sign-up',
+      path: '/sign-up',
+      builder: (context, state) => const SignUpScreen(),
     ),
 
     GoRoute(

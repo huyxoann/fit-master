@@ -233,14 +233,20 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                             ElevatedButton(
                                               onPressed: dayOfWeek ==
                                                           currentdayOfWeek &&
-                                                      model.workoutHistory
-                                                          .contains(
-                                                        WorkoutHistory(
-                                                            date: selectedDate,
-                                                            status:
-                                                                WorkoutStatusEnum
-                                                                    .completed),
-                                                      )
+                                                      !(model.workoutHistory
+                                                          .any((history) =>
+                                                              history.date
+                                                                      .year ==
+                                                                  selectedDate
+                                                                      .year &&
+                                                              history.date
+                                                                      .month ==
+                                                                  selectedDate
+                                                                      .month &&
+                                                              history.date
+                                                                      .day ==
+                                                                  selectedDate
+                                                                      .day))
                                                   ? () async {
                                                       context.pushNamed(
                                                         'next_exercise',
@@ -410,41 +416,41 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                  0, 0, 10, 0),
-                                                          child: Container(
-                                                            width: 40,
-                                                            height: 40,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: colorScheme
-                                                                  .primaryContainer,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                            ),
-                                                            child: IconButton(
-                                                              icon: Icon(
-                                                                LucideIcons
-                                                                    .play,
-                                                                color: colorScheme
-                                                                    .onPrimaryContainer,
-                                                                size: 24,
-                                                              ),
-                                                              onPressed: () {},
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                    // Column(
+                                                    //   mainAxisSize:
+                                                    //       MainAxisSize.max,
+                                                    //   children: [
+                                                    //     Padding(
+                                                    //       padding:
+                                                    //           const EdgeInsetsDirectional
+                                                    //               .fromSTEB(
+                                                    //               0, 0, 10, 0),
+                                                    //       child: Container(
+                                                    //         width: 40,
+                                                    //         height: 40,
+                                                    //         decoration:
+                                                    //             BoxDecoration(
+                                                    //           color: colorScheme
+                                                    //               .primaryContainer,
+                                                    //           borderRadius:
+                                                    //               BorderRadius
+                                                    //                   .circular(
+                                                    //                       8),
+                                                    //         ),
+                                                    //         child: IconButton(
+                                                    //           icon: Icon(
+                                                    //             LucideIcons
+                                                    //                 .play,
+                                                    //             color: colorScheme
+                                                    //                 .onPrimaryContainer,
+                                                    //             size: 24,
+                                                    //           ),
+                                                    //           onPressed: () {},
+                                                    //         ),
+                                                    //       ),
+                                                    //     ),
+                                                    //   ],
+                                                    // ),
                                                   ],
                                                 ),
                                               ),
@@ -456,7 +462,7 @@ class _PlanTodayScreenState extends State<PlanTodayScreen> {
                                   ],
                                 )
                               : Text(
-                                  "You don't have any plan today",
+                                  "You don't have any plan",
                                   style: textTheme.bodyLarge,
                                 ),
                         ],

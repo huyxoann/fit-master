@@ -121,6 +121,17 @@ dynamic returnResponse(Response response) {
         throw FetchDataException(
             'Unexpected status in response: ${responseJson['message']}');
       }
+    case 201:
+      dynamic responseJson = jsonDecode(utf8.decode(response.bodyBytes));
+
+      // Kiểm tra nếu API trả về đúng kết quả
+      if (responseJson['status'] == 201) {
+        return responseJson[
+            'metadata']; // Trả về danh sách bài tập từ 'metadata'
+      } else {
+        throw FetchDataException(
+            'Unexpected status in response: ${responseJson['message']}');
+      }
     case 204:
       return true;
     case 400:

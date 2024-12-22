@@ -31,6 +31,7 @@ class WelcomePage extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   "FIT MASTER",
@@ -38,7 +39,7 @@ class WelcomePage extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "#1 Trợ lý tập Gym cho bạn",
+                  "#1 Gym Assistant",
                   style: textTheme.headlineSmall,
                 ),
               ],
@@ -46,7 +47,7 @@ class WelcomePage extends StatelessWidget {
             Column(
               children: [
                 PrimaryButton(
-                  label: "Bắt đầu",
+                  label: "Create My Plan",
                   onPressed: () =>
                       context.pushNamed('welcome-choose-input-type'),
                 ),
@@ -59,7 +60,7 @@ class WelcomePage extends StatelessWidget {
                       color: colorScheme.outline,
                     )),
                     Text(
-                      "\tĐã có tài khoản?\t",
+                      "\tHave an account?\t",
                       style: textTheme.bodyMedium,
                     ),
                     Expanded(
@@ -81,7 +82,7 @@ class WelcomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Nhấn vào đây để đăng nhập",
+                        "Click here to login",
                         style: textTheme.bodyMedium,
                       ),
                       Icon(

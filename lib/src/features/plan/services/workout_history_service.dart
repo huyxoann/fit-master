@@ -12,7 +12,10 @@ class WorkoutHistoryService {
   Future<void> addWorkoutHistory(WorkoutHistory workoutHistory) async {
     final box = await _box;
     final existingHistory = box.values.firstWhereOrNull(
-      (element) => element.date == workoutHistory.date,
+      (element) =>
+          element.date.day == workoutHistory.date.day &&
+          element.date.month == workoutHistory.date.month &&
+          element.date.year == workoutHistory.date.year,
     );
 
     if (existingHistory != null) {

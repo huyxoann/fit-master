@@ -24,7 +24,7 @@ class MyPlanRepositoryIpml extends MyPlanRepository {
 
       if (response != null && response is Map<String, dynamic>) {
         print("API call successful, response: $response");
-        logger.d(response);
+        // logger.d(response);
         return MyPlan.fromJson(response);
       } else {
         throw Exception("API response is null or not a valid JSON");

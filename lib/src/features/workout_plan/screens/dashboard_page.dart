@@ -54,31 +54,42 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
         if (model.isLoading) {
           return child ?? const SizedBox();
         }
-        return Scaffold(
-          appBar: const FitnessAppBar(streak: 5),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  _buildSearchField(context),
-                  const SizedBox(height: 16),
-                  model.myPlan != null
-                      ? _buildWeekSchedule(
-                          model.workoutHistories,
-                          model.myPlan?.workoutPlan.programDuration ?? 1,
-                          model.myPlan?.workoutPlan.workoutSummary
-                                  .daysPerWeek ??
-                              0)
-                      : Container(),
-                  const SizedBox(height: 16),
-                  model.myPlan != null
-                      ? _buildMyPlanSection(context, model)
-                      : Container(),
-                  _recommendPlan(context, model),
-                  const SizedBox(height: 16),
-                  _buildRecommendedExercisesSection(context),
-                ],
+        return RefreshIndicator(
+          onRefresh: () async {
+            _viewModel.fetchMyPlan();
+            _viewModel.fetchListWorkoutPlan("");
+            _viewModel.getWorkoutHistories();
+            _exerciseViewModel.fetchExercises();
+            _dashboardExerciseListViewmodel
+                .fetchExerciseWithLevel(ExperienceLevel.Beginner.index);
+            return Future.value();
+          },
+          child: Scaffold(
+            appBar: FitnessAppBar(streak: model.workoutHistories.length),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    _buildSearchField(context),
+                    const SizedBox(height: 16),
+                    model.myPlan != null
+                        ? _buildWeekSchedule(
+                            model.workoutHistories,
+                            model.myPlan?.workoutPlan.programDuration ?? 1,
+                            model.myPlan?.workoutPlan.workoutSummary
+                                    .daysPerWeek ??
+                                0)
+                        : Container(),
+                    const SizedBox(height: 16),
+                    model.myPlan != null
+                        ? _buildMyPlanSection(context, model)
+                        : Container(),
+                    _recommendPlan(context, model),
+                    const SizedBox(height: 16),
+                    _buildRecommendedExercisesSection(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -244,9 +255,22 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
                 itemCount: exercises.exercises.length,
                 itemBuilder: (context, index) {
                   final data = exercises.exercises[index];
-                  return ExerciseTile(
-                    name: data.title,
-                    coverImage: data.coverImage,
+                  return GestureDetector(
+                    onTap: () {
+                      context.pushNamed(
+                        'exerciseDetails',
+                        extra: {
+                          'exerciseId': data.exerciseId,
+                          'title': data.title,
+                          'coverImage': data.coverImage,
+                          'exerProfileId': data.exerProfileId,
+                        },
+                      );
+                    },
+                    child: ExerciseTile(
+                      name: data.title,
+                      coverImage: data.coverImage,
+                    ),
                   );
                 },
               );

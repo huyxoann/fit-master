@@ -36,7 +36,7 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
       color: colorTheme.surface,
       child: SafeArea(
         child: Scaffold(
-          appBar: const FitnessAppBar(streak: 5),
+          appBar: const FitnessAppBar(streak: 1),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(

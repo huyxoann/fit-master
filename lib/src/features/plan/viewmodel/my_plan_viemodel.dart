@@ -8,6 +8,7 @@ import 'package:hive/hive.dart';
 
 class MyPlanViewModel extends ChangeNotifier {
   final MyPlanRepository myPlanRepository;
+  WorkoutHistoryService workoutHistoryService = WorkoutHistoryService();
 
   MyPlanViewModel({required this.myPlanRepository});
 
@@ -40,11 +41,11 @@ class MyPlanViewModel extends ChangeNotifier {
   }
 
   Future<void> refreshMyPlan() async {
+    workoutHistory = await workoutHistoryService.getWorkoutHistory();
     await fetchMyPlan();
   }
 
   Future<void> getWorkoutHistories() async {
-    WorkoutHistoryService workoutHistoryService = WorkoutHistoryService();
     workoutHistory = await workoutHistoryService.getWorkoutHistory();
     notifyListeners();
   }

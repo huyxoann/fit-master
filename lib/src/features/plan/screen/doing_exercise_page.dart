@@ -1,7 +1,6 @@
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/core/models/enum.dart';
 import 'package:fit_master/src/features/plan/model/workout_day.dart';
-import 'package:fit_master/src/features/plan/model/workout_history.dart';
 import 'package:fit_master/src/features/plan/services/workout_history_service.dart';
 import 'package:fit_master/src/features/plan/viewmodel/doing_exercise_viewmodel.dart';
 import 'package:flutter/material.dart';

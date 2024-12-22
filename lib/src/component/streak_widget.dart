@@ -13,7 +13,7 @@ class StreakWidget extends StatelessWidget {
       child: Column(
         children: [
           SvgPicture.asset('assets/images/icon/streak.svg'),
-          const Text('5'),
+          Text('$streak'),
         ],
       ),
     );

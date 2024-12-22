@@ -85,7 +85,7 @@ class WorkoutPlanRepositoryImpl extends WorkoutPlanRepository {
       logger.d("At fetchRecommendedWorkoutPlan__: $response");
       if (response is Map<String, dynamic>) {
         logger.e("response: $response");
-        int recommendedWorkoutPlanId = response['predictions'] ?? 0;
+        int recommendedWorkoutPlanId = response['predicted_plan_id'] ?? 0;
         logger.d("At fetchRecommendedWorkoutPlan: $recommendedWorkoutPlanId");
         return await fetchWorkoutPlanDetail(
             "", recommendedWorkoutPlanId.toString());

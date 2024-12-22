@@ -5,6 +5,7 @@ import 'package:fit_master/src/features/exercise/view_model/exercise.view_model.
 import 'package:fit_master/src/features/food/repositories/food.repositoryImpl.dart';
 import 'package:fit_master/src/features/food/view_model/food.view_model.dart';
 import 'package:fit_master/src/features/login/viewmodel/auth_view_model.dart';
+import 'package:fit_master/src/features/login/viewmodel/sign_up_viewmodel.dart';
 import 'package:fit_master/src/features/login/viewmodel/user_view_model.dart';
 import 'package:fit_master/src/features/options/viewmodel/setting_viewmodel.dart';
 import 'package:fit_master/src/features/plan/model/workout_history.dart';
@@ -66,7 +67,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
           create: (context) => SettingViewmodel(authService: locator())),
-      ChangeNotifierProvider(create: (context) => DoingExerciseViewModel())
+      ChangeNotifierProvider(create: (context) => DoingExerciseViewModel()),
+      ChangeNotifierProvider(
+          create: (context) => SignUpViewmodel(authRepository: locator()))
     ],
     child: const MyApp(),
   ));
