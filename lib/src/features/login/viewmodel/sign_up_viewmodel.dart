@@ -43,7 +43,7 @@ class SignUpViewmodel extends ChangeNotifier {
       if (response) {
         logger.d("API register successful, response: $response");
       }
-      context.pushReplacementNamed('home');
+      context.pushReplacementNamed('welcome-choose-input-type');
     } catch (e) {
       logger.e(e.toString());
     }

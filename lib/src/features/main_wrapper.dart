@@ -84,7 +84,7 @@ class _MainWrapperState extends State<MainWrapper> {
                     items: [
                       BottomNavigationBarItem(
                         icon: const Icon(LucideIcons.house),
-                        label: 'Trang chủ',
+                        label: 'Home',
                         backgroundColor: selectedIndex == 0
                             ? colorScheme.surfaceBright
                             : colorScheme
@@ -92,7 +92,7 @@ class _MainWrapperState extends State<MainWrapper> {
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(LucideIcons.biceps_flexed),
-                        label: 'Bài tập',
+                        label: 'Exercises',
                         backgroundColor: selectedIndex == 1
                             ? colorScheme.surfaceBright
                             : colorScheme
@@ -100,7 +100,7 @@ class _MainWrapperState extends State<MainWrapper> {
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(LucideIcons.calendar),
-                        label: 'Lộ trình',
+                        label: 'Routine',
                         backgroundColor: selectedIndex == 2
                             ? colorScheme.surfaceBright
                             : colorScheme
@@ -111,11 +111,11 @@ class _MainWrapperState extends State<MainWrapper> {
                           padding: EdgeInsets.all(8.0),
                           child: Icon(LucideIcons.map_pin),
                         ),
-                        label: 'Gym ở gần',
+                        label: 'Nearby Gyms',
                       ),
                       BottomNavigationBarItem(
-                        icon: const Icon(LucideIcons.settings),
-                        label: 'Cài đặt',
+                        icon: const Icon(LucideIcons.menu),
+                        label: 'Menu',
                         backgroundColor: selectedIndex == 3
                             ? colorScheme.surfaceBright
                             : colorScheme

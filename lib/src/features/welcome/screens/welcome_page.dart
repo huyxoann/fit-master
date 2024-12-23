@@ -48,8 +48,7 @@ class WelcomePage extends StatelessWidget {
               children: [
                 PrimaryButton(
                   label: "Create My Plan",
-                  onPressed: () =>
-                      context.pushNamed('welcome-choose-input-type'),
+                  onPressed: () => context.pushNamed('sign-up'),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

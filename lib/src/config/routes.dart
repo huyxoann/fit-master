@@ -151,7 +151,7 @@ GoRouter router = GoRouter(
               path: "/",
               name: "home",
               builder: (BuildContext context, GoRouterState state) =>
-                  const WorkoutDashBoard(),
+                  WorkoutDashBoard(),
             ),
           ],
         ),

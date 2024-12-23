@@ -204,7 +204,7 @@ class WorkoutPlanDetailPageState extends State<WorkoutPlanDetailPage> {
                                         size: 28),
                                     const SizedBox(width: 12),
                                     Text(
-                                      '${model.workoutPlanDetail?.workoutSummary.trainingLevel.vietnameseName}',
+                                      '${model.workoutPlanDetail?.workoutSummary.trainingLevel.name}',
                                       style: textTheme.bodyMedium,
                                     )
                                   ],

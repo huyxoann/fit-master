@@ -1,5 +1,6 @@
 import 'package:fit_master/src/config/logger/logger.dart';
 import 'package:fit_master/src/core/constants/app_info.dart';
+import 'package:fit_master/src/core/exception/app_exception.dart';
 import 'package:fit_master/src/core/network/BaseApiService.dart';
 import 'package:fit_master/src/core/network/NetworkApiService.dart';
 import 'package:fit_master/src/features/plan/model/my_plan.dart';
@@ -79,11 +80,19 @@ class WorkoutPlanRepositoryImpl extends WorkoutPlanRepository {
     try {
       final response = await _networkApiService.postApiResponse(
         AppInfo.getRecommendedWorkoutPlan,
-        {"gender": gender, "fitness_goal": fitnessGoal, "age": age, "bmi": bmi},
+        {
+          "gender": gender,
+          "fitness_goal": fitnessGoal,
+          "age_avg": age,
+          "bmi_avg": bmi
+        },
         null,
       );
       logger.d("At fetchRecommendedWorkoutPlan__: $response");
-      if (response is Map<String, dynamic>) {
+      if (response is AppException) {
+        logger.e("Error in fetchRecommendedWorkoutPlan: $response");
+        return null;
+      } else {
         logger.e("response: $response");
         int recommendedWorkoutPlanId = response['predicted_plan_id'] ?? 0;
         logger.d("At fetchRecommendedWorkoutPlan: $recommendedWorkoutPlanId");

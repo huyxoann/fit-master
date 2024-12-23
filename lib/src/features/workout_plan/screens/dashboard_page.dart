@@ -15,7 +15,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutDashBoard extends StatefulWidget {
-  const WorkoutDashBoard({super.key});
+  final GlobalKey<WorkoutDashBoardState> key = GlobalKey();
+  WorkoutDashBoard({super.key});
 
   @override
   WorkoutDashBoardState createState() => WorkoutDashBoardState();
@@ -71,7 +72,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
-                    _buildSearchField(context),
+                    // _buildSearchField(context),
                     const SizedBox(height: 16),
                     model.myPlan != null
                         ? _buildWeekSchedule(
@@ -105,7 +106,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Lộ trình được đề xuất",
+          "Recommended Plans",
           style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
@@ -161,7 +162,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Lộ trình của bạn",
+          "My Plan",
           style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         GestureDetector(
@@ -196,7 +197,7 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
                   Row(
                     children: [
                       const Icon(LucideIcons.clock),
-                      Text('${model.myPlan?.workoutPlan.programDuration} Tuần')
+                      Text('${model.myPlan?.workoutPlan.programDuration} Weeks')
                     ],
                   )
                 ],
@@ -214,18 +215,17 @@ class WorkoutDashBoardState extends State<WorkoutDashBoard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Bài tập được đề xuất",
+          "Recommended Exercises",
           style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         Consumer<DashboardExerciseListViewmodel>(
           builder: (context, viewModel, _) {
             return ExperienceFilterWidget(
               label: "",
-              options:
-                  ExperienceLevel.values.map((e) => e.vietnameseName).toList(),
+              options: ExperienceLevel.values.map((e) => e.name).toList(),
               onSelected: (value) {
-                final selectedLevel = ExperienceLevel.values
-                    .firstWhere((e) => e.vietnameseName == value);
+                final selectedLevel =
+                    ExperienceLevel.values.firstWhere((e) => e.name == value);
                 viewModel.fetchExerciseWithLevel(selectedLevel.index);
               },
             );

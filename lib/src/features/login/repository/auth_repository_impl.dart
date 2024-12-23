@@ -21,15 +21,9 @@ class AuthRepositoryImpl extends AuthRepository {
         null,
       );
       logger.d("API response: $response");
-
-      if (!(response != null) || (response is! Map<String, dynamic>)) {
-        // throw Exception("API response is null or not a valid JSON");
+      if (response is AppException) {
         return false;
-      }
-      if (response['status'] == 401) {
-        // throw Exception("Login failed, invalid credentials");
-        return false;
-      } else {
+      }else{
         logger.d("API login successful, response: $response");
         await AuthService().saveUserData(
           username,
@@ -40,6 +34,7 @@ class AuthRepositoryImpl extends AuthRepository {
         await AuthStorage().saveToken(response['access_token']);
         return true;
       }
+
     } catch (e) {
       logger.e("Error during API call: $e");
       return false;

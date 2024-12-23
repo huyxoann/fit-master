@@ -148,7 +148,7 @@ class ExerciseDetailScreen extends StatelessWidget {
                                               label: TargetMuscle
                                                   .values[
                                                       viewModel.targetMuscle]
-                                                  .vietnameseName),
+                                                  .name),
                                           LabelTextExeProfile(
                                               iconData: LucideIcons.dumbbell,
                                               label: ExerciseType
@@ -162,7 +162,7 @@ class ExerciseDetailScreen extends StatelessWidget {
                                               label: ExperienceLevel
                                                   .values[
                                                       viewModel.experienceLevel]
-                                                  .vietnameseName),
+                                                  .name),
                                           LabelTextExeProfile(
                                               iconData:
                                                   LucideIcons.biceps_flexed,

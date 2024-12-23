@@ -40,52 +40,52 @@ enum TargetMuscle {
 }
 
 extension TargetMuscleExtension on TargetMuscle {
-  String get vietnameseName {
+  String get name {
     switch (this) {
       case TargetMuscle.Abductors:
-        return 'Cơ khép ngoài';
+        return 'Abductors';
       case TargetMuscle.Abs:
-        return 'Cơ Bụng';
+        return 'Abs';
       case TargetMuscle.Adductors:
-        return 'Cơ Khép';
+        return 'Adductors';
       case TargetMuscle.Biceps:
-        return 'Cơ Tay Trước';
+        return 'Biceps';
       case TargetMuscle.Calves:
-        return 'Cơ Bắp Chân';
+        return 'Calves';
       case TargetMuscle.Chest:
-        return 'Cơ Ngực';
+        return 'Chest';
       case TargetMuscle.Forearms:
-        return 'Cơ Cẳng Tay';
+        return 'Forearms';
       case TargetMuscle.Glutes:
-        return 'Cơ Mông';
+        return 'Glutes';
       case TargetMuscle.Hamstrings:
-        return 'Cơ Đùi Sau';
+        return 'Hamstrings';
       case TargetMuscle.HipFlexors:
-        return 'Cơ Gập Hông';
+        return 'Hip Flexors';
       case TargetMuscle.ITBand:
-        return 'Dải Chậu Chày';
+        return 'IT Band';
       case TargetMuscle.Lats:
-        return 'Cơ Lưng Xô';
+        return 'Lats';
       case TargetMuscle.LowerBack:
-        return 'Cơ Lưng Dưới';
+        return 'Lower Back';
       case TargetMuscle.UpperBack:
-        return 'Cơ Lưng Trên';
+        return 'Upper Back';
       case TargetMuscle.Neck:
-        return 'Cơ Cổ';
+        return 'Neck';
       case TargetMuscle.Obliques:
-        return 'Cơ Chéo';
+        return 'Obliques';
       case TargetMuscle.PalmarFascia:
-        return 'Màng Gan Bàn Tay';
+        return 'Palmar Fascia';
       case TargetMuscle.PlantarFascia:
-        return 'Màng Gan Bàn Chân';
+        return 'Plantar Fascia';
       case TargetMuscle.Quads:
-        return 'Cơ Đùi Trước';
+        return 'Quads';
       case TargetMuscle.Shoulders:
-        return 'Cơ Vai';
+        return 'Shoulders';
       case TargetMuscle.Traps:
-        return 'Cơ Cái Bẫy';
+        return 'Traps';
       case TargetMuscle.Triceps:
-        return 'Cơ Tay Sau';
+        return 'Triceps';
       default:
         return '';
     }
@@ -134,18 +134,30 @@ extension ExerciseTypeExtension on ExerciseType {
 enum ExperienceLevel { Beginner, Intermediate, Advanced }
 
 extension ExperienceLevelExtension on ExperienceLevel {
-  String get vietnameseName {
+  String get name {
     switch (this) {
       case ExperienceLevel.Beginner:
-        return 'Mới Bắt Đầu';
+        return 'Beginner';
       case ExperienceLevel.Intermediate:
-        return 'Trung Cấp';
+        return 'Intermediate';
       case ExperienceLevel.Advanced:
-        return 'Nâng Cao';
+        return 'Advanced';
       default:
         return '';
     }
   }
+  // String get vietnameseName {
+  //   switch (this) {
+  //     case ExperienceLevel.Beginner:
+  //       return 'Mới Bắt Đầu';
+  //     case ExperienceLevel.Intermediate:
+  //       return 'Trung Cấp';
+  //     case ExperienceLevel.Advanced:
+  //       return 'Nâng Cao';
+  //     default:
+  //       return '';
+  //   }
+  // }
 }
 
 enum ForceType {

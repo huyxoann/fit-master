@@ -47,14 +47,13 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                 Consumer<ExerciseViewModel>(
                   builder: (context, viewModel, _) {
                     return ExperienceFilterWidget(
-                      label: "Kinh nghiệm",
-                      options: ExperienceLevel.values
-                          .map((e) => e.vietnameseName)
-                          .toList(),
+                      label: "Experience Level",
+                      options:
+                          ExperienceLevel.values.map((e) => e.name).toList(),
                       onSelected: (value) {
                         // Update experience level in view model
                         final selectedLevel = ExperienceLevel.values
-                            .firstWhere((e) => e.vietnameseName == value);
+                            .firstWhere((e) => e.name == value);
                         viewModel.setExperienceLevel(selectedLevel.index);
                       },
                     );
@@ -67,14 +66,12 @@ class _ListExerciseScreenState extends State<ListExerciseScreen> {
                 Consumer<ExerciseViewModel>(
                   builder: (context, viewModel, _) {
                     return ExperienceFilterWidget(
-                      label: "Các loại bài tập",
-                      options: TargetMuscle.values
-                          .map((e) => e.vietnameseName)
-                          .toList(),
+                      label: "Types of exercises",
+                      options: TargetMuscle.values.map((e) => e.name).toList(),
                       onSelected: (value) {
                         // Update target muscle in view model
                         final selectedMuscle = TargetMuscle.values
-                            .firstWhere((e) => e.vietnameseName == value);
+                            .firstWhere((e) => e.name == value);
                         viewModel.setTargetMuscle(selectedMuscle.index);
                       },
                     );

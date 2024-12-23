@@ -29,7 +29,7 @@ class WeekScheduleWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Mục tiêu tuần',
+                'Weekly Goals',
                 style: textTheme.titleSmall,
               ),
               Text(
@@ -48,7 +48,7 @@ class WeekScheduleWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Tiến độ',
+                'Progress',
                 style: textTheme.titleSmall,
               ),
               const SizedBox(width: 12),

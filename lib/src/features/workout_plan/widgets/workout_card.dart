@@ -44,8 +44,10 @@ class WorkoutCard extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Icon(LucideIcons.clock),
-                      Text('${model?.workoutSummary.programDuration} Tuần')
+                      const Icon(
+                        LucideIcons.clock,
+                      ),
+                      Text('${model?.workoutSummary.programDuration} Weeks')
                     ],
                   )
                 ],
